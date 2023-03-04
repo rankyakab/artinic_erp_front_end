@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as ActionTypes from '../types/ActionTypes';
 import { API_ROUTES } from '../config/ActionConfig';
 import { httpRequest } from '../../helpers/index';

@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as PayrollTypes from '../types/PayrollTypes';
 import { API_ROUTES } from '../config/PayrollConfig';
 import { httpRequest } from '../../helpers/index';

@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  Container,
   Grid,
   Typography,
-  Paper,
-  styled,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
-  tableCellClasses,
   Table,
   Stack,
   CircularProgress,
@@ -24,18 +19,18 @@ import { useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import Icon from '../../../assets/icons/Invoice.svg';
-import { FormCard, Wrapper, Title, HeadCard, GeneralInput, Action } from '../../../styles/main';
+import { Wrapper, HeadCard, GeneralInput, Action } from '../../../styles/main';
 import { getAllReceipts } from '../../../redux/actions/ReceiptsAction';
 import { capitalize } from '../../../utils/formatNumber';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 
 function Receipt() {
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(13);
+  const [ setPage] = React.useState(0);
+  const [rowsPerPage] = React.useState(13);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -49,7 +44,7 @@ function Receipt() {
 
   console.log(receipts);
 
-  const [searchValue, setSearchValue] = useState('');
+  const [ setSearchValue] = useState('');
   const handleFormChange = ({ name, value }) => {
     setSearchValue((prev) => ({
       ...prev,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer, Stack } from '@mui/material';
-import { TablePagination } from '../../../../utils/memoPaginationUtil';
+import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer } from '@mui/material';
+// import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title, Action, Button } from '../../../../styles/main';
 
 export const AllReports = () => {
