@@ -111,6 +111,12 @@ export const PaySlipTable = ({ payslips }) => {
     </div>
   );
 };
+PaySlipTable.propTypes = {
+  payslips:PropTypes.any,
+  
+ 
+  
+};
 
 export const StaffDetailsTable = () => {
   const [page, setPage] = React.useState(0);

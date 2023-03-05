@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Grid, Box, Button, Stack, Avatar, Typography } from '@mui/material';
 // import { useSettingsContext } from '../../../components/settings';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import Iconify from '../../../components/iconify/Iconify';
-import NewStaffForm from './common/NewStaffForm';
+// import NewStaffForm from './common/NewStaffForm';
 import { FormCard, Wrapper } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
-import { createStaff, editStaff, getAllStaffs } from '../../../redux/actions/StaffAction';
+import {  editStaff, getAllStaffs } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
@@ -25,10 +25,10 @@ const EditStaff = () => {
   const signatureInputRef = useRef(null);
   const [filters, setFilters] = useState({});
 
-  const [selectedSignature, setSelectedSignature] = useState({});
+  const [ setSelectedSignature] = useState({});
   const [signaturePreviewUrl, setSignaturePreviewUrl] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-  const [errorMsg, setErrorMsg] = useState(false);
+  // const [errorMsg, setErrorMsg] = useState(false);
 
   const params = useParams();
 
@@ -169,7 +169,9 @@ const EditStaff = () => {
         setSuccessMessage,
         filters?.name ? (isFormData = true) : (isFormData = false)
       )
+     
     );
+     console.log(isFormData);
   };
 
   useEffect(() => {

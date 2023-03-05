@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Grid, FormLabel, Stack, Button } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 
-const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handleEditRole }) => {
-  return (
+const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handleEditRole }) => (
     <>
+    
       <Grid container columnSpacing={4}>
         <Grid item xs={12} md={6}>
           <Stack>
@@ -62,7 +63,18 @@ const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handle
         </Grid>
       </Grid>
     </>
-  );
+  )
+
+AssignRoleForm.propTypes = {
+ handleFormChange:PropTypes.func , 
+ roles:PropTypes.any, 
+ filterStaff:PropTypes.array,
+  userRole:PropTypes.any,
+   handleEditRole:PropTypes.func,
+  
+ 
+  
 };
+
 
 export default AssignRoleForm;

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import {
   Box,
@@ -12,11 +13,10 @@ import {
   TableContainer,
   Typography,
   Stack,
-  CircularProgress,
 } from '@mui/material';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action } from '../../../../styles/main';
-import { convertStaffToUser, getAllStaffs } from '../../../../redux/actions/StaffAction';
+import { convertStaffToUser } from '../../../../redux/actions/StaffAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
@@ -28,7 +28,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState('');
 
-  const [editUser, setEditUser] = useState({});
+  const [ setEditUser] = useState({});
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -150,4 +150,11 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
       </Box>
     </>
   );
+};
+
+StaffTable.propTypes = {
+  staffs:PropTypes.any, paginationPage:PropTypes.any, rowsPerPage:PropTypes.any, handleChangePage:PropTypes.any, page:PropTypes.any, search:PropTypes.any
+  
+ 
+  
 };

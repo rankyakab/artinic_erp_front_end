@@ -22,10 +22,10 @@ const NewStaff = () => {
   const signatureInputRef = useRef(null);
   const [filters, setFilters] = useState({});
 
-  const [selectedSignature, setSelectedSignature] = useState({});
+  const [ setSelectedSignature] = useState({});
   const [signaturePreviewUrl, setSignaturePreviewUrl] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-  const [errorMsg, setErrorMsg] = useState(false);
+  // const [errorMsg, setErrorMsg] = useState(false);
 
   const [userData, setUserData] = useState({
     firstName: '',
@@ -132,6 +132,7 @@ const NewStaff = () => {
         filters?.name ? (isFormData = true) : (isFormData = false)
       )
     );
+    console.log(isFormData);
   };
   const handleClick = () => {
     handleClose();

@@ -2,10 +2,10 @@ import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import HeaderCard from '../../../components/HeaderCard';
+// import HeaderCard from '../../../components/HeaderCard';
 import { getAllRole } from '../../../redux/actions/RoleAction';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { HeadCard, Wrapper } from '../../../styles/main';
+import { Wrapper } from '../../../styles/main';
 import { getAllProcess } from '../../../redux/actions/ProcessAction';
 import { getAllAction } from '../../../redux/actions/ActionsAction';
 import { GetActionName } from '../../../utils/getValueById';
@@ -22,7 +22,7 @@ function Privileges() {
   const { actions } = useSelector((state) => state?.action);
   const { privileges, loading } = useSelector((state) => state?.privilege);
 
-  const [data, setData] = useState([]);
+  // const [ setData] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -38,13 +38,11 @@ function Privileges() {
     console.log(checkedActions[processId]);
     if (!checkedActions[processId]) setCheckedActions({ ...checkedActions, [processId]: [] });
     if (e.target.checked) {
-      setCheckedActions((prev) => {
-        return { ...prev, [processId]: [...prev[processId], action] };
-      });
+      setCheckedActions((prev) => ({ ...prev, [processId]: [...prev[processId], action]})
+      );
     } else {
-      setCheckedActions((prev) => {
-        return { ...prev, [processId]: checkedActions[processId].filter((a) => a !== action) };
-      });
+      setCheckedActions((prev) => ({ ...prev, [processId]: checkedActions[processId].filter((a) => a !== action) })
+      );
     }
   };
 
@@ -60,14 +58,14 @@ function Privileges() {
     });
     console.log({ privilege });
   };
-
+/*
   const handleFormChange = ({ name, value }) => {
     setData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
+*/
   const handleClose = () => {
     setOpen(false);
     setError(false);
@@ -77,7 +75,7 @@ function Privileges() {
     handleClose();
   };
 
-  const handleRoleChange = ({ name, value }) => {
+  const handleRoleChange = ({ value }) => {
     // console.log(name);
     // console.log(value);
     setSelectedValue(value);
@@ -85,12 +83,12 @@ function Privileges() {
 
   const handleCreatePrivilege = (e) => {
     e.preventDefault();
-    const privilege = Object.entries(checkedActions)?.map(([processId, actions], i) => {
-      return {
+    const privilege = Object.entries(checkedActions)?.map(([processId, actions]) => 
+     ({
         processId,
         actions,
-      };
-    });
+      })
+    );
 
     const data = {
       roleId: selectedValue,
@@ -195,7 +193,7 @@ function Privileges() {
                     <Stack direction={'row'} alignItems="center" spacing={2}>
                       {React.Children.toArray(
                         pro?.action?.map((p, key) => (
-                          <Stack direction={'row'} alignItems="center">
+                          <Stack direction={'row'} alignItems="center" key={key}> 
                             <input
                               type="checkbox"
                               name=""

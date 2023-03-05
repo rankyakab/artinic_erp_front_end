@@ -1,20 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
-
+import PropTypes from 'prop-types';
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 
 const NewStaffForm = ({ handleFormChange, userData, positions }) => {
-const first = userData.firstname
+// const first = userData.firstname
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PHONE_REGEX = /^\+234[0-9]{10}$/;
 const DATE_REGEX =/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/;
 
+ // eslint-disable-next-line react-hooks/exhaustive-deps
  const EMAIL_REGEX =/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/ ;
-const PWD_REGEX =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+// const PWD_REGEX =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 ;
-const REGISTER_URL = '/register';
+// const REGISTER_URL = '/register';
 
    const firstNameRef = useRef();
     // for first name
@@ -47,13 +49,13 @@ const REGISTER_URL = '/register';
   const [personalEmailFocus, setPersonalEmailFocus] = useState(false);
 
      // for official designation
-  const [designation, setDesignation] = useState(false);
-  const [designationFocus, setDesignationFocus] = useState(false);
+  // const [designation, setDesignation] = useState(false);
+  // const [designationFocus, setDesignationFocus] = useState(false);
 
   
        // for staffPositionId
-  const [staffPositionId, setStaffPositionId] = useState(false);
-  const [staffPositionIdFocus, setStaffPositionIdFocus] = useState(false);
+  // const [staffPositionId, setStaffPositionId] = useState(false);
+  // const [staffPositionIdFocus, setStaffPositionIdFocus] = useState(false);
 
    useEffect(() => {
         firstNameRef.current.focus();
@@ -70,7 +72,7 @@ const REGISTER_URL = '/register';
          setValidGender(userData?.gender!=="");
           setValidPersonalEmail(EMAIL_REGEX.test(userData?.personalEmail));
 
-    }, [userData?.firstName, userData?.lastName, userData?.phoneNumber, userData?.employmentDate ,userData?.employmentType,userData?.gender,userData?.personalEmail])
+    },[USER_REGEX, userData.firstName, userData.lastName, userData.phoneNumber, userData.employmentDate, userData.employmentType, userData.gender, userData.personalEmail, PHONE_REGEX, DATE_REGEX, EMAIL_REGEX])
  
 
 
@@ -388,4 +390,12 @@ const REGISTER_URL = '/register';
   );
 };
 
+  NewStaffForm.propTypes = {
+ handleFormChange:PropTypes.func , 
+ userData:PropTypes.any, 
+ positions:PropTypes.array,
+  
+ 
+  
+};
 export default NewStaffForm;

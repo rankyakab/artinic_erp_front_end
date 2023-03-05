@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
-  Grid,
   Table,
   TableBody,
   TableRow,
@@ -11,20 +10,18 @@ import {
   TableContainer,
   Typography,
   Stack,
-  CircularProgress,
   Box,
-  TextField,
   Select,
   FormControl,
   Input,
   MenuItem,
 } from '@mui/material';
 import moment from 'moment';
-import { Close, Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { GeneralInput, HeadCard, Wrapper } from '../../../styles/main';
+import {  HeadCard, Wrapper } from '../../../styles/main';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -44,14 +41,14 @@ function Process() {
   const [deleting, setDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState('');
   const [editing, setEditing] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [ setOpenEdit] = useState(false);
   const [editId, setEditId] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const [selectedAction, setSelectedAction] = useState([]);
@@ -114,7 +111,7 @@ function Process() {
     dispatch(getAllProcess());
     dispatch(getAllAction());
     dispatch(getAllStaffs());
-  }, []);
+  });
   console.log(processes);
   console.log(actions);
   return (

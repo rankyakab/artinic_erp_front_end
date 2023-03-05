@@ -3,7 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 import { FormCard, Title } from '../../../../styles/main';
 
 const PayrollStat = () => {
-  const [options, setObject] = useState({
+  const [options] = useState({
     colors: ['#248CD8', '#A601FF', '#F29425'],
     chart: {
       type: 'bar',
@@ -55,7 +55,7 @@ const PayrollStat = () => {
     },
   });
 
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: 'Net Salary',
       data: ['300K', '380K', '380K', '350k', '350k', '350k', '450k', '400k', '300k', '480k', '420k', '430k'],

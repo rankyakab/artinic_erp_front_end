@@ -16,13 +16,13 @@ import { getAllProcurements } from '../../../redux/actions/ProcurementsAction';
 const Procurement = () => {
   const navigate = useNavigate();
 
-  const { procurements, loading } = useSelector((state) => state.procurements);
+  const { procurements } = useSelector((state) => state.procurements);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProcurements());
-  }, []);
+  });
 
   return (
     <>

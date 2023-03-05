@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
-  Grid,
   Table,
   TableBody,
   TableRow,
@@ -11,14 +10,13 @@ import {
   TableContainer,
   Typography,
   Stack,
-  CircularProgress,
   Box,
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { GeneralInput, HeadCard, Wrapper } from '../../../styles/main';
+import { HeadCard, Wrapper } from '../../../styles/main';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -34,7 +32,7 @@ function Roles() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const [roleData, setRoleData] = useState({
@@ -73,7 +71,7 @@ function Roles() {
 
   useEffect(() => {
     dispatch(getAllRole());
-  }, []);
+  });
   return (
     <>
       <SuccessCard

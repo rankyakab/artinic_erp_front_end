@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 
-const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) => {
-  return (
+const EditStaffForm = ({ handleFormChange, userData, positions }) =>  (
     <>
       <Grid container columnSpacing={4}>
         <Grid item xs={12} md={6}>
@@ -313,7 +313,15 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
         </Grid>
       </Grid>
     </>
-  );
+  )
+
+  EditStaffForm.propTypes = {
+ handleFormChange:PropTypes.func , 
+ userData:PropTypes.any, 
+ positions:PropTypes.array,
+  
+ 
+  
 };
 
 export default EditStaffForm;

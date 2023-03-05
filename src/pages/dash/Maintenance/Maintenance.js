@@ -17,7 +17,7 @@ import PendingMain from '../../../assets/images/pendingMaintenance.svg';
 import OverdueMain from '../../../assets/images/overdueMaintenance.svg';
 
 // components
-import { useSettingsContext } from '../../../components/settings';
+// import { useSettingsContext } from '../../../components/settings';
 import { getAllScheduledMaintenance } from '../../../redux/actions/MaintenanceAction';
 
 // ----------------------------------------------------------------------
@@ -160,7 +160,7 @@ export default function PageSix() {
 
                 <Stack spacing={4} sx={{ width: '100%', height: '300px', overflowX: 'hidden' }}>
                   {maintenance?.map((item, key) => (
-                    <Grid sx={{ height: '100%' }}>
+                    <Grid sx={{ height: '100%' }} key>
                       <Typography>{moment(item?.createdAt).format('Do MMMM YYYY')}</Typography>
                       <Typography
                         sx={{

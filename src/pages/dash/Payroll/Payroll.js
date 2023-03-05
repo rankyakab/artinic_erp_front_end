@@ -20,7 +20,7 @@ import {
   StaffDeductionTable,
 } from './common/PaySlipTable';
 import PayrollStat from './common/PayrollStat';
-import { Wrapper, Card, HeadCard } from '../../../styles/main';
+import { Wrapper, HeadCard } from '../../../styles/main';
 import { Dashlets } from './common/Dashlets';
 // import { capitalize } from '../../../utils/formatNumber';
 import { getAllPayslip } from '../../../redux/actions/PayrollAction';

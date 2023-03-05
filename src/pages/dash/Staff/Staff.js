@@ -9,13 +9,13 @@ import HeaderCard from '../../../components/HeaderCard';
 import { Wrapper } from '../../../styles/main';
 import { StaffTable } from './common/StaffTable';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
-import SuccessCard from '../../../components/SuccessCard';
+// import SuccessCard from '../../../components/SuccessCard';
 // ----------------------------------------------------------------------
 
 export default function Staff() {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const [search, setSearch] = useState([]);
@@ -48,7 +48,7 @@ export default function Staff() {
 
   useEffect(() => {
     dispatch(getAllStaffs());
-  }, []);
+  });
 
   return (
     <>
