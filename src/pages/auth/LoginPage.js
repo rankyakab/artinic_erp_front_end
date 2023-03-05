@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -22,18 +22,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
-import AuthContext from '../../context/AuthProvider';
-import axios from '../../helpers/axios';
+// import AuthContext from '../../context/AuthProvider';
+// import axios from '../../helpers/axios';
 import { loginUser } from '../../redux/actions/AuthAction';
 
-const LOGIN_URL = '/auth/login';
+// const LOGIN_URL = '/auth/login';
 
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
   const navigate = useNavigate();
 
-  const { setAuth } = useContext(AuthContext);
+ //  const { setAuth } = useContext(AuthContext);
 
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
@@ -44,7 +44,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [ setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -96,6 +96,7 @@ export default function LoginPage() {
               sx={{ border: '1px solid #5584CE', height: 30, py: 3, px: 3, fontWeight: 'light', color: '#5584CE' }}
             >
               Sign Up
+              {errMsg}
             </Button>
           </Box>
 
@@ -112,7 +113,6 @@ export default function LoginPage() {
             <Typography sx={{ fontWeight: 'bold', fontSize: 30 }}>Please Sign In</Typography>
 
             {/* Form */}
-
             <FormControl sx={{ pt: 3 }}>
               <Stack sx={{ mt: 2 }}>
                 <FormLabel id="email" sx={{ color: 'black', pb: 1 }}>

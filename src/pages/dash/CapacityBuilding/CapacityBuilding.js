@@ -16,13 +16,13 @@ import { getAllTraining } from '../../../redux/actions/TrainingAction';
 const CapacityBuilding = () => {
   const navigate = useNavigate();
 
-  const { training, loading } = useSelector((state) => state.training);
+  const { training } = useSelector((state) => state.training);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllTraining());
-  }, []);
+  });
 
   console.log(training, 'training');
 

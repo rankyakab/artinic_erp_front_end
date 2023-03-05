@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallMade, CallReceived, Search } from '@mui/icons-material';
+import { CallMade } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import moment from 'moment';
 import {
-  Button,
-  IconButton,
+ 
   Paper,
-  styled,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
-  tableCellClasses,
   Stack,
   Table,
   Box,
@@ -29,7 +25,7 @@ import { Title, Action } from '../../../styles/main';
 
 function AllCirculars() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(13);
+  const [rowsPerPage] = React.useState(13);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const { allCircular, loading } = useSelector((state) => state.circular);
@@ -45,7 +41,7 @@ function AllCirculars() {
   const dispatch = useDispatch();
 
   const tableHead = ['S/N', 'Circular Title', 'Sent From', 'Sent To', 'Date', 'Circular Type', 'Action'];
-
+/*
   const tableData = [
     {
       title: 'HR Circular for Operations Department Staff',
@@ -90,10 +86,10 @@ function AllCirculars() {
       type: 'Received',
     },
   ];
-
+*/
   useEffect(() => {
     dispatch(getAllCirculars());
-  }, []);
+  });
 
   console.log(allCircular);
   return (

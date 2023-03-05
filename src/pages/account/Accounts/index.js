@@ -8,8 +8,8 @@ import { getAllStaffs, getStaffById } from '../../../redux/actions/StaffAction';
 import { Dashlets } from '../../../components/dashlets';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import { Wrapper } from '../../../styles/main';
-import { ProjectProgress, StaffCard } from '../../dash/Dashboard/common/DashboardStat';
-import { BudgetPerformance, DeliveryTimeline } from '../../dash/Dashboard/common/DashboardTables';
+// import { ProjectProgress, StaffCard } from '../../dash/Dashboard/common/DashboardStat';
+// import { BudgetPerformance, DeliveryTimeline } from '../../dash/Dashboard/common/DashboardTables';
 import Staff from '../../../assets/images/dash_staff.svg';
 import Applications from '../../../assets/images/applications.svg';
 import Projects from '../../../assets/images/projects.svg';
@@ -33,21 +33,22 @@ function Accounts() {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state?.auth);
-  const { staffs } = useSelector((state) => state?.staff);
+  // const { staffs } = useSelector((state) => state?.staff);
 
   const { allClientBalance } = useSelector((state) => state?.clientBalance);
 
   const { invoices } = useSelector((state) => state.invoice);
 
-  const { receipts, loading } = useSelector((state) => state.receipt);
+  const { receipts } = useSelector((state) => state.receipt);
 
   const { vouchers } = useSelector((state) => state?.voucher);
 
   const [loggedInUser, setLoggedInUser] = useState({});
-
+/*
   const getStaffName = (id) => {
     dispatch(getStaffById(id));
   };
+  */
 
   const getUser = async (id) => {
     const res = await getStaffById(id);
@@ -57,10 +58,11 @@ function Accounts() {
 
   console.log(vouchers);
   // const { themeStretch } = useSettingsContext();
+
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);
-  }, [dispatch]);
+  });
 
   useEffect(() => {
     dispatch(getAllBalances());

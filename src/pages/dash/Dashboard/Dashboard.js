@@ -23,13 +23,15 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state?.auth);
-  const { staffs } = useSelector((state) => state?.staff);
+  // const { staffs } = useSelector((state) => state?.staff);
 
   const [loggedInUser, setLoggedInUser] = useState({});
-
+/*
   const getStaffName = (id) => {
     dispatch(getStaffById(id));
   };
+
+  */
 
   const getUser = async (id) => {
     const res = await getStaffById(id);
@@ -42,7 +44,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);
-  }, [dispatch]);
+  });
   return (
     <>
       <Helmet>

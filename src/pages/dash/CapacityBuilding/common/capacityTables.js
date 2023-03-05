@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer, Stack } from '@mui/material';
@@ -18,7 +19,7 @@ export const Todo = styled('p')(() => ({
 
 export const AllTraining = ({ training }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -143,6 +144,12 @@ export const AllTraining = ({ training }) => {
       </Box>
     </>
   );
+};
+AllTraining.propTypes = {
+  training:PropTypes.any,
+  
+ 
+  
 };
 
 export const PaymentVoucher = () => {

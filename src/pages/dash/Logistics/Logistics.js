@@ -4,7 +4,7 @@ import { Button, CircularProgress, Container, Grid, Typography } from '@mui/mate
 import { useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { useSettingsContext } from '../../../components/settings';
+// import { useSettingsContext } from '../../../components/settings';
 import { Wrapper, HeadCard } from '../../../styles/main';
 import { LogisticsTable } from './common/LogisticTable';
 import { Dashlets } from './common/Dashlets';
@@ -16,7 +16,7 @@ import { getAllLogistics } from '../../../redux/actions/LogisticsAction';
 
 const Logistics = () => {
   const navigate = useNavigate();
-  const { themeStretch } = useSettingsContext();
+  // const { themeStretch } = useSettingsContext();
 
   const { logistics, loading } = useSelector((state) => state.logistics);
 
@@ -32,11 +32,11 @@ const Logistics = () => {
 
   useEffect(() => {
     dispatch(getAllLogistics());
-  }, []);
+  });
 
   useEffect(() => {
     totalCost();
-  }, [logistics]);
+  });
 
   console.log(logistics);
   console.log(totalCostIncurred);

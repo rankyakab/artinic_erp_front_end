@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ export const Approved = styled('p')(() => ({
 
 export const LogisticsTable = ({ logistics }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   console.log(logistics);
@@ -28,8 +29,8 @@ export const LogisticsTable = ({ logistics }) => {
     setPage(page);
   };
 
-  const { staffs, loading } = useSelector((state) => state.staff);
-  const { user } = useSelector((state) => state.auth);
+  const { staffs } = useSelector((state) => state.staff);
+  // const { user } = useSelector((state) => state.auth);
 
   const tableHead = ['S/N', 'Title', 'Purpose', 'Amount', 'Requested By', 'Sent To', 'Date', 'Status', 'Action'];
 
@@ -97,3 +98,10 @@ export const LogisticsTable = ({ logistics }) => {
     </>
   );
 };
+LogisticsTable.propTypes = {
+  logistics:PropTypes.any,
+  
+ 
+  
+};
+

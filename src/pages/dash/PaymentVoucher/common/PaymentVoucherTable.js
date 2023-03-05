@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Box,
   Table,
@@ -9,28 +10,27 @@ import {
   TableCell,
   TableContainer,
   Stack,
-  Grid,
-  TextField,
+  Grid
 } from '@mui/material';
 import moment from 'moment';
 import { useNavigate } from 'react-router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm, useWatch } from 'react-hook-form';
-import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import { useFieldArray, useForm, useWatch } from 'react-hook-form';
+// import * as yup from 'yup';
+import {  useSelector } from 'react-redux';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
-import { Title, Action, VoucherInput, GeneralInput, InputLabel } from '../../../../styles/main';
+import { Title, Action, VoucherInput} from '../../../../styles/main';
 import { GetStaffName } from '../../../../utils/getValueById';
-import { getAllStaffs } from '../../../../redux/actions/StaffAction';
+// import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 
-export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
+export const AllPaymentVoucher = ({ vouchers }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
@@ -107,7 +107,13 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
   );
 };
 
-export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormChange }) => {
+AllPaymentVoucher.propTypes = {
+  vouchers:PropTypes.any
+  
+ 
+  
+};
+export const PaymentVoucher = ({register, fieldArray }) => {
   const tableHead = [
     'S/N',
     'Class',
@@ -416,4 +422,12 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
       </Grid>
     </>
   );
+};
+
+PaymentVoucher.propTypes = {
+  fieldArray:PropTypes.any,
+  register:PropTypes.any
+  
+ 
+  
 };

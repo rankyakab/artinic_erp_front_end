@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Table,
@@ -8,25 +8,22 @@ import {
   Paper,
   TableHead,
   TableCell,
-  TableContainer,
-  Typography,
-  Button,
-  Stack,
+  TableContainer
 } from '@mui/material';
-import { TablePagination } from '../../../../utils/memoPaginationUtil';
+// import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title } from '../../../../styles/main';
 
 export const DeliveryTimeline = () => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
-
+  const [page] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
+ // const [setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
-
+*/
   const tableHead = ['S/N', 'Project Name', 'TimeLine', 'Milestone', 'Status'];
 
   const tableData = [
@@ -109,15 +106,17 @@ export const DeliveryTimeline = () => {
 };
 
 export const BudgetPerformance = () => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+  const [page] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
+ // const [paginationPage, setPaginationPage] = React.useState(1);
 
+  /*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Project Name', 'Budget', 'Amount Used', 'Performance'];
 
   const tableData = [

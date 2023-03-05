@@ -1,12 +1,14 @@
+import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import { options } from 'numeral';
+// import { options } from 'numeral';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { FormCard, Title } from '../../../../styles/main';
+import { boolean } from '../../../../_mock/assets/boolean';
 
 const ExpensesStats = ({ select = false }) => {
-  const [options, setOptions] = useState({
+  const [options] = useState({
     series: [
       {
         name: 'Loss',
@@ -94,5 +96,9 @@ const ExpensesStats = ({ select = false }) => {
     </FormCard>
   );
 };
-
+ExpensesStats.propTypes = {
+  select:PropTypes.bool,
+ 
+  
+};
 export default ExpensesStats;

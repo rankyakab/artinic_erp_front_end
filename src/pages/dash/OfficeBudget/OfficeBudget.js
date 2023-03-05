@@ -16,13 +16,13 @@ import { getAllBudgets } from '../../../redux/actions/BudgetsAction';
 const OfficeBudget = () => {
   const navigate = useNavigate();
 
-  const { budgets, loading } = useSelector((state) => state.budgets);
+  const { budgets } = useSelector((state) => state.budgets);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllBudgets());
-  }, []);
+  });
 
   console.log(budgets, 'budgets');
 

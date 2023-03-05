@@ -17,7 +17,7 @@ import {
 // import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action, Failed, Pending, Status, Title } from '../../../../styles/main';
 
- const ClientBalances = ({ clientBalance, navigate }) => {
+ const ClientBalances = ({  navigate }) => {
   // const [page] = React.useState(0);
   //  const [page, setPage] = React.useState(0);
  // const [rowsPerPage, setRowsPerPage] = React.useState(16);
@@ -113,7 +113,6 @@ import { Action, Failed, Pending, Status, Title } from '../../../../styles/main'
   );
 };
 ClientBalances.propTypes = {
-  clientBalance:PropTypes.node,
   navigate:PropTypes.node,
  
   
@@ -502,7 +501,7 @@ ClientReceipts.propTypes = {
  
   
 };
-const ExpensesHistoryYears = ({ data, select }) => {
+const ExpensesHistoryYears = ({select }) => {
  
  // const [paginationPage, setPaginationPage] = React.useState(1);
 
@@ -613,7 +612,6 @@ const ExpensesHistoryYears = ({ data, select }) => {
 };
 
 ExpensesHistoryYears.propTypes = {
-  data:PropTypes.node,
   select:PropTypes.node,
  
   

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer, Stack } from '@mui/material';
@@ -14,7 +15,8 @@ export const Approved = styled('p')(() => ({
 
 export const BudgetHistory = ({ budgets }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage
+  ] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -121,6 +123,13 @@ export const BudgetHistory = ({ budgets }) => {
     </>
   );
 };
+BudgetHistory.propTypes = {
+  budgets:PropTypes.any,
+  
+ 
+  
+};
+
 
 export const RequestTable = () => {
   const tableHead = ['S/N', 'Budget No.', 'Budget Description', 'Budget Amunt (₦)', 'Date'];
