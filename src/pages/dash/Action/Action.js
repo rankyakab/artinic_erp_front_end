@@ -40,7 +40,7 @@ function Action() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const [actionData, setActionData] = useState({
@@ -87,7 +87,7 @@ function Action() {
   useEffect(() => {
     dispatch(getAllAction());
     dispatch(getAllStaffs());
-  }, []);
+  });
 
   return (
     <>

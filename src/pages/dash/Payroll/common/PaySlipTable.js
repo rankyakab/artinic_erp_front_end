@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,20 +15,21 @@ import {
   Stack,
 } from '@mui/material';
 import moment from 'moment';
-import { Action, Status } from '../../../../styles/main';
+// import { Action, Status } from '../../../../styles/main';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { GetPositionName, GetStaffName } from '../../../../utils/getValueById';
 
 export const PaySlipTable = ({ payslips }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
-
+  const [page, ] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
+  // const [ setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const navigate = useNavigate();
 
   const handleGeneratePaySlip = () => {
@@ -112,7 +114,7 @@ export const PaySlipTable = ({ payslips }) => {
 
 export const StaffDetailsTable = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -214,7 +216,7 @@ export const StaffDetailsTable = () => {
 
 export const BasicTable = ({ positions }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -297,10 +299,16 @@ export const BasicTable = ({ positions }) => {
     </>
   );
 };
+BasicTable.propTypes = {
+  positions:PropTypes.any,
+  
+ 
+  
+};
 
 export const AllowanceTable = ({ allowances, positions }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage, ] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -383,10 +391,14 @@ export const AllowanceTable = ({ allowances, positions }) => {
     </>
   );
 };
-
+AllowanceTable.propTypes = {
+  allowances:PropTypes.any,
+  positions:PropTypes.any
+  
+};
 export const BounusesTable = ({ bonuses, staffs }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -470,10 +482,14 @@ export const BounusesTable = ({ bonuses, staffs }) => {
     </>
   );
 };
-
+BounusesTable.propTypes = {
+  bonuses:PropTypes.any,
+  staffs:PropTypes.any
+  
+};
 export const AllowedDeductionTable = ({ allowedDeduction }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -556,10 +572,14 @@ export const AllowedDeductionTable = ({ allowedDeduction }) => {
     </>
   );
 };
+AllowedDeductionTable.propTypes = {
+  allowedDeduction:PropTypes.any,
+  
+};
 
 export const StaffDeductionTable = ({ staffDeduction }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -643,10 +663,13 @@ export const StaffDeductionTable = ({ staffDeduction }) => {
     </>
   );
 };
-
+StaffDeductionTable.propTypes = {
+  staffDeduction:PropTypes.any,
+  
+};
 export const EmployerDeductionTable = ({ employerDeduction }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -729,4 +752,8 @@ export const EmployerDeductionTable = ({ employerDeduction }) => {
       </Box>
     </>
   );
+};
+EmployerDeductionTable.propTypes = {
+  employerDeduction:PropTypes.any,
+  
 };

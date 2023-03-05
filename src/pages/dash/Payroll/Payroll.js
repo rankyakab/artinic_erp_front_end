@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 // @mui
-import { Grid, Box, Stack, Typography, Button } from '@mui/material';
+import { Grid, Box,  Button } from '@mui/material';
 // components
 // import { useSettingsContext } from '../../../components/settings';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
@@ -22,7 +22,7 @@ import {
 import PayrollStat from './common/PayrollStat';
 import { Wrapper, Card, HeadCard } from '../../../styles/main';
 import { Dashlets } from './common/Dashlets';
-import { capitalize } from '../../../utils/formatNumber';
+// import { capitalize } from '../../../utils/formatNumber';
 import { getAllPayslip } from '../../../redux/actions/PayrollAction';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
 import { getAllAllowances } from '../../../redux/actions/AllowanceAction';

@@ -23,7 +23,7 @@ import { getAllScheduledMaintenance } from '../../../redux/actions/MaintenanceAc
 // ----------------------------------------------------------------------
 
 export default function PageSix() {
-  const { themeStretch } = useSettingsContext();
+  // const { themeStretch } = useSettingsContext();
 
   const [date, setDate] = useState(new Date());
 
@@ -37,19 +37,15 @@ export default function PageSix() {
 
   useEffect(() => {
     dispatch(getAllScheduledMaintenance());
-  }, []);
+  });
 
   console.log(maintenance);
 
-  const completeMaintenance = maintenance?.filter((item) => {
-    return item?.status === 'Maintenance Completed';
-  });
-  const pendingMaintenance = maintenance?.filter((item) => {
-    return item?.status === 'Pending maintenance';
-  });
-  const overdueMaintenance = maintenance?.filter((item) => {
-    return item?.status === 'Overdue maintenance';
-  });
+  const completeMaintenance = maintenance?.filter((item) => item?.status === 'Maintenance Completed'
+  );
+  const pendingMaintenance = maintenance?.filter((item) =>  item?.status === 'Pending maintenance'
+);
+  const overdueMaintenance = maintenance?.filter((item) => item?.status === 'Overdue maintenance');
 
   console.log(completeMaintenance);
 

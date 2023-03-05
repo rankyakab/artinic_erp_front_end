@@ -34,7 +34,7 @@ const PaymentVoucher = () => {
   useEffect(() => {
     dispatch(getAllVoucher());
     dispatch(getAllStaffs());
-  }, []);
+  });
 
   return (
     <>

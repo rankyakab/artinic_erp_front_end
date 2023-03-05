@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Typography, Stack } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 import { Card } from '../../../../styles/main';
 
 export const Dashlets = ({ text, img, number, per }) => {
