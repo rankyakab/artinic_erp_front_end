@@ -1,9 +1,11 @@
 {
-  "name": "@minimal/minimal-kit-react",
+  "name": "@artinic/minimal-kit-react",
   "author": "Minimals UI",
   "version": "4.0.0",
   "description": "Simple React Scripts & Javascript",
   "private": true,
+  "packageManager": "yarn@3.2.4",
+
   "scripts": {
      
     "start": "set PORT=3002 && GENERATE_SOURCEMAP=false && react-scripts start",
