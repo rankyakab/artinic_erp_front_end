@@ -83,11 +83,17 @@ export default function AccountPopover() {
 
   console.log(loggedInUser);
   // const { themeStretch } = useSettingsContext();
- 
+ /*
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);
   }, [dispatch]);
+
+  */
+   useEffect(() => {
+    dispatch(getAllStaffs());
+    getUser(user?.user?.staffId);
+   });
 
   return (
     <>

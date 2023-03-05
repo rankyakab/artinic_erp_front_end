@@ -150,11 +150,15 @@ export default function NavVertical({ openNav, onCloseNav }) {
       {/* <NavDocs /> */}
     </Scrollbar>
   );
-
+/*
   useEffect(() => {
     dispatch(getAllRole());
   }, []);
+*/
 
+useEffect(() => {
+    dispatch(getAllRole());
+  });
   return (
     <Box
       component="nav"
