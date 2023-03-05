@@ -12,18 +12,11 @@ import DashboardLayout from '../layouts/dashboard';
 import {
   Page404,
   Dashboard,
-  Staff,
 
   LoginPage,
  
 } from './elements';
-import NewStaff from '../pages/dash/Staff/NewStaff';
-import CreateMemo from '../pages/dash/memo/CreateMemo';
-import Role from '../pages/dash/Roles/Roles';
-import Process from '../pages/dash/Processes/Process';
-import Action from '../pages/dash/Action/Action';
-import Privileges from '../pages/dash/Privilege/Privileges';
-import EditStaff from '../pages/dash/Staff/EditStaff';
+
 
 
 // ----------------------------------------------------------------------
@@ -45,19 +38,9 @@ export default function Router() {
     {
       path : '/', element: <DashboardLayout /> ,
       children: [
-        {  path: '/',element: <Dashboard /> , index: true},
-         {  path: '/dashboard',element: <Dashboard /> },
+                     {  path: '/dashboard',element: <Dashboard />, index:true },
           
-                      { path: '/staff', element: <Staff /> },
-                      { path: '/new-staff', element: <NewStaff /> },
-                      { path: '/edit-staff/:id', element: <EditStaff /> },
-                      { path: '/create-memo', element: <CreateMemo /> },
-       
-                      { path: '/roles', element: <Role /> },
-                      { path: '/process', element: <Process /> },
-                      { path: '/action', element: <Action /> },
-                      { path: '/privileges', element: <Privileges /> },
-                  
+                    
           
       ],
     },
@@ -70,3 +53,8 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
+
+
+
+
+
