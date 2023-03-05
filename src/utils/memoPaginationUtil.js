@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { Pagination, PaginationItem } from '@mui/material';
@@ -49,3 +49,12 @@ export const TablePagination = ({
       />
     </div>
   )
+
+  TablePagination.propTypes = {
+   paginationPage:PropTypes.any,
+  total:PropTypes.any,
+  handleChangePage:PropTypes.any
+  
+ 
+  
+};

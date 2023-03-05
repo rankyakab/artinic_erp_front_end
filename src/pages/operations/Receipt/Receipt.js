@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import Icon from '../../../assets/icons/Invoice.svg';
@@ -68,7 +68,7 @@ function Receipt() {
   useEffect(() => {
     dispatch(getAllReceipts());
     dispatch(getAllStaffs());
-  }, []);
+  });
   return (
     <>
       <Helmet>

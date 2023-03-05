@@ -80,7 +80,7 @@ export const ProjectStat = () => {
       opacity: 1,
     },
   });
-
+console.log(setObject);
   const [series, setSeries] = useState([
     {
       name: 'Prospective Project',
@@ -96,7 +96,7 @@ export const ProjectStat = () => {
       data: ['4', '4', '5', '2', '5', '3', '3', '2', '1', '7', '1', '2'],
     },
   ]);
-
+console.log(setSeries);
   return (
     <FormCard sx={{ mt: 0 }} id="chart">
       <Title>Project Completion</Title>

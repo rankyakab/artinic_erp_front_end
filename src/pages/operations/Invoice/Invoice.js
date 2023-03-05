@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  Container,
   Grid,
   Typography,
-  Paper,
-  styled,
+  
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
-  tableCellClasses,
   Table,
   Stack,
   CircularProgress,
@@ -30,8 +26,8 @@ import DashIconFour from '../../../assets/images/invoice-dash-four.png';
 
 import Icon from '../../../assets/icons/Invoice.svg';
 import AppWidgetSummary from '../../../sections/dashboard/AppWidgetSummary';
-import { useSettingsContext } from '../../../components/settings';
-import { FormCard, Wrapper, Title, HeadCard, Action } from '../../../styles/main';
+// import { useSettingsContext } from '../../../components/settings';
+import { Wrapper, HeadCard, Action } from '../../../styles/main';
 import { getAllInvoices } from '../../../redux/actions/InvoiceAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 import { capitalize } from '../../../utils/formatNumber';
@@ -41,7 +37,9 @@ const Invoice = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
+  console.log(page);
   const [rowsPerPage, setRowsPerPage] = React.useState(13);
+  console.log(setRowsPerPage);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -81,15 +79,15 @@ const Invoice = () => {
   useEffect(() => {
     dispatch(getAllInvoices());
     dispatch(getAllStaffs());
-  }, []);
+  });
 
   useEffect(() => {
     totalCost();
-  }, [invoices]);
+  });
 
   console.log(totalCostIncurred);
 
-  const { themeStretch } = useSettingsContext();
+//  const { themeStretch } = useSettingsContext();
   return (
     <>
       <Helmet>

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dashlets } from '../../../components/dashlets';
-import { FormCard, Title, Wrapper } from '../../../styles/main';
+import { FormCard, Wrapper } from '../../../styles/main';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import { ProjectCompletion, ProjectStat } from './common/Statistics';
 import ProspectiveProject from '../../../assets/images/posp_project.svg';
@@ -15,15 +15,15 @@ import { AllProject } from './common/ProjectTable';
 import { getAllProjects } from '../../../redux/actions/ProjectsAction';
 
 const Projects = () => {
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
-  const { projects, loading } = useSelector((state) => state.projects);
+  const { projects } = useSelector((state) => state.projects);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProjects());
-  }, []);
+  });
 
   console.log(projects, 'projects');
 

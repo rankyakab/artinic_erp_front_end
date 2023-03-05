@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer, Stack } from '@mui/material';
-import { TablePagination } from '../../../../utils/memoPaginationUtil';
+import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer } from '@mui/material';
+// import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title, Action, Button } from '../../../../styles/main';
 
 export const ClientInvoice = () => {

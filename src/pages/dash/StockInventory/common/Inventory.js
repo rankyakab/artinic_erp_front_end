@@ -7,7 +7,7 @@ import TotalItems from '../../../../assets/images/total_items.svg';
 import TotalCost from '../../../../assets/images/total _cost.svg';
 import ItemStock from '../../../../assets/images/item_stock.svg';
 import { FormCard, Title, Button } from '../../../../styles/main';
-import { InventoryLists, StockLists } from './stockTables';
+import { InventoryLists } from './stockTables';
 
 const Inventory = () => {
   const navigate = useNavigate();

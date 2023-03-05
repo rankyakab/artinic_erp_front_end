@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { styled } from '@mui/material/styles';
+// import axios from 'axios';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+// import { styled } from '@mui/material/styles';
 import {
   Box,
   Table,
@@ -12,7 +13,6 @@ import {
   TableCell,
   TableContainer,
   Stack,
-  Button,
   Modal,
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
@@ -27,14 +27,14 @@ export const ClientTable = ({ clients }) => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [deletingId, setDeletingId] = useState('');
+  const [ setDeleting] = useState(false);
+  const [setDeletingId] = useState('');
 
   const handleOpen = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -156,4 +156,11 @@ export const ClientTable = ({ clients }) => {
       </Modal>
     </>
   );
+};
+
+ClientTable.propTypes = {
+  clients:PropTypes.any,
+  
+ 
+  
 };

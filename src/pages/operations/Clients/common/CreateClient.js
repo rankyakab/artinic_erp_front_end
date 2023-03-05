@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Stack, Typography, Box, Grid, Divider } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel, OutlinedButton } from '../../../../styles/main';
-import Back from '../../../../assets/images/arrow_left.svg';
+import React, {  useState } from 'react';
+import { Stack,  Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { Helmet } from 'react-helmet-async';
+// import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
+import { FormCard,  Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
+// import Back from '../../../../assets/images/arrow_left.svg';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { createClients } from '../../../../redux/actions/ClientsAction';
@@ -40,7 +40,7 @@ const CreateClient = () => {
   };
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   const handleCreateClients = (e) => {
     e.preventDefault();

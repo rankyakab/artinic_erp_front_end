@@ -1,8 +1,7 @@
 import React from 'react';
 import Invoice from './Invoice';
 
-const index = () => {
-  return <Invoice />;
-};
+const index = () => <Invoice />
+
 
 export default index;

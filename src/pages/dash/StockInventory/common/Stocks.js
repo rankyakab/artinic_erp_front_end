@@ -14,13 +14,13 @@ import { getAllStocks } from '../../../../redux/actions/StocksAction';
 const Stocks = () => {
   const navigate = useNavigate();
 
-  const { stocks, loading } = useSelector((state) => state.stocks);
+  const { stocks } = useSelector((state) => state.stocks);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllStocks());
-  }, []);
+  }, [dispatch]);
 
   console.log(stocks, 'stock');
 

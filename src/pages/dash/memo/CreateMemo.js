@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm, useFieldArray, Control, useWatch } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Stack, Typography, Grid, TextField, FormHelperText, Button as MuButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel } from '../../../styles/main';
+import { FormCard, Wrapper, Title, GeneralInput, InputLabel } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
-import { createMemo, getAllMemo } from '../../../redux/actions/MemoAction';
+import { createMemo } from '../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
-import flattenArray from '../../../utils/flattenArray';
+// import flattenArray from '../../../utils/flattenArray';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
-import { GetStaffName } from '../../../utils/getValueById';
+// import { GetStaffName } from '../../../utils/getValueById';
 import { capitalize } from '../../../utils/formatNumber';
 
 const CreateMemo = () => {
@@ -68,7 +68,7 @@ const CreateMemo = () => {
     },
   });
 
-  const { fields, append, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'copies',
     control,
   });
@@ -147,6 +147,7 @@ const CreateMemo = () => {
         filters?.name ? (isFormData = true) : (isFormData = false)
       )
     );
+    console.log(isFormData);
   };
 
   const handleClick = () => {
@@ -156,7 +157,7 @@ const CreateMemo = () => {
   useEffect(() => {
     dispatch(getAllStaffs());
     getName(user?.user?.staffId);
-  }, []);
+  });
 
   return (
     <>
@@ -293,7 +294,8 @@ const CreateMemo = () => {
                   </Stack>
                 </Grid>
                 <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                  <button
+                  
+                  <MuButton
                     style={{
                       width: '55px',
                       height: '55px',
@@ -311,8 +313,8 @@ const CreateMemo = () => {
                     }}
                   >
                     -
-                  </button>
-                  <button
+                  </MuButton>
+                  <MuButton
                     style={{
                       width: '55px',
                       height: '55px',
@@ -329,7 +331,7 @@ const CreateMemo = () => {
                     }}
                   >
                     +
-                  </button>
+                  </MuButton>
                 </Grid>
               </Fragment>
             ))}

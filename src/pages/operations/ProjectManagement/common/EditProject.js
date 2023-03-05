@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, Typography, Box, Grid, Divider } from '@mui/material';
+import { Stack,  Box, Grid} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel, OutlinedButton } from '../../../../styles/main';
+// mimport { useNavigate } from 'react-router-dom';
+// import { Helmet } from 'react-helmet-async';
+// import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
+import { FormCard, Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { getAllProjects, editProjects } from '../../../../redux/actions/ProjectsAction';
@@ -16,15 +16,15 @@ const EditProject = () => {
   const { clients } = useSelector((state) => state?.clients);
   const { protype } = useSelector((state) => state?.protype);
   const { staffs } = useSelector((state) => state?.staff);
-  const { projects, loading } = useSelector((state) => state.projects);
+  // const { projects, loading } = useSelector((state) => state.projects);
 
   const [projectStatus, setProjectStatus] = useState('');
   const [selectedClients, setSelectedClients] = useState('');
   const [selectedProtype, setSelectedProtype] = useState('');
   const [selectedManager, setSelectedManager] = useState('');
 
-  const [editing, setEditing] = useState(false);
-  const [editId, setEditId] = useState('');
+  // const [editing, setEditing] = useState(false);
+  // const [editId, setEditId] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -58,7 +58,7 @@ const EditProject = () => {
   };
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   const handleEditProjects = (e) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ const EditProject = () => {
     dispatch(getAllProtype());
     dispatch(getAllStaffs());
     dispatch(getAllProjects());
-  }, []);
+  });
 
   const style = {
     position: 'absolute',
@@ -145,7 +145,7 @@ const EditProject = () => {
                   <option value="">Select Project Manager</option>
 
                   {staffs?.map((data) => (
-                    <option value={data?._id}>
+                    <option value={data?._id} key={data._id}>
                       {data?.firstName} {data?.lastName}
                     </option>
                   ))}
@@ -189,7 +189,7 @@ const EditProject = () => {
                   <option value="">Select Clients</option>
 
                   {clients?.map((data) => (
-                    <option value={data?._id}>{data?.companyName}</option>
+                    <option value={data?._id} key={data._id}>{data?.companyName}</option>
                   ))}
                 </GeneralInput>
               </Stack>
@@ -210,7 +210,7 @@ const EditProject = () => {
                 >
                   <option value="">Select Project type</option>
                   {protype?.map((data) => (
-                    <option value={data?._id}>{data?.typeName}</option>
+                    <option value={data?._id} key={data._id}>{data?.typeName}</option>
                   ))}
                 </GeneralInput>
               </Stack>

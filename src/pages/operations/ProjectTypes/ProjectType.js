@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Wrapper } from '../../../styles/main';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import { TypeTable } from './common/TypeTable';
@@ -11,15 +11,15 @@ import CreateType from './common/CreateType';
 import { getAllProtype } from '../../../redux/actions/ProtypeAction';
 
 const ProjectType = () => {
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
-  const { protype, loading } = useSelector((state) => state.protype);
+  const { protype } = useSelector((state) => state.protype);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProtype());
-  }, []);
+  });
 
   return (
     <>

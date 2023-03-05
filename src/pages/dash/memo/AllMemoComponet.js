@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { CallMade, CallReceived } from '@mui/icons-material';
+// import { CallMade, CallReceived } from '@mui/icons-material';
 import {
   TableBody,
   Box,
@@ -22,9 +22,9 @@ import { Title, Action } from '../../../styles/main';
 import HeaderCard from '../../../components/HeaderCard';
 import { getAllMemo } from '../../../redux/actions/MemoAction';
 import { capitalize } from '../../../utils/formatNumber';
-import { getAllStaffs, getStaffById } from '../../../redux/actions/StaffAction';
-import { API_ROUTES } from '../../../redux/config/StaffConfig';
-import { BASE_URL } from '../../../helpers';
+import { getAllStaffs } from '../../../redux/actions/StaffAction';
+// import { API_ROUTES } from '../../../redux/config/StaffConfig';
+//  import { BASE_URL } from '../../../helpers';
 
 function AllMemoComponet() {
   const { allMemo, loading } = useSelector((state) => state.memo);
@@ -33,13 +33,12 @@ function AllMemoComponet() {
   const [loggedInUserMemo, setLoggedInUserMemo] = useState([]);
 
   const memoFilter = () => {
-    const result = allMemo.filter((memo) => {
-      return memo?.copies?.some(
+    const result = allMemo.filter((memo) => memo?.copies?.some(
         (copy) =>
           copy?.recipientId === user?.user?.staffId ||
           memo?.recipient?.some((recipient) => recipient?.recipientId === user?.user?.staffId)
-      );
-    });
+      )
+    );
     setLoggedInUserMemo(result);
     console.log(result);
   };
@@ -47,23 +46,21 @@ function AllMemoComponet() {
   console.log(user?.user?.staffId);
   console.log(loggedInUserMemo);
 
-  const [loggedInUser, setLoggedInUser] = useState({});
-  const [viewAccess, setViewAccess] = useState(false);
+  // const [loggedInUser, setLoggedInUser] = useState({});
+  const [ setViewAccess] = useState(false);
 
   const { staffs } = useSelector((state) => state.staff);
 
   console.log(allMemo);
 
-  const checkViewAccess = () => {
-    return loggedInUserMemo.map((memo) => {
-      return memo?.copies?.filter((copy) => {
+  const checkViewAccess = () =>  loggedInUserMemo.map((memo) => memo?.copies?.filter((copy) => {
         if (copy?.recipientId === user?.user?.staffId) {
           setViewAccess(true);
         }
         return '';
-      });
-    });
-  };
+      })
+    );
+ 
 
   const getName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
@@ -93,10 +90,10 @@ function AllMemoComponet() {
   };
 
   const tableHead = ['S/N', 'Memo Title', 'Sent From', 'Sent To', 'Date', 'Attachment?', 'Action'];
-  const tableData = [];
+  // const tableData = [];
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(13);
+  const [rowsPerPage] = React.useState(13);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -115,12 +112,12 @@ function AllMemoComponet() {
     dispatch(getAllMemo());
     dispatch(getAllStaffs());
     checkViewAccess();
-  }, []);
+  });
 
   useEffect(() => {
     memoFilter();
     // memoFilterRecp();
-  }, [allMemo]);
+  });
   return (
     <>
       <HeaderCard

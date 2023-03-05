@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, Typography, Box, Grid, Divider } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Stack, Box, Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { Helmet } from 'react-helmet-async';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
-import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel, OutlinedButton } from '../../../../styles/main';
+// import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
+import { FormCard,  Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
 import { editProtype, getAllProtype } from '../../../../redux/actions/ProtypeAction';
 
 const EditType = () => {
   const dispatch = useDispatch();
-  const { protype, loading } = useSelector((state) => state.protype);
+  // const { protype, loading } = useSelector((state) => state.protype);
   const [editing, setEditing] = useState(false);
+  console.log(editing);
   const [editId, setEditId] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -38,7 +39,7 @@ const EditType = () => {
     handleClose();
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleEditProtype = (e) => {
     e.preventDefault();
@@ -52,7 +53,7 @@ const EditType = () => {
 
   useEffect(() => {
     dispatch(getAllProtype());
-  }, []);
+  });
 
   const style = {
     position: 'absolute',

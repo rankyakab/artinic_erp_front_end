@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   Box,
@@ -28,9 +29,12 @@ export const TypeTable = ({ protype }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [deleting, setDeleting] = useState(false);
+  console.log(deleting)
   const [deletingId, setDeletingId] = useState('');
+  console.log(deletingId)
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(16);
+  console.log(setRowsPerPage);
   const [paginationPage, setPaginationPage] = useState(1);
 
   const handleOpen = () => setOpenModal(true);
@@ -149,4 +153,10 @@ export const TypeTable = ({ protype }) => {
       </Modal>
     </>
   );
+};
+TypeTable.propTypes = {
+  protype:PropTypes.any,
+  
+ 
+  
 };

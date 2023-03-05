@@ -1,12 +1,13 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+// import { styled } from '@mui/material/styles';
 import { Box, Table, TableBody, TableRow, Paper, TableHead, TableCell, TableContainer, Stack } from '@mui/material';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title, Success, Pending, Failed } from '../../../../styles/main';
 
 export const StockLists = ({ stocks }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
@@ -133,10 +134,16 @@ export const StockLists = ({ stocks }) => {
     </>
   );
 };
+StockLists.propTypes = {
+  stocks:PropTypes.any,
+  
+ 
+  
+};
 
 export const InventoryLists = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+  const [rowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {

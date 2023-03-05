@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { FormCard, Title } from '../../../../styles/main';
+import { FormCard } from '../../../../styles/main';
 
 const OperationStat = () => {
   const [options, setObject] = useState({
@@ -54,6 +54,7 @@ const OperationStat = () => {
       opacity: 1,
     },
   });
+  console.log(setObject);
 
   const [series, setSeries] = useState([
     {
@@ -70,6 +71,7 @@ const OperationStat = () => {
       data: ['4', '4', '5', '2', '5', '3', '3', '2', '1', '7', '1', '2'],
     },
   ]);
+  console.log(setSeries);
 
   return (
     <FormCard sx={{ mt: 0 }} id="chart">

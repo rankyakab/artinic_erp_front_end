@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, Typography, Box, Grid, Divider } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel, OutlinedButton } from '../../../../styles/main';
+import { Stack, Box, Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { Helmet } from 'react-helmet-async';
+// import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
+import { FormCard, Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
 import { editClients, getAllClients } from '../../../../redux/actions/ClientsAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 
 const EditClients = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { clients, loading } = useSelector((state) => state.clients);
+ // const navigate = useNavigate();
+  // const { clients, loading } = useSelector((state) => state.clients);
   const [editing, setEditing] = useState(false);
+  console.log(editing);
   const [editId, setEditId] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -57,7 +58,7 @@ const EditClients = () => {
 
   useEffect(() => {
     dispatch(getAllClients());
-  }, []);
+  });
 
   const style = {
     position: 'absolute',
