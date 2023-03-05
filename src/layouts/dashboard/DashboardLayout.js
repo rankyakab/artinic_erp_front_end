@@ -11,7 +11,7 @@ import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
 import NavHorizontal from './nav/NavHorizontal';
 // import DashboardHeader from './DashboardHeader';
-import RequireAuth from '../../components/RequireAuth';
+// import RequireAuth from '../../components/RequireAuth';
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ export default function DashboardLayout() {
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
         
-          <RequireAuth />
+        <h1>hello</h1>
         </Box>
       </>
     );
@@ -64,7 +64,7 @@ export default function DashboardLayout() {
           {isDesktop ? <NavMini /> : renderNavVertical}
 
           <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-            <RequireAuth />
+           <h1>hello</h1>
           </Box>
         </Box>
       </>
@@ -83,7 +83,7 @@ export default function DashboardLayout() {
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
           <p>hello</p>
-          <RequireAuth />
+         <h1>hello</h1>
         </Box>
       </Box>
     </>
