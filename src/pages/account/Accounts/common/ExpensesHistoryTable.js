@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Table,
@@ -9,24 +10,26 @@ import {
   TableHead,
   TableCell,
   TableContainer,
-  Typography,
   Button,
   Stack,
   TextField,
 } from '@mui/material';
-import { TablePagination } from '../../../../utils/memoPaginationUtil';
+// import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action, Failed, Pending, Status, Title } from '../../../../styles/main';
 
-export const ClientBalances = ({ clientBalance, navigate }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
-
+ const ClientBalances = ({ clientBalance, navigate }) => {
+  // const [page] = React.useState(0);
+  //  const [page, setPage] = React.useState(0);
+ // const [rowsPerPage, setRowsPerPage] = React.useState(16);
+ // const [rowsPerPage] = React.useState(16);
+ // const [paginationPage, setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+*/
 
   const tableHead = ['S/N', 'Project Name', 'Total Cost (₦‎)', 'Balance (₦‎)', 'Action'];
 
@@ -76,8 +79,11 @@ export const ClientBalances = ({ clientBalance, navigate }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {clientBalance?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
-                <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            
+       {
+      // clientBalance?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
+           /*
+           <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
                     {key + 1}
                   </TableCell>
@@ -94,7 +100,11 @@ export const ClientBalances = ({ clientBalance, navigate }) => {
                     </Action>
                   </TableCell>
                 </TableRow>
-              ))}
+                */
+          //  ))
+            }
+
+              
             </TableBody>
           </Table>
         </TableContainer>
@@ -102,17 +112,27 @@ export const ClientBalances = ({ clientBalance, navigate }) => {
     </div>
   );
 };
+ClientBalances.propTypes = {
+  clientBalance:PropTypes.node,
+  navigate:PropTypes.node,
+ 
+  
+};
 
-export const ExpensesHistory = ({ vouchers, navigate }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+const ExpensesHistory = ({ vouchers, navigate }) => {
+  const [page] = React.useState(0);
+  const [rowsPerPage] = React.useState(6);
 
+ // const [page, setPage] = React.useState(0);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(6);
+//  const [paginationPage, setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Description', 'Amount Used (₦‎)'];
 
   return (
@@ -178,16 +198,27 @@ export const ExpensesHistory = ({ vouchers, navigate }) => {
   );
 };
 
-export const Approvals = () => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+ExpensesHistory.propTypes = {
+  vouchers:PropTypes.node,
+  navigate:PropTypes.node,
+ 
+  
+};
 
+const Approvals = () => {
+
+  const [page] = React.useState(0);
+  // const [page, setPage] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
+ //   const [rowsPerPage, setRowsPerPage] = React.useState(16);
+ // const [paginationPage, setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Description', 'Status'];
 
   const tableData = [
@@ -285,16 +316,20 @@ export const Approvals = () => {
   );
 };
 
-export const ClientInvoices = ({ invoices, navigate }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+const ClientInvoices = ({ invoices, navigate }) => {
+  const [page] = React.useState(0);
+   // const [page, setPage] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
 
+ //  const [rowsPerPage, setRowsPerPage] = React.useState(16);
+ // const [paginationPage, setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Invoice Title', 'Action'];
 
   return (
@@ -367,17 +402,27 @@ export const ClientInvoices = ({ invoices, navigate }) => {
     </div>
   );
 };
+ClientInvoices.propTypes = {
+  invoices:PropTypes.node,
+  navigate:PropTypes.node,
+ 
+  
+};
 
-export const ClientReceipts = ({ receipts, navigate }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(16);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+ const ClientReceipts = ({ receipts, navigate }) => {
+  const [page ] = React.useState(0);
+  const [rowsPerPage] = React.useState(16);
 
-  const handleChangePage = (event, newPage) => {
+//    const [page, setPage] = React.useState(0);
+ // const [rowsPerPage, setRowsPerPage] = React.useState(16);
+//  const [paginationPage, setPaginationPage] = React.useState(1);
+
+/*  const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Receipts Title', 'Action'];
 
   return (
@@ -451,18 +496,28 @@ export const ClientReceipts = ({ receipts, navigate }) => {
   );
 };
 
-export const ExpensesHistoryYears = ({ data, select }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(7);
-  const [paginationPage, setPaginationPage] = React.useState(1);
+ClientReceipts.propTypes = {
+  receipts:PropTypes.node,
+  navigate:PropTypes.node,
+ 
+  
+};
+const ExpensesHistoryYears = ({ data, select }) => {
+ 
+ // const [paginationPage, setPaginationPage] = React.useState(1);
 
+ // const [page, setPage] = React.useState(0);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(7);
+  // const [paginationPage, setPaginationPage] = React.useState(1);
+/*
   const handleChangePage = (event, newPage) => {
     const page = newPage - 1;
     setPaginationPage(newPage);
     setPage(page);
   };
+  */
   const tableHead = ['S/N', 'Description', 'Amount Used (₦‎)'];
-
+/*
   const tableData = [
     {
       id: '01',
@@ -487,6 +542,7 @@ export const ExpensesHistoryYears = ({ data, select }) => {
       Amount: '₦‎1,200,000.00',
     },
   ];
+  */
 
   return (
     <div>
@@ -533,15 +589,21 @@ export const ExpensesHistoryYears = ({ data, select }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
-                <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            
+              { // data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
+                /*
+            <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
                     {key + 1}
                   </TableCell>
                   <TableCell>{data?.subject}</TableCell>
                   <TableCell>{data?.amount}</TableCell>
                 </TableRow>
+
               ))}
+
+              */
+             }
             </TableBody>
           </Table>
         </TableContainer>
@@ -549,3 +611,12 @@ export const ExpensesHistoryYears = ({ data, select }) => {
     </div>
   );
 };
+
+ExpensesHistoryYears.propTypes = {
+  data:PropTypes.node,
+  select:PropTypes.node,
+ 
+  
+};
+
+export {ClientBalances,ExpensesHistory,Approvals,ClientInvoices,ClientReceipts,ExpensesHistoryYears}
