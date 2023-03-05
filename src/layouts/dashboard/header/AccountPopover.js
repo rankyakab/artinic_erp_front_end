@@ -14,8 +14,8 @@ import { CustomAvatar } from '../../../components/custom-avatar';
 import { useSnackbar } from '../../../components/snackbar';
 import MenuPopover from '../../../components/menu-popover';
 import { IconButtonAnimate } from '../../../components/animate';
-import ProfilePic from '../../../assets/images/profile.svg';
-import { capitalize } from '../../../utils/formatNumber';
+// import ProfilePic from '../../../assets/images/profile.svg';
+// import { capitalize } from '../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ export default function AccountPopover() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state?.auth);
-  const { staffs } = useSelector((state) => state?.staff);
+ // const { staffs } = useSelector((state) => state?.staff);
 
   const [loggedInUser, setLoggedInUser] = useState({});
 
@@ -70,11 +70,11 @@ export default function AccountPopover() {
     handleClosePopover();
     navigate(path);
   };
-
+/*
   const getStaffName = (id) => {
     dispatch(getStaffById(id));
   };
-
+*/
   const getUser = async (id) => {
     const res = await getStaffById(id);
     console.log(res);
@@ -83,6 +83,7 @@ export default function AccountPopover() {
 
   console.log(loggedInUser);
   // const { themeStretch } = useSettingsContext();
+ 
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // @mui
 import { Box, Stack, Drawer } from '@mui/material';
 // hooks
