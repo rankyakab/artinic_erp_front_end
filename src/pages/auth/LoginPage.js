@@ -25,7 +25,7 @@ import axios from '../../helpers/axios';
 import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
-import AuthContext from '../../auth/JwtContext';
+import {AuthContext} from '../../auth/JwtContext';
 import { loginUser } from '../../redux/actions/AuthAction';
 
 const LOGIN_URL = '/auth/login';
