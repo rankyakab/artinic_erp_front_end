@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet-async';
+
 import {
   Button,
   Grid,
@@ -14,8 +17,8 @@ import {
   FormControl,
   CircularProgress,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
+import axios from '../../helpers/axios';
+
 // sections
 // import Login from '../sections/auth/Login';
 // import Login from '../../sections/auth/LoginAuth0';
@@ -23,7 +26,6 @@ import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
 import AuthContext from '../../context/AuthProvider';
-import axios from '../../helpers/axios';
 import { loginUser } from '../../redux/actions/AuthAction';
 
 const LOGIN_URL = '/auth/login';
@@ -35,16 +37,16 @@ export default function LoginPage() {
 
   const { setAuth } = useContext(AuthContext);
 
-  const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+ // const dispatch = useDispatch();
+   const { loading } = useSelector((state) => state.auth);
 
   const userRef = useRef();
-  const errRef = useRef();
+  // const errRef = useRef();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+//  const [errMsg, setErrMsg] = useState('');
+ // const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -53,15 +55,33 @@ export default function LoginPage() {
     userRef.current.focus();
   }, []);
 
+
+/*
   useEffect(() => {
     setErrMsg('');
   }, [email, password]);
-
+*/
   // rankyakab@gmail.com
   // rankyakab
 
   const handleSubmit = async (e) => {
+   
     e?.preventDefault();
+    try {
+      const response = await axios.post('/auth/login',
+                JSON.stringify({ email, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+             console.log(JSON.stringify(response));
+        
+        } catch (err) {
+           console.log(err)
+        }
+
+     /*
     // console.log(user, pwd);
 
     try {
@@ -79,6 +99,7 @@ export default function LoginPage() {
       }
       errRef.current.focus();
     }
+    */
   };
 
   return (
