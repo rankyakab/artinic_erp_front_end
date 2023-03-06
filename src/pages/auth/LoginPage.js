@@ -41,11 +41,11 @@ export default function LoginPage() {
    const { loading } = useSelector((state) => state.auth);
 
   const userRef = useRef();
-  // const errRef = useRef();
+   const errRef = useRef();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-//  const [errMsg, setErrMsg] = useState('');
+  const [errMsg, setErrMsg] = useState('');
  // const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -56,11 +56,11 @@ export default function LoginPage() {
   }, []);
 
 
-/*
+
   useEffect(() => {
     setErrMsg('');
   }, [email, password]);
-*/
+
   // rankyakab@gmail.com
   // rankyakab
 
@@ -75,10 +75,19 @@ export default function LoginPage() {
                     withCredentials: true
                 }
             );
-             console.log(JSON.stringify(response));
+             console.log("my response",JSON.stringify(response));
         
         } catch (err) {
-           console.log(err)
+           if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing Username or Password');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Login Failed');
+            }
+            errRef.current.focus();
         }
 
      /*
@@ -135,6 +144,8 @@ export default function LoginPage() {
             {/* Form */}
 
             <FormControl sx={{ pt: 3 }}>
+
+             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
               <Stack sx={{ mt: 2 }}>
                 <FormLabel id="email" sx={{ color: 'black', pb: 1 }}>
                   Email address
