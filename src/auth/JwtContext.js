@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer, useCallback } from 'react';
+import { createContext,useState, useEffect, useReducer, useCallback } from 'react';
 // utils
 import axios from '../utils/axios';
 //
@@ -63,6 +63,8 @@ AuthProvider.propTypes = {
 };
 
 export function AuthProvider({ children }) {
+  const [auth, setAuth] = useState({});
+/*
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const initialize = useCallback(async () => {
@@ -108,15 +110,17 @@ export function AuthProvider({ children }) {
     initialize();
   }, [initialize]);
 
+*/
   // LOGIN
   const login = async (email, password) => {
+/*
     const response = await axios.post('/api/account/login', {
       email,
       password,
     });
 
-    console.log(response);
-    const { accessToken, user } = response.data;
+  //  console.log(response);
+   const { accessToken, user } = response.data;
 
     setSession(accessToken);
 
@@ -126,10 +130,12 @@ export function AuthProvider({ children }) {
         user,
       },
     });
-  };
-
+  
+*/
+};
   // REGISTER
   const register = async (email, password, firstName, lastName) => {
+    /*
     const response = await axios.post('/api/account/register', {
       email,
       password,
@@ -146,24 +152,29 @@ export function AuthProvider({ children }) {
         user,
       },
     });
+    */
   };
 
   // LOGOUT
   const logout = async () => {
+    /*
     setSession(null);
     dispatch({
       type: 'LOGOUT',
     });
+    */
   };
 
   return (
     <AuthContext.Provider
       value={{
-        ...state,
+       // ...state,
         method: 'jwt',
         login,
         logout,
         register,
+        auth,
+         setAuth
       }}
     >
       {children}

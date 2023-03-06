@@ -25,7 +25,7 @@ import axios from '../../helpers/axios';
 import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from '../../auth/JwtContext';
 import { loginUser } from '../../redux/actions/AuthAction';
 
 const LOGIN_URL = '/auth/login';
@@ -75,7 +75,9 @@ export default function LoginPage() {
                     withCredentials: true
                 }
             );
-             console.log("my response",JSON.stringify(response));
+             console.log("my response",JSON.stringify(response.data));
+             console.log("set auth",JSON.stringify( setAuth));
+            
         
         } catch (err) {
            if (!err?.response) {
