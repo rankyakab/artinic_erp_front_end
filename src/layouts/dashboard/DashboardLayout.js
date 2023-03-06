@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 // @mui
 import { Box } from '@mui/material';
 // hooks
@@ -12,14 +12,13 @@ import Header from './header';
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
 import NavHorizontal from './nav/NavHorizontal';
-import useAuth from "../../hooks/useAuth";
 // import DashboardHeader from './DashboardHeader';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardLayout() {
   const { themeLayout } = useSettingsContext();
-const { auth } = useAuth();
+
   const isDesktop = useResponsive('up', 'lg');
 
   const [open, setOpen] = useState(false);
@@ -47,10 +46,7 @@ const { auth } = useAuth();
         {isDesktop ? <NavHorizontal /> : renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-          auth
-            ?  <Navigate to="/login"  />
-          :<Outlet /> 
-        
+          <Outlet />
         </Box>
       </>
     );
@@ -70,9 +66,7 @@ const { auth } = useAuth();
           {isDesktop ? <NavMini /> : renderNavVertical}
 
           <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-            auth
-            ?  <Navigate to="/login"  />
-          :<Outlet /> 
+            <Outlet />
           </Box>
         </Box>
       </>
@@ -90,9 +84,7 @@ const { auth } = useAuth();
         {renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-          auth
-            ?  <Navigate to="/login"  />
-          :<Outlet /> 
+          <Outlet />
         </Box>
       </Box>
     </>
