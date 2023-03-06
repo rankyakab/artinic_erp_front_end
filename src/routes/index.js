@@ -92,21 +92,8 @@ export default function Router() {
   console.log(filterRoles);
   return useRoutes([
     {
-      path: '/',
-      children: [
-        { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-        {
-          path: 'login',
-          element: (
-            // <GuestGuard>
-            <LoginPage />
-            // </GuestGuard>
-            // <ProtectedRoutes>
-            //   <LoginPage />
-            // </ProtectedRoutes>
-          ),
-        },
-      ],
+      path: '/', element : <Navigate to={'/dashboard'} replace />
+      
     },
     {
       path: '/dashboard',
@@ -214,6 +201,7 @@ export default function Router() {
         // { path: 'expenses', element: <Expenses /> },
       ],
     },
+    { path: 'login', element: <LoginPage /> },
     {
       element: <CompactLayout />,
       children: [{ path: '404', element: <Page404 /> }],
