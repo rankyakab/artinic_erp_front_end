@@ -93,7 +93,7 @@ export function AuthProvider({ children }) {
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error("error context", error );
       dispatch({
         type: 'INITIAL',
         payload: {
