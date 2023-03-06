@@ -1,0 +1,5 @@
+export const GET_ALL__CLIENTS = 'GET_ALL__CLIENTS';
+export const LOADING = 'LOADING';
+export const CREATE_CLIENTS = 'CREATE_CLIENTS';
+export const DELETE_CLIENTS = 'DELETE_CLIENTS';
+export const EDIT_CLIENTS = 'EDIT_CLIENTS';

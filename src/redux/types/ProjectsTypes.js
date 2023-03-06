@@ -1,0 +1,5 @@
+export const GET_ALL__PROJECTS = 'GET_ALL__PROJECTS';
+export const LOADING = 'LOADING';
+export const CREATE_PROJECTS = 'CREATE_PROJECTS';
+export const DELETE_PROJECTS = 'DELETE_PROJECTS';
+export const EDIT_PROJECTS = 'EDIT_PROJECTS';

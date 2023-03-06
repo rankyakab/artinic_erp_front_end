@@ -1,0 +1,5 @@
+export const GET_ALL__PROTYPE = 'GET_ALL__PROTYPE';
+export const LOADING = 'LOADING';
+export const CREATE_PROTYPE = 'CREATE_PROTYPE';
+export const DELETE_PROTYPE = 'DELETE_PROTYPE';
+export const EDIT_PROTYPE = 'EDIT_PROTYPE';

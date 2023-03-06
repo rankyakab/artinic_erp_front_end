@@ -1,0 +1,6 @@
+export const LOADING = 'LOADING';
+export const GET_ALL_ACTIONS = 'GET_ALL_ACTIONS';
+export const GET_ALL_ACTION_BY_ID = 'GET_ALL_ACTION_BY_ID';
+export const CREATE_ACTION = 'CREATE_ACTION';
+export const EDIT_ACTION = 'EDIT_ACTION';
+export const DELETE_ACTION = 'DELETE_ACTION';

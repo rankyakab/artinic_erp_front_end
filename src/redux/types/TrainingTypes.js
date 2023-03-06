@@ -1,0 +1,3 @@
+export const GET_ALL__TRAINING = 'GET_ALL__TRAINING';
+export const LOADING = 'LOADING';
+export const CREATE_TRAINING = 'CREATE_TRAINING';

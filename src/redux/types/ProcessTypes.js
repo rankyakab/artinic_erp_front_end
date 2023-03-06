@@ -1,0 +1,6 @@
+export const LOADING = 'LOADING';
+export const GET_ALL_PROCESS = 'GET_ALL_PROCESS';
+export const GET_ALL_PROCESS_BY_ID = 'GET_ALL_PROCESS_BY_ID';
+export const CREATE_PROCESS = 'CREATE_PROCESS';
+export const EDIT_PROCESS = 'EDIT_PROCESS';
+export const DELETE_PROCESS = 'DELETE_PROCESS';

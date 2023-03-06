@@ -1,0 +1,3 @@
+export const GET_ALL_CIRCULARS = 'GET_ALL_CIRCULARS';
+export const LOADING = 'LOADING';
+export const CREATE_CIRCULAR = 'CREATE_CIRCULAR';

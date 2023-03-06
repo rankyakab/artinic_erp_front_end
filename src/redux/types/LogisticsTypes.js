@@ -1,0 +1,3 @@
+export const GET_ALL__LOGISTICS = 'GET_ALL__LOGISTICS';
+export const LOADING = 'LOADING';
+export const CREATE_LOGISTICS = 'CREATE_LOGISTICS';

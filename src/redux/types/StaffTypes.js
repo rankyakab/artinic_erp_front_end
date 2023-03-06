@@ -1,0 +1,6 @@
+export const GET_ALL_STAFF = 'GET_ALL_STAFF';
+export const GET_SINGLE_STAFF = 'GET_SINGLE_STAFF';
+export const CONVERT_STAFF_TO_USER = 'CONVERT_STAFF_TO_USER';
+export const LOADING = 'LOADING';
+export const CREATE_STAFF = 'CREATE_STAFF';
+export const EDIT_STAFF = 'EDIT_STAFF';

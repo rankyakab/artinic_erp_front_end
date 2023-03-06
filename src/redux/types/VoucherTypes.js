@@ -1,0 +1,4 @@
+export const GET_ALL_VOUCHER = 'GET_ALL_VOUCHER';
+export const LOADING = 'LOADING';
+export const CREATE_VOUCHER = 'CREATE_VOUCHER';
+export const UPDATE_VOUCHER = 'UPDATE_VOUCHER';
