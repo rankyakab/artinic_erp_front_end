@@ -51,7 +51,7 @@ export default function DashboardLayout() {
         {isDesktop ? <NavHorizontal /> : renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-          {loggedIn
+          {!loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
@@ -74,7 +74,7 @@ export default function DashboardLayout() {
           {isDesktop ? <NavMini /> : renderNavVertical}
 
           <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-            {loggedIn
+            {!loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
@@ -95,7 +95,7 @@ export default function DashboardLayout() {
         {renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-           {loggedIn
+           {!loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
