@@ -26,7 +26,7 @@ import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
 import {AuthContext} from '../../auth/JwtContext';
-import { loginUser } from '../../redux/actions/AuthAction';
+// import { loginUser } from '../../redux/actions/AuthAction';
 
 const LOGIN_URL = '/auth/login';
 
@@ -193,7 +193,7 @@ export default function LoginPage() {
               <Stack sx={{ py: 5 }}>
                 <Button
                   onClick={() => {
-                    handleSubmit();
+                   // handleSubmit();
                   }}
                   // type="submit"
                   sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 2 }}
