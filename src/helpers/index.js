@@ -60,14 +60,7 @@ const getHeaders = (token, needToken) => {
     ...headers,
     'Access-Control-Allow-Origin': '*',
     mode: 'no-cors',
-    // 'Content-Type': 'application/json',
-    // 'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
-    // 'Content-Type': 'multipart/form-data',
 
-    // 'Accept-Encoding': 'gzip, deflate, br',
-    // Accept: '*/*',
-    // 'Cache-Control': 'no-cache',
-    // Connection: 'keep-alive',
   };
 };

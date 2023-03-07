@@ -1,7 +1,7 @@
 import { httpRequest } from '../../helpers/index';
 import { API_ROUTES } from '../config/AuthConfig';
 import * as AuthTypes from '../types/AuthTypes';
-import { getAllRole } from './RoleAction';
+// import { getAllRole } from './RoleAction';
 
 export const setIsLoading = (value) => ({
   type: AuthTypes.LOADING,

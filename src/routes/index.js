@@ -11,7 +11,7 @@ import { PATH_AFTER_LOGIN } from '../config';
 //
 import {
   Page404,
-  Dashboard,
+  // Dashboard,
   Staff,
   Maintenance,
   OfficeBudget,
@@ -85,11 +85,11 @@ export default function Router() {
 
   const { roles } = useSelector((state) => state.role);
 
-  // console.log(roles);
+   console.log(roles);
 
   const filterRoles = roles.filter((role) => userRole === role?._id);
 
-  // console.log(filterRoles);
+  console.log(filterRoles);
   return useRoutes([
     {
       path: '/',
@@ -124,7 +124,8 @@ export default function Router() {
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         {
           path: 'one',
-          element:
+          element:  <Operations />
+          /*
             filterRoles[0]?.role?.toLowerCase() === 'human resource ' ? (
               <Dashboard />
             ) : filterRoles[0]?.role?.toLowerCase() === 'management' ? (
@@ -134,6 +135,7 @@ export default function Router() {
             ) : (
               <Operations />
             ),
+            */
         },
         // {
         //   element: <Staff />,
