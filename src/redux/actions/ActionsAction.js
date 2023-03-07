@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as ActionTypes from '../types/ActionTypes';
 import { API_ROUTES } from '../config/ActionConfig';
 import { httpRequest } from '../../helpers/index';
@@ -33,7 +33,7 @@ export const getAllAction = () => async (dispatch) => {
   }
 };
 
-export const createAction = (data, setErrorMessage, setSuccessMessage, setOpen, setError) => async (dispatch) => {
+export const createAction = (data, setErrorMessage, setSuccessMessage, setOpen, setError,setEditId) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
@@ -43,7 +43,7 @@ export const createAction = (data, setErrorMessage, setSuccessMessage, setOpen, 
       data,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -56,12 +56,15 @@ export const createAction = (data, setErrorMessage, setSuccessMessage, setOpen, 
       dispatch(getAllAction());
     }
   } catch (error) {
-    console.log(error);
-    setIsLoading(false);
+ //   console.log(error);
+ dispatch(setIsLoading(false));
+   // setIsLoading(false);
     setErrorMessage(error?.data?.message);
+    setEditId('');
     setError(true);
   } finally {
     setIsLoading(false);
+    setEditId("")
   }
 };
 
