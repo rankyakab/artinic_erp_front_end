@@ -157,13 +157,13 @@ function Privileges() {
             <Stack spacing={4}>
               {React.Children.toArray(
                 roles?.map((role) => (
-                  <Stack direction={'row'} alignItems="center" spacing={2}>
+                  <Stack direction={'row'} alignItems="center" spacing={2} key={role?._id}>
                     <input
                       type="radio"
                       name="role"
                       value={role?._id}
                       onChange={(e) => handleRoleChange(e.target.value)}
-                      checked={selectedValue === role?._id}
+                    //  checked={selectedValue === role?._id}
                      // disabled={selectedValue !== '' && selectedValue !== role?._id}
                     />
                     <p>{capitalize(role?.role)}</p>
