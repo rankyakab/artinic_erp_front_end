@@ -27,10 +27,10 @@ export const getAllAction = () => async (dispatch) => {
       });
     }
   } catch (error) {
-    dispatch(setIsLoading(true));
+    dispatch(setIsLoading(false));
    // console.log(error);
   } finally {
-    dispatch(setIsLoading(true));
+    dispatch(setIsLoading(false));
   //  setIsLoading(false);
   }
 };
