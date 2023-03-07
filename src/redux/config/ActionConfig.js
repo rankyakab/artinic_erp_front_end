@@ -5,7 +5,7 @@ const API_ROUTES = {
   },
 
   createAction: {
-    route: '/action/create',
+    route: '/action/create/',
     method: 'post',
   },
 

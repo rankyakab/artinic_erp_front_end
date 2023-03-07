@@ -146,7 +146,7 @@ function Action() {
               type="submit"
               sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 1.5, px: 5 }}
             >
-                {loading ? 'Loading...' : editId !== ' ' ? 'Edit Action' : 'Create'}
+                {loading ? 'Loading...' : editId !== '' ? 'Edit Action' : 'Create'}
             
             </Button>
           </Stack>

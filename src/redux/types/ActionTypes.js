@@ -1,4 +1,4 @@
-export const LOADING = 'LOADING';
+export const LOADING = 'LOADING_ACTION';
 export const GET_ALL_ACTIONS = 'GET_ALL_ACTIONS';
 export const GET_ALL_ACTION_BY_ID = 'GET_ALL_ACTION_BY_ID';
 export const CREATE_ACTION = 'CREATE_ACTION';
