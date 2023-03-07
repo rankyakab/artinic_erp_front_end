@@ -8,8 +8,10 @@ export const setIsLoading = (value) => ({
   payload: value,
 });
 
-export const loginUser = (data, navigate, setEmail, setPassword, setSuccess) => async (dispatch) => {
+export const loginUser = (data, navigate, setEmail, setPassword) => async (dispatch) => {
   // console.log(data);
+
+
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
@@ -31,15 +33,16 @@ export const loginUser = (data, navigate, setEmail, setPassword, setSuccess) => 
       dispatch({
         type: AuthTypes?.LOGIN,
         payload: res?.data,
-      });
+      }); 
 
-      setSuccess(true);
+      // setSuccess(true);
       setEmail('');
       setPassword('');
       navigate('/dashboard/one');
     }
   } catch (error) {
-   // console.log(error);
+  console.log(error);
+  dispatch(setIsLoading(false));
   } finally {
     dispatch(setIsLoading(false));
   }

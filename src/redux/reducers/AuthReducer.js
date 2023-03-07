@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
     case AuthTypes.LOGIN:
       return {
         ...state,
-        user: action.payload,
+        user: {...action.payload,loggedIn:true},
       };
 
     default:

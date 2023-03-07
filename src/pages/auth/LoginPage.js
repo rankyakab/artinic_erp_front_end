@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -25,20 +25,22 @@ import axios from '../../helpers/axios';
 import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
-import {AuthContext} from '../../auth/JwtContext';
-// import { loginUser } from '../../redux/actions/AuthAction';
+// import {AuthContext} from '../../auth/JwtContext';
+ import { loginUser } from '../../redux/actions/AuthAction';
 
-const LOGIN_URL = '/auth/login';
+// const LOGIN_URL = '/auth/login';
 
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
+  
   const navigate = useNavigate();
 
-  const { setAuth } = useContext(AuthContext);
+ // const { setAuth } = useContext(AuthContext);
 
- // const dispatch = useDispatch();
-   const { loading } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+   const { loading, loggedIn } = useSelector((state) => state.auth);
 
   const userRef = useRef();
    const errRef = useRef();
@@ -46,13 +48,22 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
- // const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+   const isLoggedIn = (status)=>{
+    if(status){
+      navigate('/dashboard/one');
+    }
+   }
 
   useEffect(() => {
     userRef.current.focus();
+  }, []);
+
+  useEffect(()=>{
+    isLoggedIn(loggedIn);
   }, []);
 
 
@@ -65,38 +76,9 @@ export default function LoginPage() {
   // rankyakab
 
   const handleSubmit = async (e) => {
-   
-    e?.preventDefault();
+ e?.preventDefault();
     try {
-      const response = await axios.post('/auth/login',
-                JSON.stringify({ email, password }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            // console.log("my response",JSON.stringify(response.data));
-           // console.log("set auth",JSON.stringify( setAuth));
-            
-        
-        } catch (err) {
-           if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
-            errRef.current.focus();
-        }
-
-     /*
-    // console.log(user, pwd);
-
-    try {
-      dispatch(loginUser({ email, password }, navigate, setEmail, setPassword, setSuccess));
+      dispatch(loginUser({ email, password }, navigate, setEmail, setPassword));
     } catch (err) {
       console.log(err);
       if (!err?.response) {
@@ -110,7 +92,8 @@ export default function LoginPage() {
       }
       errRef.current.focus();
     }
-    */
+   
+    
   };
 
   return (

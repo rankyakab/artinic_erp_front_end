@@ -2,23 +2,26 @@ import { useState } from 'react';
 import {Navigate, Outlet } from 'react-router-dom';
 // @mui
 import { Box } from '@mui/material';
+
+import {useSelector } from 'react-redux';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // components
 import { useSettingsContext } from '../../components/settings';
 //
 // import Main from './Main';
-import Header from './header';
+// import Header from './header';
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
 import NavHorizontal from './nav/NavHorizontal';
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 // import DashboardHeader from './DashboardHeader';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardLayout() {
-  const { auth } = useAuth();
+ // const { auth } = useAuth();
+  const {  loggedIn } = useSelector((state) => state.auth);
   const { themeLayout } = useSettingsContext();
 
   const isDesktop = useResponsive('up', 'lg');
@@ -28,11 +31,11 @@ export default function DashboardLayout() {
   const isNavHorizontal = themeLayout === 'horizontal';
 
   const isNavMini = themeLayout === 'mini';
-
+/*
   const handleOpen = () => {
     setOpen(true);
   };
-
+*/
   const handleClose = () => {
     setOpen(false);
   };
@@ -48,7 +51,7 @@ export default function DashboardLayout() {
         {isDesktop ? <NavHorizontal /> : renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-          {auth
+          {loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
@@ -71,7 +74,7 @@ export default function DashboardLayout() {
           {isDesktop ? <NavMini /> : renderNavVertical}
 
           <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-            {auth
+            {loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
@@ -92,7 +95,7 @@ export default function DashboardLayout() {
         {renderNavVertical}
 
         <Box sx={{ py: 3, backgroundColor: '#F8F9FD', width: '100%' }}>
-           {auth
+           {loggedIn
             ?  <Navigate to="/login"  />
           :<Outlet /> 
   }
