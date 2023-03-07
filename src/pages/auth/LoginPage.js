@@ -75,8 +75,8 @@ export default function LoginPage() {
                     withCredentials: true
                 }
             );
-             console.log("my response",JSON.stringify(response.data));
-             console.log("set auth",JSON.stringify( setAuth));
+            // console.log("my response",JSON.stringify(response.data));
+           // console.log("set auth",JSON.stringify( setAuth));
             
         
         } catch (err) {
