@@ -54,17 +54,19 @@ export const createAction = (data, setErrorMessage, setSuccessMessage, setOpen, 
       setSuccessMessage(res?.data?.message);
       setOpen(true);
       dispatch(getAllAction());
+       setEditId('')
     }
   } catch (error) {
  //   console.log(error);
+
  dispatch(setIsLoading(false));
    // setIsLoading(false);
     setErrorMessage(error?.data?.message);
     setEditId('');
     setError(true);
   } finally {
-    setIsLoading(false);
-    setEditId("")
+    dispatch(setIsLoading(false));
+    setEditId('')
   }
 };
 
@@ -102,10 +104,12 @@ export const deleteAction =
   };
 
 export const editAction =
-  (id, data, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing) => async (dispatch) => {
-    console.log(id);
+  (id, data, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing, setEditId) => async (dispatch) => {
+    // console.log(id);
+     
     try {
       setEditing(true);
+       dispatch(setIsLoading(true));
       const res = await httpRequest({
         url: API_ROUTES?.editAction?.route + id,
         method: API_ROUTES?.editAction?.method,
@@ -113,10 +117,12 @@ export const editAction =
         data,
       });
 
-      console.log(res);
+     // console.log(res);
 
       if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
         setEditing(false);
+        setEditId("")
         dispatch({
           type: ActionTypes?.EDIT_ACTION,
           payload: res?.data?.roles,
@@ -126,11 +132,14 @@ export const editAction =
         dispatch(getAllAction());
       }
     } catch (error) {
-      console.log(error);
+     // console.log(error);
+     dispatch(setIsLoading(false));
       setEditing(false);
       setErrorMessage(error?.data?.message);
       setError(true);
+      setEditId('')
     } finally {
       setEditing(false);
+      dispatch(setIsLoading(false));
     }
   };

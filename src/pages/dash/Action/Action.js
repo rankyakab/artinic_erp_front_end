@@ -76,8 +76,8 @@ function Action() {
       dispatch(createAction(actionData, setErrorMessage, setSuccessMessage, setOpen, setError,setEditId));
 
     } else {
-      dispatch(editAction(editId, actionData, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing));
-      setEditId(' ');
+      dispatch(editAction(editId, actionData, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing, setEditId));
+     // setEditId(' ');
       setActionData((prev) => ({
         ...prev,
         action: '',
