@@ -9,7 +9,7 @@ export const setIsLoading = (value) => ({
 });
 
 export const loginUser = (data, navigate, setEmail, setPassword, setSuccess) => async (dispatch) => {
-  console.log(data);
+  // console.log(data);
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
@@ -20,8 +20,8 @@ export const loginUser = (data, navigate, setEmail, setPassword, setSuccess) => 
       // body: data,
     });
 
-    console.log(res);
-    console.log(data);
+  //  console.log(res);
+  //  console.log(data);
 
     localStorage.setItem('token', JSON.stringify(res?.data?.token));
     localStorage.setItem('user', JSON.stringify(res?.data));
@@ -39,7 +39,7 @@ export const loginUser = (data, navigate, setEmail, setPassword, setSuccess) => 
       navigate('/dashboard/one');
     }
   } catch (error) {
-    console.log(error);
+   // console.log(error);
   } finally {
     dispatch(setIsLoading(false));
   }
