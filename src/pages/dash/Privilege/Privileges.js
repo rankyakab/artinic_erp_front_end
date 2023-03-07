@@ -2,10 +2,10 @@ import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import HeaderCard from '../../../components/HeaderCard';
+// import HeaderCard from '../../../components/HeaderCard';
 import { getAllRole } from '../../../redux/actions/RoleAction';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { HeadCard, Wrapper } from '../../../styles/main';
+import {  Wrapper } from '../../../styles/main';
 import { getAllProcess } from '../../../redux/actions/ProcessAction';
 import { getAllAction } from '../../../redux/actions/ActionsAction';
 import { GetActionName } from '../../../utils/getValueById';
@@ -25,6 +25,7 @@ function Privileges() {
   const [data, setData] = useState([]);
 
   const [open, setOpen] = useState(false);
+  // const [seleted, setSelected] = useState(null);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -34,6 +35,7 @@ function Privileges() {
 
   const [checkedActions, setCheckedActions] = useState({});
 
+  
   const handleCheckboxChange = (e, action, processId) => {
     console.log(checkedActions[processId]);
     if (!checkedActions[processId]) setCheckedActions({ ...checkedActions, [processId]: [] });
@@ -160,7 +162,7 @@ function Privileges() {
                       type="radio"
                       name={role?.role}
                       value={role?._id}
-                      onChange={(e) => handleRoleChange(e.target)}
+                      onChange={(e) => handleRoleChange(e.target.value)}
                       checked={selectedValue === role?._id}
                       disabled={selectedValue !== '' && selectedValue !== role?._id}
                     />
