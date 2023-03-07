@@ -98,8 +98,9 @@ export default function Router() {
         {
           path: 'login',
           element: (
+            <p> hello </p>
             // <GuestGuard>
-            <LoginPage />
+           // <LoginPage />
             // </GuestGuard>
             // <ProtectedRoutes>
             //   <LoginPage />
