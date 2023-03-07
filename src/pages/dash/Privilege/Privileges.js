@@ -160,11 +160,11 @@ function Privileges() {
                   <Stack direction={'row'} alignItems="center" spacing={2}>
                     <input
                       type="radio"
-                      name={role?.role}
+                      name="role"
                       value={role?._id}
                       onChange={(e) => handleRoleChange(e.target.value)}
                       checked={selectedValue === role?._id}
-                      disabled={selectedValue !== '' && selectedValue !== role?._id}
+                     // disabled={selectedValue !== '' && selectedValue !== role?._id}
                     />
                     <p>{capitalize(role?.role)}</p>
                   </Stack>
