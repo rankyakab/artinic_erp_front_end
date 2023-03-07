@@ -38,11 +38,11 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
   const { roles } = useSelector((state) => state.role);
 
-  console.log(roles);
+  // console.log(roles);
 
   const filterRoles = roles.filter((role) => userRole === role?._id);
 
-  console.log(filterRoles);
+  // console.log(filterRoles);
 
   const ICONS = {
     user: icon('ic_user'),

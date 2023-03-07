@@ -17,7 +17,7 @@ export const getAllRole = () => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+   // console.log(res);
 
     localStorage.setItem('roles', JSON.stringify(res?.data?.roles));
 
@@ -29,7 +29,7 @@ export const getAllRole = () => async (dispatch) => {
       });
     }
   } catch (error) {
-    console.log(error);
+   // console.log(error);
   } finally {
     setIsLoading(false);
   }
