@@ -6,6 +6,7 @@ const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.
 const initialState = {
   loading: false,
   api_error: '',
+  loggedIn:'',
   // user: user ? user : {},
   user,
 };
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
     case AuthTypes.LOGIN:
       return {
         ...state,
-        user: {...action.payload,loggedIn:true},
+        loggedIn:true,
+        user: {...action.payload},
       };
 
     default:
