@@ -19,19 +19,19 @@ export default function NavSectionVertical({ data, sx, ...other }) {
   const { translate } = useLocales();
   const user = JSON.parse(localStorage.getItem('user'));
 
-  console.log(user);
+ //  console.log(user);
 
-  const { processes } = useSelector((state) => state?.process);
+ // const { processes } = useSelector((state) => state?.process);
 
-  console.log(processes);
+  // console.log(processes);
 
   const { roles } = useSelector((state) => state?.role);
 
-  console.log(roles);
+  // console.log(roles);
 
-  const userRole = roles.filter((role) => role?._id === user?.user?.role);
+ // const userRole = roles.filter((role) => role?._id === user?.user?.role);
 
-  console.log(userRole);
+  // console.log(userRole);
 
   return (
     <Stack sx={sx} {...other}>
