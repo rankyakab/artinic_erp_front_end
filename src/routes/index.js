@@ -1,8 +1,8 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 // auth
-import AuthGuard from '../auth/AuthGuard';
-import GuestGuard from '../auth/GuestGuard';
+// import AuthGuard from '../auth/AuthGuard';
+// import GuestGuard from '../auth/GuestGuard';
 // layouts
 import CompactLayout from '../layouts/compact';
 import DashboardLayout from '../layouts/dashboard';
@@ -16,7 +16,7 @@ import {
   Maintenance,
   OfficeBudget,
   Procurement,
-  Roles,
+//  Roles,
   Notifications,
   StockInventory,
   CapacityBuilding,
@@ -71,7 +71,7 @@ import Privileges from '../pages/dash/Privilege/Privileges';
 import MemoDetails from '../pages/dash/memo/MemoDetails';
 import UpdateMemo from '../pages/dash/memo/UpdateMemo';
 import CreateProjects from '../pages/operations/ProjectManagement/common/CreateProject';
-import ProtectedRoutes from '../pages/auth/ProtectedRoutes';
+// import ProtectedRoutes from '../pages/auth/ProtectedRoutes';
 import GenerateEmployerDeduction from '../pages/dash/Payroll/GenerateEmployerDeduction';
 import Clients from '../pages/operations/Clients/Clients';
 import EditStaff from '../pages/dash/Staff/EditStaff';
@@ -81,7 +81,7 @@ import EditStaff from '../pages/dash/Staff/EditStaff';
 export default function Router() {
   const userRole = JSON.parse(localStorage.getItem('user'))?.user?.role;
 
-  // const roles = JSON.parse(localStorage.getItem('roles'));\
+  // const roles = JSON.parse(localStorage.getItem('roles'));
 
   const { roles } = useSelector((state) => state.role);
 
