@@ -190,17 +190,7 @@ export default function LoginPage() {
                 </div>
                 <Typography>I forgot my password</Typography>
               </Box>
-              <Stack sx={{ py: 5 }}>
-                <Button
-                  onClick={() => {
-                   // handleSubmit();
-                  }}
-                  // type="submit"
-                  sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 2 }}
-                >
-                  {loading ? <CircularProgress sx={{ width: '20px', color: '#fff' }} /> : 'Sign In'}
-                </Button>
-              </Stack>
+  
             </FormControl>
           </Box>
         </Grid>
