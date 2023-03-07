@@ -72,7 +72,7 @@ function Action() {
 
   const handleCreateAction = (e) => {
     e.preventDefault();
-    if (editId === ' ') {
+    if (editId === '') {
       dispatch(createAction(actionData, setErrorMessage, setSuccessMessage, setOpen, setError,setEditId));
 
     } else {
