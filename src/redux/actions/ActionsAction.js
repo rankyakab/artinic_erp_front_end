@@ -17,7 +17,7 @@ export const getAllAction = () => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -27,9 +27,11 @@ export const getAllAction = () => async (dispatch) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    dispatch(setIsLoading(true));
+   // console.log(error);
   } finally {
-    setIsLoading(false);
+    dispatch(setIsLoading(true));
+  //  setIsLoading(false);
   }
 };
 
