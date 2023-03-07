@@ -145,6 +145,64 @@ export default function LoginPage() {
 
             {/* Form */}
 
+            <FormControl sx={{ pt: 3 }}>
+
+             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+              <Stack sx={{ mt: 2 }}>
+                <FormLabel id="email" sx={{ color: 'black', pb: 1 }}>
+                  Email address
+                </FormLabel>
+                <TextField
+                  id="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  ref={userRef}
+                  value={email}
+                  placeholder="Email address"
+                  required
+                />
+              </Stack>
+
+              <Stack sx={{ mt: 3 }}>
+                <FormLabel id="password" sx={{ color: 'black', pb: 1 }}>
+                  Password
+                </FormLabel>
+                <TextField
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  required
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                          <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Stack>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Checkbox {...label} />
+                  <Typography>Remember me</Typography>
+                </div>
+                <Typography>I forgot my password</Typography>
+              </Box>
+              <Stack sx={{ py: 5 }}>
+                <Button
+                  onClick={() => {
+                    handleSubmit();
+                  }}
+                  // type="submit"
+                  sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 2 }}
+                >
+                  {loading ? <CircularProgress sx={{ width: '20px', color: '#fff' }} /> : 'Sign In'}
+                </Button>
+              </Stack>
+            </FormControl>
+
           </Box>
         </Grid>
         <Grid
