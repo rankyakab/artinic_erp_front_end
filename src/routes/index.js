@@ -80,7 +80,8 @@ import EditStaff from '../pages/dash/Staff/EditStaff';
 
 export default function Router() {
   const userRole = JSON.parse(localStorage.getItem('user'))?.user?.role;
-
+// const myData = localStorage.getItem('user');
+// const { loggedIn } = useSelector((state) => state.auth);
   // const roles = JSON.parse(localStorage.getItem('roles'));
 
   const { roles } = useSelector((state) => state.role);

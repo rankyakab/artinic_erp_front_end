@@ -17,10 +17,6 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import SvgColor from '../../../components/svg-color';
 import { getAllRole } from '../../../redux/actions/RoleAction';
 
-//
-// import navConfig from './config';
-// import NavDocs from './NavDocs';
-// import NavAccount from './NavAccount';
 
 // ----------------------------------------------------------------------
 

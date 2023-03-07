@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import {Navigate, Outlet } from 'react-router-dom';
+
+import {useSelector } from 'react-redux';
 // @mui
 import { Box } from '@mui/material';
 
@@ -21,7 +23,7 @@ import NavHorizontal from './nav/NavHorizontal';
 
 export default function DashboardLayout() {
  // const { auth } = useAuth();
-  const  loggedIn ="";
+    const { loggedIn } = useSelector((state) => state.auth);
   const { themeLayout } = useSettingsContext();
 
   const isDesktop = useResponsive('up', 'lg');
