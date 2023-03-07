@@ -11,14 +11,13 @@ import {
   TableContainer,
   Typography,
   Stack,
-  CircularProgress,
   Box,
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { GeneralInput, HeadCard, Wrapper } from '../../../styles/main';
+import {  HeadCard, Wrapper } from '../../../styles/main';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -58,6 +57,7 @@ function Roles() {
   };
 
   const handleFormChange = ({ name, value }) => {
+    console.log("role name",  {name, value});
     setRoleData((prev) => ({
       ...prev,
       [name]: value,

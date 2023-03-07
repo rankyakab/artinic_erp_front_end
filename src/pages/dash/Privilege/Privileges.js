@@ -62,14 +62,14 @@ function Privileges() {
     });
     console.log({ privilege });
   };
-
+/*
   const handleFormChange = ({ name, value }) => {
     setData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
+*/
   const handleClose = () => {
     setOpen(false);
     setError(false);
@@ -81,7 +81,7 @@ function Privileges() {
 
   const handleRoleChange = ({ name, value }) => {
     // console.log(name);
-    // console.log(value);
+     console.log(value);
     setSelectedValue(value);
   };
 
