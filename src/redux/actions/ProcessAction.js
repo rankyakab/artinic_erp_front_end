@@ -58,12 +58,13 @@ export const createProcess = (data, setErrorMessage, setSuccessMessage, setOpen,
   } catch (error) {
    // console.log(error);
    // setIsLoading(false);
-    dispatch(setIsLoading(true));
+   // dispatch(setIsLoading(true));
+    dispatch(setIsLoading(false));
     setErrorMessage(error?.data?.message);
     setError(true);
   } finally {
   //  setIsLoading(false);
-    dispatch(setIsLoading(true));
+    dispatch(setIsLoading(false));
   }
 };
 
