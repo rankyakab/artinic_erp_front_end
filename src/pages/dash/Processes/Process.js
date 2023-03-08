@@ -99,7 +99,7 @@ function Process() {
       dispatch(editProcess(editId, data, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing));
       setOpenEdit(false);
       setSelectedAction([]);
-      setEditId(' ');
+      setEditId('');
       setProcessData((prev) => ({
         ...prev,
         process: '',

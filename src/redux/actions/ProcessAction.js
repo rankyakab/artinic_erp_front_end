@@ -78,7 +78,7 @@ export const deleteProcess =
         needToken: true,
       });
 
-      console.log(res);
+     // console.log(res);
 
       if (res.status === 200 || res.status === 201) {
         setDeleting(false);
@@ -91,7 +91,7 @@ export const deleteProcess =
         dispatch(getAllProcess());
       }
     } catch (error) {
-      console.log(error);
+     // console.log(error);
       setDeleting(false);
       setErrorMessage(error?.data?.message);
       setError(true);
@@ -102,9 +102,10 @@ export const deleteProcess =
 
 export const editProcess =
   (id, data, setErrorMessage, setSuccessMessage, setOpen, setError, setEditing) => async (dispatch) => {
-    console.log(id);
+   // console.log(id);
     try {
       setEditing(true);
+      dispatch(setIsLoading(true));
       const res = await httpRequest({
         url: API_ROUTES?.editProcess?.route + id,
         method: API_ROUTES?.editProcess?.method,
@@ -112,9 +113,10 @@ export const editProcess =
         data,
       });
 
-      console.log(res);
+   //   console.log(res);
 
       if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
         setEditing(false);
         dispatch({
           type: ProcessTypes?.EDIT_PROCESS,
@@ -125,11 +127,13 @@ export const editProcess =
         dispatch(getAllProcess());
       }
     } catch (error) {
-      console.log(error);
+     // console.log(error);
+     dispatch(setIsLoading(false));
       setEditing(false);
       setErrorMessage(error?.data?.message);
       setError(true);
     } finally {
       setEditing(false);
+      dispatch(setIsLoading(false));
     }
   };
