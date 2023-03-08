@@ -22,7 +22,7 @@ function Privileges() {
   const { actions } = useSelector((state) => state?.action);
   const { privileges, loading } = useSelector((state) => state?.privilege);
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   const [open, setOpen] = useState(false);
   // const [seleted, setSelected] = useState(null);
@@ -32,12 +32,13 @@ function Privileges() {
 
   const [selectedValue, setSelectedValue] = useState('');
   //   const [checkedActions, setCheckedActions] = useState('');
+   const [selectedRole, setSelectedRole] = useState('');
 
   const [checkedActions, setCheckedActions] = useState({});
 
   
   const handleCheckboxChange = (e, action, processId) => {
-    console.log(checkedActions[processId]);
+    // console.log(checkedActions[processId]);
     if (!checkedActions[processId]) setCheckedActions({ ...checkedActions, [processId]: [] });
     if (e.target.checked) {
       setCheckedActions((prev) => {
@@ -60,7 +61,7 @@ function Privileges() {
       }
       return null;
     });
-    console.log({ privilege });
+     console.log({ privilege });
   };
 /*
   const handleFormChange = ({ name, value }) => {
@@ -81,8 +82,8 @@ function Privileges() {
 
   const handleRoleChange = ({ name, value }) => {
     // console.log(name);
-     console.log(value);
-    setSelectedValue(value);
+   //  console.log("role",value);
+    setSelectedRole(value);
   };
 
   const handleCreatePrivilege = (e) => {
@@ -110,10 +111,10 @@ function Privileges() {
   }, [dispatch]);
 
   //   console.log(roles);
-  console.log(processes);
+//  console.log(processes);
   //   console.log(data);
 
-  console.log(privileges, 'privilege');
+ // console.log(privileges, 'privilege');
   return (
     <>
       <SuccessCard
@@ -162,7 +163,7 @@ function Privileges() {
                       type="radio"
                       name="role"
                       value={role?._id}
-                      onChange={(e) => handleRoleChange(e.target.value)}
+                      onChange={(e) => handleRoleChange(e.target)}
                     //  checked={selectedValue === role?._id}
                      // disabled={selectedValue !== '' && selectedValue !== role?._id}
                     />
@@ -189,29 +190,36 @@ function Privileges() {
                 processes?.map((pro) => (
                   <Stack
                     onClick={() => {
-                      console.log({ processId: pro?._id, actions: checkedActions });
+                //      console.log({ processId: pro?._id, actions: checkedActions });
                       handleProcessClick(pro?._id);
                     }}
+                    key = {pro?._id}
                   >
                     <p>{capitalize(pro?.process)}</p>
                     <Stack direction={'row'} alignItems="center" spacing={2}>
                       {React.Children.toArray(
-                        pro?.action?.map((p, key) => (
-                          <Stack direction={'row'} alignItems="center">
+                        pro?.action?.map((p) => (
+                          <Stack direction={'row'} alignItems="center" key={pro?._id}>
                             <input
                               type="checkbox"
                               name=""
                               id=""
-                              value={p}
+                              value={p._id}
                               onChange={(e) => {
                                 //   handleProcessClick(pro?._id);
-                                handleCheckboxChange(e, p, pro?._id);
+                                handleCheckboxChange(e, p._id, pro?._id);
                               }}
                             />
                             {GetActionName(p, actions)}
+                             
                           </Stack>
-                        ))
+                        )
+
+                        )
+                       
+
                       )}
+                      {console.log("action",pro?.action)}
                     </Stack>
                   </Stack>
                 ))
