@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as UserTypes from '../types/UserTypes';
 import { API_ROUTES } from '../config/UserConfig';
 import { httpRequest } from '../../helpers/index';

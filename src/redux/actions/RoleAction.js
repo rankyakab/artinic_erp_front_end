@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as RoleTypes from '../types/RoleTypes';
 import { API_ROUTES } from '../config/RoleConfig';
 import { httpRequest } from '../../helpers/index';
@@ -45,7 +45,7 @@ export const createRole = (data, setErrorMessage, setSuccessMessage, setOpen, se
       data,
     });
 
-    console.log(res);
+   //  console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -58,7 +58,7 @@ export const createRole = (data, setErrorMessage, setSuccessMessage, setOpen, se
       dispatch(getAllRole());
     }
   } catch (error) {
-    console.log(error);
+   // console.log(error);
     setIsLoading(false);
     setErrorMessage(error?.data?.message);
     setError(true);
@@ -76,7 +76,7 @@ export const deleteRole = (id, setErrorMessage, setSuccessMessage, setOpen, setE
       needToken: true,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));

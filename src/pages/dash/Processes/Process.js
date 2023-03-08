@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
-  Grid,
   Table,
   TableBody,
   TableRow,
@@ -11,20 +10,18 @@ import {
   TableContainer,
   Typography,
   Stack,
-  CircularProgress,
   Box,
-  TextField,
   Select,
   FormControl,
   Input,
   MenuItem,
 } from '@mui/material';
 import moment from 'moment';
-import { Close, Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { GeneralInput, HeadCard, Wrapper } from '../../../styles/main';
+import { HeadCard, Wrapper } from '../../../styles/main';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -89,11 +86,11 @@ function Process() {
       ...processData,
       action: selectedAction,
     };
-    console.log(data);
-    if (editId === ' ') {
+   // console.log(data);
+    if (editId === '') {
       dispatch(createProcess(data, setErrorMessage, setSuccessMessage, setOpen, setError));
       setSelectedAction([]);
-      setEditId(' ');
+      setEditId('');
       setProcessData((prev) => ({
         ...prev,
         process: '',
@@ -115,8 +112,8 @@ function Process() {
     dispatch(getAllAction());
     dispatch(getAllStaffs());
   }, []);
-  console.log(processes);
-  console.log(actions);
+  // console.log(processes);
+  // console.log(actions);
   return (
     <>
       <SuccessCard
@@ -243,13 +240,14 @@ function Process() {
                   </MenuItem>
                 ))}
               </Select>
+           
             </FormControl>
 
             <Button
               type="submit"
               sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 1.5, px: 5 }}
             >
-              {loading ? 'Loading...' : editId !== ' ' ? 'Edit' : 'Create'}
+              {loading ? 'Loading...' : editId !== '' ? 'Edit' : 'Create'}
             </Button>
           </Stack>
         </HeadCard>

@@ -1,4 +1,4 @@
-export const LOADING = 'LOADING';
+export const LOADING = 'LOADING_PROCESS';
 export const GET_ALL_PROCESS = 'GET_ALL_PROCESS';
 export const GET_ALL_PROCESS_BY_ID = 'GET_ALL_PROCESS_BY_ID';
 export const CREATE_PROCESS = 'CREATE_PROCESS';

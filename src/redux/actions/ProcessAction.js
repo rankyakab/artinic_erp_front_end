@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as ProcessTypes from '../types/ProcessTypes';
 import { API_ROUTES } from '../config/ProcessConfig';
 import { httpRequest } from '../../helpers/index';
@@ -43,7 +43,7 @@ export const createProcess = (data, setErrorMessage, setSuccessMessage, setOpen,
       data,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -56,12 +56,14 @@ export const createProcess = (data, setErrorMessage, setSuccessMessage, setOpen,
       dispatch(getAllProcess());
     }
   } catch (error) {
-    console.log(error);
-    setIsLoading(false);
+   // console.log(error);
+   // setIsLoading(false);
+    dispatch(setIsLoading(true));
     setErrorMessage(error?.data?.message);
     setError(true);
   } finally {
-    setIsLoading(false);
+  //  setIsLoading(false);
+    dispatch(setIsLoading(true));
   }
 };
 
