@@ -20,7 +20,7 @@ const API_ROUTES = {
   },
 
   getPrivilegeById: {
-    route: '/privilege/by/',
+    route: '/privilege/',
     method: 'get',
   },
 

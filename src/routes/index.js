@@ -86,11 +86,11 @@ export default function Router() {
 
   const { roles } = useSelector((state) => state.role);
 
-  // console.log(roles);
+   console.log("roles", roles);
 
   const filterRoles = roles.filter((role) => userRole === role?._id);
 
-  console.log(filterRoles);
+  console.log("filtered role", filterRoles);
   return useRoutes([
     {
       path: '/',

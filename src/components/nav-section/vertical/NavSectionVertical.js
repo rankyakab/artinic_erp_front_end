@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { List, Stack } from '@mui/material';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 // locales
 import { useLocales } from '../../../locales';
 //
@@ -17,15 +17,15 @@ NavSectionVertical.propTypes = {
 
 export default function NavSectionVertical({ data, sx, ...other }) {
   const { translate } = useLocales();
-  const user = JSON.parse(localStorage.getItem('user'));
+  // const user = JSON.parse(localStorage.getItem('user'));
 
  //  console.log(user);
-
+ 
  // const { processes } = useSelector((state) => state?.process);
 
   // console.log(processes);
 
-  const { roles } = useSelector((state) => state?.role);
+  // const { roles } = useSelector((state) => state?.role);
 
   // console.log(roles);
 
@@ -38,7 +38,7 @@ export default function NavSectionVertical({ data, sx, ...other }) {
       {data.map((group) => {
         const key = group.subheader || group.items[0].title;
 
-        console.log(group.subheader);
+       // console.log(group.subheader);
 
         return (
           <List key={key} disablePadding sx={{ px: 2 }}>

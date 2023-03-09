@@ -7,6 +7,32 @@ export const setIsLoading = (value) => ({
   type: PrivilegeTypes.LOADING,
   payload: value,
 });
+export const getRolePrivilege = (role)=> async (dispatch) =>{
+  try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES.getPrivilegeById.route + role,
+      method: API_ROUTES?.getPrivilegeById?.method,
+      needToken: true,
+    });
+
+   // console.log(res);
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch(setIsLoading(false));
+      dispatch({
+        type: PrivilegeTypes?.GET_ALL_PRIVILEGE_BY_ID,
+        payload: res?.data?.privilege[0].privilege,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch(setIsLoading(false));
+  } finally {
+    dispatch(setIsLoading(false));
+  }
+
+}
 
 export const getAllPrivilege = () => async (dispatch) => {
   try {
@@ -17,7 +43,7 @@ export const getAllPrivilege = () => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -33,7 +59,7 @@ export const getAllPrivilege = () => async (dispatch) => {
     dispatch(setIsLoading(false));
   }
 };
-
+/*
 export const getSinglePrivilege = (id) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
@@ -43,7 +69,7 @@ export const getSinglePrivilege = (id) => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -59,7 +85,7 @@ export const getSinglePrivilege = (id) => async (dispatch) => {
     dispatch(setIsLoading(false));
   }
 };
-
+*/
 export const createPrivilege = (data, setOpen, setError, setErrorMessage, setSuccessMessage) => async (dispatch) => {
   console.log(data);
   try {
@@ -155,3 +181,4 @@ export const confirmPrivilege = (data, setOpen, setError, setErrorMessage, setSu
     dispatch(setIsLoading(false));
   }
 };
+
