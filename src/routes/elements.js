@@ -18,6 +18,7 @@ export const LoginPage = Loadable(lazy(() => import('../pages/auth/LoginPage')))
 // HR User
 export const Dashboard = Loadable(lazy(() => import('../pages/dash/Dashboard/Dashboard')));
 export const Staff = Loadable(lazy(() => import('../pages/dash/Staff/Staff')));
+export const User = Loadable(lazy(() => import('../pages/dash/User/User')));
 export const Payroll = Loadable(lazy(() => import('../pages/dash/Payroll/Payroll')));
 export const Memo = Loadable(lazy(() => import('../pages/dash/memo/Memo')));
 export const PaymentVoucher = Loadable(lazy(() => import('../pages/dash/PaymentVoucher/PaymentVoucher')));

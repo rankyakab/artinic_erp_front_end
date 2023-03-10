@@ -16,6 +16,7 @@ export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   one: path(ROOTS_DASHBOARD, '/one'),
   staff: path(ROOTS_DASHBOARD, '/staff'),
+  user: path(ROOTS_DASHBOARD, '/user'),
   payroll: path(ROOTS_DASHBOARD, '/payroll'),
   memo: path(ROOTS_DASHBOARD, '/memo'),
   payment_voucher: path(ROOTS_DASHBOARD, '/payment_voucher'),

@@ -52,6 +52,7 @@ const navConfig =[
           items: [
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard },
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff },
+             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user },
             { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo },
             { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
             { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll },

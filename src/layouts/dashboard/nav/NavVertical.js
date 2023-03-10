@@ -74,6 +74,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
         {
           items: [
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard },
+             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user },
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff },
             { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo },
             { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
