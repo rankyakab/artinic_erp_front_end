@@ -97,3 +97,47 @@ export const deleteRole = (id, setErrorMessage, setSuccessMessage, setOpen, setE
     setIsLoading(false);
   }
 };
+
+export const editRole =
+  (data, id, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData=false) => async (dispatch) => {
+    try {
+      // console.log(data);
+      dispatch(setIsLoading(true));
+      const res = await httpRequest({
+        url: API_ROUTES?.editRole?.route + id,
+        method: API_ROUTES?.editRole?.method,
+        needToken: true,
+        // body: data,
+        data,
+        header: isFormData
+          ? {
+              'Access-Control-Allow-Origin': '*',
+              mode: 'no-cors',
+              'Content-Type': 'multipart/form-data',
+            }
+          : false,
+        isFormData,
+      });
+
+     // console.log(res);
+
+      if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
+        dispatch({
+          type: RoleTypes?.EDIT_ROLE,
+          payload: res?.data,
+        });
+        setSuccessMessage(res?.data?.message);
+        setOpen(true);
+        dispatch(getAllRole());
+      }
+    } catch (error) {
+     // console.log(error);
+     dispatch(setIsLoading(false));
+      setError(true);
+      setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+

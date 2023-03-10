@@ -11,7 +11,7 @@ const API_ROUTES = {
 
   editRole: {
     route: '/role/',
-    method: 'post',
+    method: 'patch',
   },
 
   deleteRole: {

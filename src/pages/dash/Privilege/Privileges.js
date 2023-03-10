@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 // import HeaderCard from '../../../components/HeaderCard';
-import { getAllRole } from '../../../redux/actions/RoleAction';
+import { getAllRole ,editRole} from '../../../redux/actions/RoleAction';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import {  Wrapper } from '../../../styles/main';
 import { getAllProcess } from '../../../redux/actions/ProcessAction';
 import { getAllAction } from '../../../redux/actions/ActionsAction';
 import { GetActionName } from '../../../utils/getValueById';
 import { capitalize } from '../../../utils/formatNumber';
-import { createPrivilege} from '../../../redux/actions/PrivilegeAction';
+// import { createPrivilege} from '../../../redux/actions/PrivilegeAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 
@@ -30,11 +30,11 @@ function Privileges() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const [selectedValue, setSelectedValue] = useState('');
+ //  const [selectedValue, setSelectedValue] = useState('');
   //   const [checkedActions, setCheckedActions] = useState('');
    const [selectedRole, setSelectedRole] = useState('');
 
-  const [checkedActions, setCheckedActions] = useState({});
+  // const [checkedActions, setCheckedActions] = useState({});
 
   
   const handleCheckboxChange = (e) => {
@@ -122,7 +122,7 @@ function Privileges() {
   const handleRoleChange = (value) => {
     // console.log(name);
    //  console.log("role",value);
-   // console.log("role",JSON.parse(value));
+    console.log("role",JSON.parse(value));
    // console.log("on strngify",  JSON.stringify(value));
     setSelectedRole(JSON.parse(value));
     // console.log("role" , selectedRole);
@@ -130,27 +130,16 @@ function Privileges() {
 
   const handleCreatePrivilege = (e) => {
     e.preventDefault();
-    const privilege = Object.entries(checkedActions)?.map(([processId, actions], i) => {
-      return {
-        processId,
-        actions,
-      };
-    });
+    const data = {...selectedRole };
+    console.log("this is the data before edit", data);
+    console.log("this is the data id before upload", data._id);
+dispatch(editRole(data, data._id, setOpen, setError, setErrorMessage, setSuccessMessage, false))
+   
 
-    const data = {
-      roleId: selectedValue,
-      privilege,
-    };
-
-    dispatch(createPrivilege(data, setOpen, setError, setErrorMessage, setSuccessMessage));
+   // dispatch(createPrivilege(data, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
 
-  const compilePrivilegesForRole = (role)=> {
-     console.log("priv iteration",processes?.map((pro) => (
-  {processId: pro._id, action: pro.action }
-)))
-    
-  }
+  
 
   useEffect(() => {
     dispatch(getAllRole());
@@ -158,6 +147,7 @@ function Privileges() {
     dispatch(getAllAction());
    // dispatch(getAllPrivilege());
   }, []);
+  
 useEffect(()=>{
 // dispatch(getRolePrivilege(selectedRole));
 // compilePrivilegesForRole(selectedRole);
@@ -257,7 +247,7 @@ useEffect(()=>{
                               name=""
                               id=""
                               value={JSON.stringify({selectedProcessId:pro._id, selectedActionId :p})}
-                              checked = {selectedRole.privilege.some(element => element.processId ===pro._id && element.action.includes(p) )}
+                              checked = {selectedRole?.privilege?.some(element => element.processId ===pro._id && element.action.includes(p) )}
                               onChange={(e) => {
                                // console.log("p", p)
                                 //   handleProcessClick(pro?._id);
