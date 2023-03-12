@@ -3,7 +3,7 @@ import * as UserTypes from '../types/UserTypes';
 const initialState = {
   loading: false,
   api_error: '',
-  user: [],
+  users: [],
   create: {},
   assign: '',
 };
@@ -16,10 +16,10 @@ const reducer = (state = initialState, action) => {
         loading: action.payload,
       };
     case UserTypes?.GET_ALL__USER:
-      console.log(action.payload);
+     // console.log(action.payload);
       return {
         ...state,
-        user: action.payload,
+        users: action.payload,
       };
     case UserTypes?.CREATE_USER:
       return {

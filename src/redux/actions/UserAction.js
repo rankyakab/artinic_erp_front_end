@@ -61,3 +61,34 @@ export const EditUser = (data, id, setErrorMessage, setSuccessMessage, setOpen, 
     setIsLoading(false);
   }
 };
+
+export const EditUserRole = (data, id, setErrorMessage, setSuccessMessage, setOpen, setError) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES?.editUser?.route + id,
+      method: API_ROUTES?.editUser?.method,
+      needToken: true,
+      data,
+    });
+
+   // console.log(res);
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch(setIsLoading(false));
+      dispatch({
+        type: UserTypes?.EDIT_USER,
+        payload: res?.data?.roles,
+      });
+      setSuccessMessage(res?.data?.message);
+      setOpen(true);
+    }
+  } catch (error) {
+    console.log(error);
+    setIsLoading(false);
+    setErrorMessage(error?.data?.message);
+    setError(true);
+  } finally {
+    setIsLoading(false);
+  }
+};

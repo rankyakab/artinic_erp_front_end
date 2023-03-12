@@ -12,32 +12,40 @@ import {
   TableContainer,
   Typography,
   Stack,
- FormControl,
- Select,
- Input,
-  MenuItem,
-  Button,
 } from '@mui/material';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
-
+import { Action } from '../../../../styles/main';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
 
 export const UserTable = ({ users, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
-   const [processData, setProcessData] = useState({
-    process: '',
-  });
+  
+  const navigate = useNavigate();
+  
  const { roles, loading } = useSelector((state) => state.role);
-const inputRef = useRef();
- // const [loading, setLoading] = useState(false);
-   const [selectedAction, setSelectedAction] = useState([]);
- const [editId, setEditId] = useState('');
+ const [formData, setFormData] = useState(roles);
+
+
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(()=>{
+    
+    
+    let count =0;
+    const userToRole = users.map(element =>{
+      count+= 1;
+      return  {id: element._id , key : count }
+    });
+  
+   // console.log("this is the keys for forme",forme);
+     console.log("this is the keys for users",users);
+   setFormData( userToRole);
+  },[]);
 
   const handleClose = () => {
     setOpen(false);
@@ -48,14 +56,19 @@ const inputRef = useRef();
     handleClose();
   };
 
-  const handleAssignRole = () => {
-   const je = "";
-   return je;
-  }
-const handleFormChange = (element)=> element;
+    const [selectedOption, setSelectedOption] = useState("");
+
+
+
 
   const tableHead = ['S/N', 'Email', 'Assign Role',];
-
+  /*
+  function handleSubmit(event, formId) {
+  event.preventDefault();
+  console.log("this is the submit to assigning role",{event, formId})
+   console.log("this selected role",selectedRole)
+}
+*/
   return (
     <>
       <SuccessCard
@@ -112,100 +125,15 @@ const handleFormChange = (element)=> element;
                 
 
                     <TableCell>
-                     <Stack
-            direction={'row'}
-            justifyContent="space-between"
-            alignItems={'center'}
-            width="100%"
-            component={'form'}
-            onSubmit={handleAssignRole}
-            spacing={6}
-          >
-            
-
-            <FormControl
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
-                width: '100%',
-                border: '1px solid #ADB7BE',
-                borderRadius: '4px',
-                height: '55px',
-                padding: '.8rem 0',
-                color: '#ADB7BE',
-                fontWeight: '400',
-                fontSize: '12px',
-              }}
-            >
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-.6rem',
-                  marginLeft: '.5rem',
-                  padding: '0rem .5rem',
-                  background: '#FFFFFF',
-                }}
-                id="demo-mutiple-chip-label"
-              >
-                Assignment
-              </span>
-
-              {selectedAction.length === 0 && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    padding: '.5rem',
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    fontSize: '16px',
-                    color: '#000',
-                  }}
-                >
-                  Select Role
-                </span>
-              )}
-
-              <Select
-                multiple
-                id="demo-mutiple-chip"
-                disableUnderline
-                style={{
-                  width: '100%',
-                  paddingLeft: '1rem',
-                  outline: 'none',
-                }}
-                value={selectedAction}
-                onChange={(e) => {
-                  const check = selectedAction.find((id) => e.target.value === id);
-                  if (!check) {
-                    setSelectedAction(e.target.value);
-                  }
-                }}
-                label="Roles"
-                placeholder="Select role"
-                input={<Input />}
-                // inputProps={{ shrink: true }}
-              >
-                <MenuItem disabled value="">
-                  <em>Select actions</em>
-                </MenuItem>
-                {roles.map((action) => (
-                  <MenuItem key={action?._id} value={action?._id}>
-                    {action?.role}
-                  </MenuItem>
-                ))}
-              </Select>
-           
-            </FormControl>
-
-            <Button
-              type="submit"
-              sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 1.5, px: 5 }}
-            >
-              {loading ? 'Loading...' : editId !== '' ? 'Edit' : 'Assign '}
-            </Button>
-          </Stack>
+                      <Action
+                        onClick={() => {
+                        //  setEditUser(data);
+                          navigate(`/dashboard/edit-user/${data?._id}`);
+                        }}
+                      >
+                        View More
+                      </Action>
+                      
                     </TableCell>
                   </TableRow>
                 ))}

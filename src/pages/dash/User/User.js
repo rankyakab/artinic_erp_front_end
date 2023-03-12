@@ -22,7 +22,7 @@ export default function User() {
 
   const [keyword, setKeyword] = useState('');
 
-  const { user, loading } = useSelector((state) => state.user);
+  const { users, loading } = useSelector((state) => state.user);
 
   // console.log(staffs);
 
@@ -32,7 +32,7 @@ export default function User() {
     console.log(keyword);
     e.preventDefault();
     setSearch(
-      user?.filter(
+      users?.filter(
         (user) =>
           user?.email?.toLowerCase() === keyword.toLowerCase() 
       )
@@ -60,7 +60,7 @@ export default function User() {
 
         <HeaderCard
           searchLabel={'Quick search a user'}
-          totalNumber={user?.length}
+          totalNumber={users?.length}
           totalNumberLabel={'Total number of user'}
           filterLabel={'Filter user'}
           filterText={'All User'}
@@ -77,7 +77,7 @@ export default function User() {
           </Container>
         ) : (
           <UserTable
-            users={user}
+            users={users}
             paginationPage={paginationPage}
             rowsPerPage={rowsPerPage}
             handleChangePage={handleChangePage}

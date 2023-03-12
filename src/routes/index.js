@@ -76,7 +76,7 @@ import CreateProjects from '../pages/operations/ProjectManagement/common/CreateP
 import GenerateEmployerDeduction from '../pages/dash/Payroll/GenerateEmployerDeduction';
 import Clients from '../pages/operations/Clients/Clients';
 import EditStaff from '../pages/dash/Staff/EditStaff';
-
+import EditUser from '../pages/dash/User/EditUser';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -155,6 +155,7 @@ export default function Router() {
         // },
         { path: 'staff', element: <Staff /> },
         { path: 'user', element: <User /> },
+        { path: 'edit-user/:id', element: <EditUser /> },
         { path: 'new-staff', element: <NewStaff /> },
         { path: 'edit-staff/:id', element: <EditStaff /> },
         { path: 'payroll', element: <Payroll /> },

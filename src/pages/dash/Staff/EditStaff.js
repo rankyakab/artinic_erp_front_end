@@ -15,7 +15,6 @@ import ErrorCard from '../../../components/ErrorCard';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
 import EditStaffForm from './common/EditStaffForm';
 import { getAllRole } from '../../../redux/actions/RoleAction';
-import AssignRoleForm from './common/AssignRoleForm';
 import { EditUser } from '../../../redux/actions/UserAction';
 
 const EditStaff = () => {
@@ -329,19 +328,7 @@ const EditStaff = () => {
           </Grid>
         </FormCard>
 
-        {filterStaff[0]?.userId && (
-          <FormCard>
-            <Grid items xs={12} md={8} sx={{ pl: 5 }}>
-              <AssignRoleForm
-                userRole={userRole}
-                handleFormChange={handleRoleFormChange}
-                roles={roles}
-                filterStaff={filterStaff}
-                handleEditRole={handleEditRole}
-              />
-            </Grid>
-          </FormCard>
-        )}
+       
       </Wrapper>
     </>
   );

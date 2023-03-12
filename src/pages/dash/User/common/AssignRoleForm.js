@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { Grid, FormLabel, Stack, Button } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 
-const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handleEditRole }) => {
-  return (
+const AssignRoleForm = ({ handleFormChange, roles, userRole, filterUser,  handleEditRole }) => 
+  (
     <>
       <Grid container columnSpacing={4}>
         <Grid item xs={12} md={6}>
           <Stack>
             <FormLabel id="first_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              User ID
+              User Email
             </FormLabel>
             <GeneralInput
-              value={filterStaff[0]?.firstName}
-              name="userId"
+              value={filterUser[0]?.email}
+              name="email"
               onChange={(e) => handleFormChange(e.target)}
               disabled
             />
@@ -34,9 +34,9 @@ const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handle
               SelectProps={{
                 native: true,
               }}
-              placeholder="Enter employment type"
+              placeholder="User Email"
             >
-              <option value="">Select Option</option>
+              <option value="">Select Role </option>
               {React.Children.toArray(roles?.map((role) => <option value={role?._id}>{role?.role}</option>))}
             </GeneralInput>
           </Stack>
@@ -62,7 +62,6 @@ const AssignRoleForm = ({ handleFormChange, roles, filterStaff, userRole, handle
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
 
 export default AssignRoleForm;
