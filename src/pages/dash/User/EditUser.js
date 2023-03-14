@@ -33,12 +33,7 @@ const EditUser = () => {
   const filterUser = users?.filter((user) => user?._id === params?.id);
 
 
-  const [userData, setUserData] = useState({
-    firstName: filterUser[0]?.email,
-    id: filterUser[0]?._id,
-    role: filterUser[0]?.role,
-  
-  });
+
   const [userRole, setUserRole] = useState({
     role:filterUser[0].role,
   });

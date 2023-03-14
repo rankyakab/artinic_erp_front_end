@@ -1,7 +1,10 @@
-import axios from 'axios';
 import * as MemoTypes from '../types/MemoTypes';
 import { API_ROUTES } from '../config/MemoConfig';
 import { httpRequest } from '../../helpers/index';
+
+
+
+
 
 export const setIsLoading = (value) => ({
   type: MemoTypes.LOADING,
@@ -61,12 +64,56 @@ export const getSingleMemo = (id) => async (dispatch) => {
 };
 
 export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData) => async (dispatch) => {
-  console.log(data);
-  console.log(isFormData);
+  // console.log(data);
+ //  console.log(isFormData);
+ // console.log("file", data.attachment);
+// const att = await uploadFileToS3(data.attachment);
+ // /console.log("attly deh go o", att);
+// data.attachment=att;
   // const finalData = {
   //   ...data,
   //   completion: 'true',
   // };
+ const copies = data.copies ?  data.copies.map(copy => copy.recipientId):[];
+ 
+ // console.log("na my wahala be this",copies);
+ // copies=[];
+ const attachment = data.attachment? data.attachment.name : "";
+   data = {  ...data,
+    ownerId: data.ownerId,
+    recipientId: data.recipientId,
+    attachment, 
+    memoBody: data.memoBody,
+    memoTitle: data.memoTitle,
+    status : "pending approval",
+    trail :[
+  
+             { 
+               memoTitle: data.memoTitle,
+              memoBody: data.memoBody,
+               attachment, 
+              status: "pending approval" ,
+              remarks:  "" ,
+              ownerId: data.ownerId,
+           
+             },
+             
+             
+            ],
+
+     copies
+    
+  }
+
+
+
+
+
+
+
+
+
+  ///
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
@@ -85,7 +132,7 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
       // body: data,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -96,10 +143,11 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
       setOpen(true);
     }
   } catch (error) {
-    console.log(error);
+      dispatch(setIsLoading(false));
+   // console.log(error);
     dispatch(setIsLoading(false));
     setError(true);
-    setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+   // setErrorMessage(error?.data?.message || 'Something went wrong try again later');
   } finally {
     dispatch(setIsLoading(false));
   }
@@ -151,8 +199,112 @@ export const updateMemo =
       dispatch(setIsLoading(false));
     }
   };
+export const updateMemoStatus =
+  (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
+   // console.log(data);
+   // console.log(isFormData);
+    
+      
+    // const finalData = {
+    //   ...data,
+    //   completion: 'true',
+    // };
+    try {
+      dispatch(setIsLoading(true));
+      const res = await httpRequest({
+        url: API_ROUTES?.updateMemoStatus?.route,
+        method: API_ROUTES?.updateMemo?.method,
+        needToken: true,
+        data,
+        header: isFormData
+          ? {
+              'Access-Control-Allow-Origin': '*',
+              mode: 'no-cors',
+              'Content-Type': 'multipart/form-data',
+            }
+          : false,
+        isFormData,
+        // body: data,
+      });
 
+     // console.log(res);
+
+      if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
+        dispatch({
+          type: MemoTypes?.UPDATE_MEMO,
+          payload: res?.data,
+        });
+        setOpen(true);
+        setSuccessMessage(res?.data?.message);
+      }
+    } catch (error) {
+     // console.log(error);
+      dispatch(setIsLoading(false));
+      setError(true);
+      setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+export const sendMemoActionRedo = (data) => async (dispatch) => {
+  console.log(data);
+  try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES?.sendMemoAction?.route,
+      method: API_ROUTES?.sendMemoAction?.method,
+      needToken: true,
+      data,
+      // body: data,
+    });
+
+    console.log(res);
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch(setIsLoading(false));
+      dispatch({
+        type: MemoTypes?.MEMO_ACTION,
+        payload: res?.data,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch(setIsLoading(false));
+  } finally {
+    dispatch(setIsLoading(false));
+  }
+};
 export const sendMemoAction = (data) => async (dispatch) => {
+  console.log(data);
+  try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES?.sendMemoAction?.route,
+      method: API_ROUTES?.sendMemoAction?.method,
+      needToken: true,
+      data,
+      // body: data,
+    });
+
+    console.log(res);
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch(setIsLoading(false));
+      dispatch({
+        type: MemoTypes?.MEMO_ACTION,
+        payload: res?.data,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch(setIsLoading(false));
+  } finally {
+    dispatch(setIsLoading(false));
+  }
+};
+export const sendMemoActionRedoAgain = (data) => async (dispatch) => {
   console.log(data);
   try {
     dispatch(setIsLoading(true));

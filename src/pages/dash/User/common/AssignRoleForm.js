@@ -30,6 +30,7 @@ const AssignRoleForm = ({ handleFormChange, roles, userRole, filterUser,  handle
               value={userRole?.role}
               name="role"
               onChange={(e) => handleFormChange(e.target)}
+              
               select
               SelectProps={{
                 native: true,

@@ -2,8 +2,8 @@ const API_ROUTES = {
   getAllMemo: {
     route: '/memo',
     method: 'get',
-  },
-
+  },  
+ 
   getSingleMemo: {
     route: '/memo/single/',
     method: 'get',
@@ -16,6 +16,10 @@ const API_ROUTES = {
 
   updateMemo: {
     route: '/memo/update',
+    method: 'patch',
+  },
+   updateMemoStatus: {
+    route: '/memo/update/status',
     method: 'patch',
   },
   sendMemoAction: {

@@ -1,21 +1,38 @@
+
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
-import { useForm, useFieldArray, Control, useWatch } from 'react-hook-form';
+// import moment from 'moment';
+import { alpha } from '@mui/material/styles';
+import {  Paper, Container, Typography , Stack,  Grid, TextField, FormHelperText, Button as MuButton } from '@mui/material';
+// import { Stack, StackTypeMap } from '@material-ui/core';
+import {
+  Timeline,
+  TimelineDot,
+  TimelineItem,
+  TimelineContent,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import { useForm, useFieldArray} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Stack, Typography, Grid, TextField, FormHelperText, Button as MuButton } from '@mui/material';
+
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import PreviewIcon from '@mui/icons-material/Preview';
+
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel } from '../../../styles/main';
+import { FormCard, Wrapper, Title, GeneralInput, InputLabel } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
-import { createMemo, getAllMemo, updateMemo } from '../../../redux/actions/MemoAction';
+// import Iconify from '../../../components/iconify';
+import {  updateMemo } from '../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
-import flattenArray from '../../../utils/flattenArray';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { capitalize } from '../../../utils/formatNumber';
+import { Block } from '../../../sections/_examples/Block';
 
 const UpdateMemo = () => {
   const navigate = useNavigate();
@@ -31,8 +48,8 @@ const UpdateMemo = () => {
   const getName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
 
-    console.log(filterStaff);
-    console.log(id);
+   // console.log(filterStaff);
+   // console.log(id);
 
     setStaffName(capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName));
 
@@ -43,7 +60,7 @@ const UpdateMemo = () => {
 
   const memo = allMemo?.filter((item) => item?._id === params?.id);
 
-  console.log(memo);
+   // console.log("this is the memo",memo);
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -93,9 +110,14 @@ const UpdateMemo = () => {
     control,
   });
 
-  console.log(moment(memo[0]?.createdAt).format('L'));
+  // ----------------------------------------------------------------------
 
-  console.log(memo[0]?.ownerId);
+const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
+
+console.log(TIMELINES)
+ //  console.log(moment(memo[0]?.createdAt).format('L'));
+
+  // console.log(memo[0]?.ownerId);
 
   const [memoData, setMemoData] = useState({
     // memoDate: moment(memo[0]?.createdAt).format('L'),
@@ -170,6 +192,8 @@ const UpdateMemo = () => {
     dispatch(getAllStaffs());
     getName(memo[0]?.ownerId);
   }, []);
+   
+
   return (
     <>
       <SuccessCard
@@ -203,7 +227,7 @@ const UpdateMemo = () => {
 
         <FormCard
           onSubmit={handleSubmit((data) => {
-            console.log(data);
+           // console.log(data);
             handleUpdateMemo(data);
           })}
         >
@@ -224,126 +248,12 @@ const UpdateMemo = () => {
                   name="memoTitle"
                   required
                   onChange={(e) => handleFormChange(e.target)}
-                  // {...register('memoTitle')}
+                   {...register('memoTitle')}
                 />
               </Stack>
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <Stack>
-                <InputLabel id="sent_from">
-                  Sent from <span style={{ color: 'red' }}>*</span>
-                </InputLabel>
-                <GeneralInput
-                  variant="outlined"
-                  placeholder={staffName}
-                  name="sentFrom"
-                  required
-                  onChange={(e) => handleFormChange(e.target)}
-                  disabled
-                />
-              </Stack>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Stack>
-                <InputLabel id="sent_to">
-                  Sent to<span style={{ color: 'red' }}>*</span>
-                </InputLabel>
-                <GeneralInput
-                  select
-                  variant="outlined"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  value={recipient?.recipientId}
-                  name="recipientId"
-                  required
-                  onChange={(e) => handleRecipientChange(e.target)}
-                  // {...register('recipientId')}
-                >
-                  <option value="">Select Option</option>
-
-                  {React.Children.toArray(
-                    staffs?.map((staff) => (
-                      <option value={staff?._id}>
-                        {staff?.firstName} {staff?.lastName}
-                      </option>
-                    ))
-                  )}
-                </GeneralInput>
-              </Stack>
-            </Grid>
-            {fields.map((field, index) => (
-              <Fragment key={index}>
-                <Grid item xs={12} md={4}>
-                  <Stack>
-                    <InputLabel id="action">
-                      {`CC${index + 1}`}
-                      <span style={{ color: 'red' }}>*</span>
-                    </InputLabel>
-                    <GeneralInput
-                      select
-                      variant="outlined"
-                      SelectProps={{
-                        native: true,
-                      }}
-                      // value={memoData?.cc1}
-                      name="recipientId"
-                      required
-                      onChange={(e) => handleFormChange(e.target)}
-                      {...register(`copies.${index}.recipientId`)}
-                    >
-                      <option value="">Select Option</option>
-                      {React.Children.toArray(
-                        staffs?.map((staff) => (
-                          <option value={staff?._id}>
-                            {staff?.firstName} {staff?.lastName}
-                          </option>
-                        ))
-                      )}
-                    </GeneralInput>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                  <button
-                    style={{
-                      width: '55px',
-                      height: '55px',
-                      border: '1px solid #D0D0D0',
-                      borderRadius: '11px',
-                      background: '#fff',
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                      // marginLeft: '1rem',
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      remove(index);
-                    }}
-                  >
-                    -
-                  </button>
-                  <button
-                    style={{
-                      width: '55px',
-                      height: '55px',
-                      border: '1px solid #D0D0D0',
-                      borderRadius: '11px',
-                      background: '#fff',
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      append();
-                    }}
-                  >
-                    +
-                  </button>
-                </Grid>
-              </Fragment>
-            ))}
+          
           </Grid>
 
           <Grid container sx={{ mt: 4 }}>
@@ -363,7 +273,7 @@ const UpdateMemo = () => {
                   name="memoBody"
                   required
                   onChange={(e) => handleFormChange(e.target)}
-                  // {...register('memoBody')}
+                  {...register('memoBody')}
                   sx={{
                     background: '#fff',
                   }}
@@ -391,6 +301,16 @@ const UpdateMemo = () => {
                 type="file"
               />
             </MuButton>
+         
+          </Stack>
+          {memo[0].status!=="pending approval"?(<Stack
+            direction="row"
+            sx={{
+              mt: '71px',
+            }}
+            spacing={4}
+          >
+          
             <button
               style={{
                 width: '31.5%',
@@ -406,8 +326,94 @@ const UpdateMemo = () => {
             >
               {loading ? 'Loading...' : 'Update Memo'}
             </button>
-          </Stack>
+          </Stack>) :(<Stack
+            direction="row"
+            sx={{
+              mt: '71px',
+            }}
+            spacing={4}
+          >
+          
+            <p> You can only update memo after it must have been reviewed</p>
+          </Stack>) }
+          
         </FormCard>
+        <Container sx={{ my: 10 }}>
+        
+        <Block title="Memo Trail">
+           <Timeline position="">
+            {TIMELINES.map((item) => (
+              <TimelineItem key={item._id}>
+                <TimelineOppositeContent>
+                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                    {item.ownerId===user?.user?.staffId?(
+                 
+
+                  <Typography variant="body2" sx={{ color: 'success' }}>
+                    {memo[0].updatedAt}
+                  </Typography>
+                  ):(
+                      <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.body}
+                    </Typography>
+                    
+                       
+                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      View
+                    </Button>
+                     
+                      
+                    
+                  </Paper>
+                  )}
+                  
+                 
+                  </Typography>
+                </TimelineOppositeContent>
+
+
+                <TimelineSeparator>
+                  <TimelineDot color={item.color} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  {item.ownerId===user?.user?.staffId?(
+                  <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.body}
+                    </Typography>
+                    
+                       
+                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      View
+                    </Button>
+                     
+                  </Paper>
+                  ):(
+                     <Typography variant="body2" sx={{ color: 'primary' }}>
+                     {memo[0].updatedAt}
+                  </Typography>
+                  )}
+                  
+                </TimelineContent>
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </Block>
+      </Container>
       </Wrapper>
     </>
   );

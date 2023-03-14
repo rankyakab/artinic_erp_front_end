@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-// @mui
+
 import AllMemoComponet from './AllMemoComponet';
+
 // import CreateMemoComponent from './CreateMemoComponent';
 // components
 // import { useSettingsContext } from '../../../components/settings';
@@ -14,12 +15,14 @@ export default function PageFour() {
   return (
     <>
       <Helmet>
-        <title> Memo| Minimal UI</title>
+        <title> Memo| Artinic App</title>
       </Helmet>
       <Wrapper>
         <DashboardHeader title={'Memo'} text={'Create and send memos to designated offices.'} />
 
         <AllMemoComponet />
+           
+        
       </Wrapper>
     </>
   );

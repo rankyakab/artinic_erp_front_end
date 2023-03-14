@@ -5,19 +5,16 @@ import {useSelector } from 'react-redux';
 // @mui
 import { Box } from '@mui/material';
 
-// import {useSelector } from 'react-redux';
-// hooks
+
 import useResponsive from '../../hooks/useResponsive';
 // components
 import { useSettingsContext } from '../../components/settings';
 //
-// import Main from './Main';
-// import Header from './header';
+
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
 import NavHorizontal from './nav/NavHorizontal';
-// import useAuth from "../../hooks/useAuth";
-// import DashboardHeader from './DashboardHeader';
+
 
 // ----------------------------------------------------------------------
 

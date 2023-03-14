@@ -99,7 +99,8 @@ export const deleteRole = (id, setErrorMessage, setSuccessMessage, setOpen, setE
 };
 
 export const editRole =
-  (data, id, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData=false) => async (dispatch) => {
+  (data, id, setOpen, setError, setErrorMessage, setSuccessMessage) => async (dispatch) => {
+   
     try {
       // console.log(data);
       dispatch(setIsLoading(true));
@@ -109,14 +110,7 @@ export const editRole =
         needToken: true,
         // body: data,
         data,
-        header: isFormData
-          ? {
-              'Access-Control-Allow-Origin': '*',
-              mode: 'no-cors',
-              'Content-Type': 'multipart/form-data',
-            }
-          : false,
-        isFormData,
+        
       });
 
      // console.log(res);

@@ -29,7 +29,7 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
   position: 'absolute',
-  alignItems: 'center',z
+  alignItems: 'center',
   height: APPBAR_MOBILE,
   padding: theme.spacing(0, 3),
   boxShadow: theme.customShadows.z8,

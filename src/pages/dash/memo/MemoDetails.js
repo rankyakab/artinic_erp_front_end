@@ -2,17 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { PDFDocument, PDFText, PDFTable, PDFTableRow, PDFTableColumn, PDFColumns, PDFColumn } from 'react-pdfmake';
+// Import { PDFDocument, PDFText, PDFTable, PDFTableRow, PDFTableColumn, PDFColumns, PDFColumn } from 'react-pdfmake';
 import { useNavigate, useParams } from 'react-router';
-import { Document, Page, pdfjs } from 'react-pdf';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material';
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
+import {
+  Timeline,
+  TimelineDot,
+  TimelineItem,
+  TimelineContent,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import { alpha } from '@mui/material/styles';
+// import { Document, Page, pdfjs } from 'react-pdf';
+// import pdfMake from 'pdfmake/build/pdfmake';
+// import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
+import PreviewIcon from '@mui/icons-material/Preview';
+import {   Stack,TextField, Paper, Container, Grid,  Typography } from '@mui/material';
+// import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
 import Back from '../../../assets/images/arrow_left.svg';
-import ReliabuildInvoiceTemp from '../../../assets/images/ReliabuildInvoiceTemp.png';
+// import ReliabuildInvoiceTemp from '../../../assets/images/ReliabuildInvoiceTemp.png';
 import Invoice from '../../../assets/icons/Invoice.svg';
+
+import { Block } from '../../../sections/_examples/Block';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import {
   Button,
@@ -24,12 +37,12 @@ import {
   Wrapper,
 } from '../../../styles/main';
 import { capitalize } from '../../../utils/formatNumber';
-import { updateMemo } from '../../../redux/actions/MemoAction';
+import { updateMemoStatus } from '../../../redux/actions/MemoAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 function MemoDetails() {
   const navigate = useNavigate();
@@ -42,10 +55,10 @@ function MemoDetails() {
   const [successMessage, setSuccessMessage] = useState('');
 
   const [data, setData] = useState({
-    action: '',
+    status: '',
     remarks: '',
   });
-
+const { user } = useSelector((state) => state.auth);
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1.0);
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -53,20 +66,28 @@ function MemoDetails() {
   };
 
   const { allMemo, loading } = useSelector((state) => state.memo);
-  const { user } = useSelector((state) => state.auth);
+ // const { user } = useSelector((state) => state.auth);
 
-  console.log(allMemo);
+    const getCcName = (id) => {
+    const filterStaff = staffs?.filter((staff) => staff?._id === id);
+
+   // console.log(filterStaff);
+   // console.log(id);
+
+    return capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName);
+
+  };
 
   const { staffs } = useSelector((state) => state.staff);
 
-  console.log(staffs);
+ // console.log(staffs);
 
   const getName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
 
-    console.log(id);
+   // console.log(id);
 
-    console.log(filterStaff);
+   // console.log(filterStaff);
 
     return (
       <p>
@@ -75,11 +96,12 @@ function MemoDetails() {
     );
   };
 
-  console.log(params);
+ // console.log(params);
 
   const memo = allMemo?.filter((item) => item?._id === params?.id);
 
-  console.log(memo);
+ // console.log(memo);
+ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
   const handleFormChange = ({ name, value }) => {
     setData((prev) => ({
@@ -89,41 +111,31 @@ function MemoDetails() {
   };
 
   const [recipient, setRecipient] = useState({
-    recipientId: memo[0]?.recipient?.[0]?.recipientId,
+    recipientId: memo[0]?.recipientId,
     action: '',
     status: '',
     remarks: '',
-    _id: memo[0]?.recipient?.[0]?._id,
+    _id: memo[0]?._id,
   });
 
-  const memoCopies = memo[0]?.copies?.map((copy) => ({
-    action:
-      user?.user?.staffId === copy.recipientId || user?.user?.staffId === memo[0]?.recipient[0]?.recipientId
-        ? data?.action
-        : 'None',
-    recipientId: copy.recipientId,
-    status: 'true',
-    remarks:
-      user?.user?.staffId === copy.recipientId || user?.user?.staffId === memo[0]?.recipient[0]?.recipientId
-        ? data?.remarks
-        : '',
-    _id: copy?._id,
-  }));
+  const memoCopies = memo[0]?.copies;
 
-  console.log(memoCopies);
+  // console.log(memoCopies);
 
   const handleMemoAction = (e) => {
     e.preventDefault();
     const selected = {
-      _id: params?.id,
-      copies: memoCopies,
-      memoTitle: memo[0]?.memoTitle,
-      memoBody: memo[0]?.memoBody,
-      ownerId: memo[0]?.ownerId,
-      recipient,
+             
+            
+              
+              
+
+      memoId: params?.id,
+      ownerId: user?.user?.staffId,
+      ...data,
     };
-    console.log(selected);
-    dispatch(updateMemo(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+    // console.log(selected);
+    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
 
   const handleClose = () => {
@@ -150,7 +162,7 @@ function MemoDetails() {
         btnText={'Continue'}
         handleClick={handleClick}
       />
-      <Helmet>Client Invoice Details | Relia Energy</Helmet>
+      <Helmet>Memo Detail | Relia Energy</Helmet>
       <Wrapper>
         <DashboardHeader title={'Client Invoice Details'} text={'View client’s invoice details'} icon={Invoice} />
         <Stack>
@@ -200,7 +212,7 @@ function MemoDetails() {
                   From: <MemoDetailsSpan> {getName(memo[0]?.ownerId)}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
                 <MemoDetailsParagraph variant="h5">
-                  To: <MemoDetailsSpan> {getName(memo[0]?.recipient[0]?.recipientId)}</MemoDetailsSpan>
+                  To: <MemoDetailsSpan> {getName(memo[0]?.recipientId)}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
 
                 <Stack sx={{ marginTop: '0px !important' }}>
@@ -208,7 +220,7 @@ function MemoDetails() {
                     memo[0]?.copies?.map((copy, index) => (
                       <Stack direction={'row'} alignItems="center">
                         <MemoDetailsParagraph>{`CC${index + 1}:`} </MemoDetailsParagraph>
-                        <MemoDetailsSpan>{getName(copy?.recipientId)}</MemoDetailsSpan>
+                        <MemoDetailsSpan>{getName(copy)}</MemoDetailsSpan>
                       </Stack>
                     ))
                   )}
@@ -242,29 +254,9 @@ function MemoDetails() {
                 margin: '3rem 1rem',
               }}
             >
-              <Document
-                className="custom-class-name-2"
-                file={memo[0]?.attachment}
-                onLoadSuccess={onDocumentLoadSuccess}
-                // loading
-              >
-                {numPages &&
-                  React.Children.toArray(
-                    [...new Array(numPages)].map((page, index) => (
-                      <>
-                        <Page
-                          canvasBackground="#f9f9f9"
-                          className="custom-class-name-1 "
-                          pageNumber={index + 1}
-                          scale={scale}
-                        />
-                        <p style={{ fontSize: '12px', textAlign: 'center' }}>
-                          Page {index + 1} of {numPages}
-                        </p>
-                      </>
-                    ))
-                  )}
-              </Document>
+              
+                     <p>DOCUMENT APPEARS HERE</p>    
+              
             </Grid>
             <Stack direction={'row'} sx={{ mt: '3rem' }} alignItems="center" spacing={4} width="100%">
               <Typography
@@ -348,8 +340,8 @@ function MemoDetails() {
                     SelectProps={{
                       native: true,
                     }}
-                    value={data?.action}
-                    name="action"
+                    value={data?.status}
+                    name="status"
                     onChange={(e) => handleFormChange(e.target)}
                   >
                     <option value="">Select action</option>
@@ -359,17 +351,25 @@ function MemoDetails() {
                   </GeneralInput>
                 </Stack>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={12}>
                 <Stack>
                   <InputLabel id="date">Remarks</InputLabel>
-                  <GeneralInput
-                    variant="outlined"
-                    fullWidth
-                    placeholder="Enter remark"
-                    value={data?.remarks}
+                  
+                <TextField
+                  multiline
+                  rows={8}
+                  required
+                  variant="outlined"
+                  fullWidth
+                   value={data?.remarks}
                     name="remarks"
                     onChange={(e) => handleFormChange(e.target)}
-                  />
+                  
+               //   onChange={(e) => handleFormChange(e.target)}
+                  // {...register('memoTitle')}
+                />
+
+
                 </Stack>
               </Grid>
               <Grid
@@ -388,6 +388,82 @@ function MemoDetails() {
             </Grid>
           </Stack>
         </HeadCard>
+         <Container sx={{ my: 10 }}>
+        
+        <Block title="Memo Trail">
+           <Timeline position="">
+            {TIMELINES.map((item) => (
+              <TimelineItem key={item._id}>
+                <TimelineOppositeContent>
+                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                    {item.ownerId===user?.user?.staffId?(
+                 
+
+                  <Typography variant="body2" sx={{ color: 'success' }}>
+                    {memo[0].updatedAt}
+                  </Typography>
+                  ):(
+                      <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.body}
+                    </Typography>
+                    
+                       
+                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      View
+                    </Button>
+                     
+                      
+                    
+                  </Paper>
+                  )}
+                  
+                 
+                  </Typography>
+                </TimelineOppositeContent>
+
+
+                <TimelineSeparator>
+                  <TimelineDot color={item.color} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  {item.ownerId===user?.user?.staffId?(
+                  <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.body}
+                    </Typography>
+                    
+                       
+                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      View
+                    </Button>
+                     
+                  </Paper>
+                  ):(
+                     <Typography variant="body2" sx={{ color: 'primary' }}>
+                     {memo[0].updatedAt}
+                  </Typography>
+                  )}
+                  
+                </TimelineContent>
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </Block>
+      </Container>
       </Wrapper>
     </>
   );
