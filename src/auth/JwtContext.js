@@ -140,8 +140,12 @@ try {
     if (response.status === 200 || response.status === 201) {
       const data = await response.data;
       // Save token to local storage
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+
+    localStorage.setItem('token', JSON.stringify(response?.data?.token));
+    localStorage.setItem('user', JSON.stringify(response?.data));
+
+    //  localStorage.setItem('authToken', data.token);
+    //  localStorage.setItem('user', JSON.stringify(data.user));
       console.log("this is the token being saved to loa=calsto",JSON.parse(localStorage.getItem('user')))
     
      // Redirect to login page
@@ -213,7 +217,7 @@ try {
    // });
  
     // Clear token from local storage
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
     // Redirect to login page
     window.location.href = '/login';
 
