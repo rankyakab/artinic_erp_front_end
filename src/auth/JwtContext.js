@@ -141,12 +141,12 @@ try {
       const data = await response.data;
       // Save token to local storage
       localStorage.setItem('authToken', data.token);
-      localStorage.setItem('user', data.user);
-      // console.log(data.token)
+      localStorage.setItem('user', JSON.stringify(data.user));
+      console.log("this is the token being saved to loa=calsto",JSON.parse(localStorage.getItem('user')))
       dispatch({
       type: 'LOGIN',
       payload: {
-        ...data.user,
+        user:data.user,
       },
     });
      // Redirect to login page
