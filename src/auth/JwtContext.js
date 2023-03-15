@@ -143,12 +143,7 @@ try {
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       console.log("this is the token being saved to loa=calsto",JSON.parse(localStorage.getItem('user')))
-      dispatch({
-      type: 'LOGIN',
-      payload: {
-        ...data.user,
-      },
-    });
+    
      // Redirect to login page
     window.location.href = '/dashboard/one';
     // navigate('/dashboard/one');
