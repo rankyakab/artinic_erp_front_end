@@ -141,11 +141,12 @@ try {
       const data = await response.data;
       // Save token to local storage
       localStorage.setItem('authToken', data.token);
+      localStorage.setItem('user', data.user);
       // console.log(data.token)
       dispatch({
       type: 'LOGIN',
       payload: {
-        user:data.user,
+        ...data.user,
       },
     });
      // Redirect to login page

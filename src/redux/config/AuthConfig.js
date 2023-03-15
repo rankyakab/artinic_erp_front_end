@@ -3,6 +3,10 @@ const API_ROUTES = {
     route: '/auth/login',
     method: 'post',
   },
+   logout: {
+    route: '/auth/logout',
+    method: 'post',
+  },
 };
 
 export { API_ROUTES };

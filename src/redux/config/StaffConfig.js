@@ -7,6 +7,10 @@ const API_ROUTES = {
     route: '/staff/',
     method: 'get',
   },
+   staffLogout: {
+    route: '/staff/logout',
+    method: 'get',
+  },
 
   covertStaffToUser: {
     route: '/staff/user/',
