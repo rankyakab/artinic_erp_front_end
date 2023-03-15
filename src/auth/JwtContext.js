@@ -146,7 +146,7 @@ try {
       dispatch({
       type: 'LOGIN',
       payload: {
-        user:data.user,
+        ...data.user,
       },
     });
      // Redirect to login page

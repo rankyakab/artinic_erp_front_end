@@ -1,14 +1,14 @@
 import * as AuthTypes from '../types/AuthTypes';
 
 // const user = JSON.parse(localStorage.getItem('user'));
-const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {};
+// const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {};
 
 const initialState = {
   loading: false,
   api_error: '',
   loggedIn:'',
   // user: user ? user : {},
-  user,
+  user:{},
 };
 
 const reducer = (state = initialState, action) => {
