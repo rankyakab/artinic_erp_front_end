@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import moment from 'moment';
 import { alpha } from '@mui/material/styles';
-import {  Paper, Container, Typography , Stack,  Grid, TextField, FormHelperText, Button as MuButton } from '@mui/material';
+import {  Paper, Container, Typography , Stack,  Grid, TextField, FormHelperText,Badge, Button as MuButton } from '@mui/material';
 // import { Stack, StackTypeMap } from '@material-ui/core';
 import {
   Timeline,
@@ -14,6 +14,8 @@ import {
   TimelineConnector,
   TimelineOppositeContent,
 } from '@mui/lab';
+import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { useForm, useFieldArray} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -103,7 +105,7 @@ const UpdateMemo = () => {
 
 const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
-// console.log(TIMELINES)
+ console.log(" Memo trail is here",TIMELINES)
  //  console.log(moment(memo[0]?.createdAt).format('L'));
 
   // console.log(memo[0]?.ownerId);
@@ -254,23 +256,23 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
 
               <Stack>
-                <InputLabel id="memo_title">
-                  Memo title <span style={{ color: 'red' }}>*</span>{' '}
-                </InputLabel>
-                
-                {errors?.memoTitle?.message && <FormHelperText error>{errors?.memoTitle?.message}</FormHelperText>}
-                <GeneralInput
-                  required
-                  variant="outlined"
-                  fullWidth
-                  value= {memoData.memoTitle}
-                  placeholder="Enter title"
-                  name="memoTitle"
-                   {...register('memoTitle')}
-                  
-                 onChange={(e) => handleFormChange(e.target)}
-                  // {...register('memoTitle')}
-                />
+                      <InputLabel id="memo_title">
+                        Memo title <span style={{ color: 'red' }}>*</span>{' '}
+                      </InputLabel>
+                      
+                      {errors?.memoTitle?.message && <FormHelperText error>{errors?.memoTitle?.message}</FormHelperText>}
+                      <GeneralInput
+                        required
+                        variant="outlined"
+                        fullWidth
+                        value= {memoData.memoTitle}
+                        placeholder="Enter title"
+                        name="memoTitle"
+                        {...register('memoTitle')}
+                        
+                      onChange={(e) => handleFormChange(e.target)}
+                        // {...register('memoTitle')}
+                      />
               </Stack>
 
 
@@ -333,6 +335,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                 type="file"
               />
             </MuButton>
+            {memoData?.status==="pending approval" && (        
             <button
               style={{
                 width: '31.5%',
@@ -347,7 +350,8 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
               type="submit"
             >
               {loading ? 'Loading...' : 'Send Memo'}
-            </button>
+            </button>)}
+ 
           </Stack>
 
           
@@ -357,16 +361,35 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
         
         <Block title="Memo Trail">
            <Timeline position="">
+            
             {TIMELINES.map((item) => (
-              <TimelineItem key={item._id}>
+              
+                 <TimelineItem key={item._id} >
+                  
                 <TimelineOppositeContent>
+                  
+                 
                   <Typography variant="body2" sx={{ color: 'primary' }}>
                     {item.ownerId===user?.user?.staffId?(
                  
-
+                  <>
+                  <Badge color="secondary" badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      {item.status}
+                  
+                  </Badge>
                   <Typography variant="body2" sx={{ color: 'success' }}>
-                    {memo[0].updatedAt}
+                    <Badge color="secondary" badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color="primary" />
+                     {memo[0].updatedAt}
+                  
+                  </Badge>
+                    
                   </Typography>
+                  </>
+                  
                   ):(
                       <Paper
                     sx={{
@@ -374,9 +397,12 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.body}
+                      {item.status}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.remark.toUpperCase()}
                     </Typography>
                     
                        
@@ -406,9 +432,9 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.body}
+                      {item.memoBody}
                     </Typography>
                     
                        
@@ -418,14 +444,35 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                      
                   </Paper>
                   ):(
-                     <Typography variant="body2" sx={{ color: 'primary' }}>
+                     
+                  <>
+                  <Badge color="secondary" badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      {item.status}
+                  
+                  </Badge>
+                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                    <Badge color="secondary" badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color="primary" />
                      {memo[0].updatedAt}
+                  
+                  </Badge>
+                      
+                     
+
                   </Typography>
+                  </>
                   )}
                   
                 </TimelineContent>
               </TimelineItem>
+  
+            
+             
             ))}
+
           </Timeline>
         </Block>
       </Container>

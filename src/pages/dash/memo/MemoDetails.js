@@ -14,12 +14,14 @@ import {
   TimelineOppositeContent,
 } from '@mui/lab';
 import { alpha } from '@mui/material/styles';
+import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 // import { Document, Page, pdfjs } from 'react-pdf';
 // import pdfMake from 'pdfmake/build/pdfmake';
 // import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 // import pdfFonts from 'pdfmake/build/vfs_fonts';
 import PreviewIcon from '@mui/icons-material/Preview';
-import {   Stack,TextField, Paper, Container, Grid,  Typography } from '@mui/material';
+import {   Stack,TextField, Paper, Container, Grid,Badge,  Typography } from '@mui/material';
 // import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
 import Back from '../../../assets/images/arrow_left.svg';
 // import ReliabuildInvoiceTemp from '../../../assets/images/ReliabuildInvoiceTemp.png';
@@ -400,19 +402,37 @@ const [memoData, setMemoData] = useState({
           </Stack>
         </HeadCard>
          <Container sx={{ my: 10 }}>
-        
-        <Block title="Memo Trail">
+               <Block title="Memo Trail">
            <Timeline position="">
+            
             {TIMELINES.map((item) => (
-              <TimelineItem key={item._id}>
+              
+                 <TimelineItem key={item._id} >
+                  
                 <TimelineOppositeContent>
+                  
+                 
                   <Typography variant="body2" sx={{ color: 'primary' }}>
                     {item.ownerId===user?.user?.staffId?(
                  
-
+                  <>
+                  <Badge color="secondary" badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      {item.status}
+                  
+                  </Badge>
                   <Typography variant="body2" sx={{ color: 'success' }}>
-                    {memo[0].updatedAt}
+                    <Badge color="secondary" badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color="primary" />
+                     {memo[0].updatedAt}
+                  
+                  </Badge>
+                    
                   </Typography>
+                  </>
+                  
                   ):(
                       <Paper
                     sx={{
@@ -420,9 +440,12 @@ const [memoData, setMemoData] = useState({
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.body}
+                      {item.status}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.remark.toUpperCase()}
                     </Typography>
                     
                        
@@ -452,9 +475,9 @@ const [memoData, setMemoData] = useState({
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle}</Typography>
+                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.body}
+                      {item.memoBody}
                     </Typography>
                     
                        
@@ -464,14 +487,35 @@ const [memoData, setMemoData] = useState({
                      
                   </Paper>
                   ):(
-                     <Typography variant="body2" sx={{ color: 'primary' }}>
+                     
+                  <>
+                  <Badge color="secondary" badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      {item.status}
+                  
+                  </Badge>
+                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                    <Badge color="secondary" badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color="primary" />
                      {memo[0].updatedAt}
+                  
+                  </Badge>
+                      
+                     
+
                   </Typography>
+                  </>
                   )}
                   
                 </TimelineContent>
               </TimelineItem>
+  
+            
+             
             ))}
+
           </Timeline>
         </Block>
       </Container>

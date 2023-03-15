@@ -25,8 +25,8 @@ export const loginUser = (data, navigate, setEmail, setPassword) => async (dispa
   //  console.log(res);
   //  console.log(data);
 
-    localStorage.setItem('token', JSON.stringify(res?.data?.token));
-    localStorage.setItem('user', JSON.stringify(res?.data));
+  //  localStorage.setItem('token', JSON.stringify(res?.data?.token));
+ //   localStorage.setItem('user', JSON.stringify(res?.data));
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
