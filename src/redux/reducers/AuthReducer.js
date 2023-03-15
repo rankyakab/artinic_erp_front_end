@@ -1,6 +1,7 @@
 import * as AuthTypes from '../types/AuthTypes';
 
 // const user = JSON.parse(localStorage.getItem('user'));
+// const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {};
 const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {};
 
 const initialState = {
@@ -23,7 +24,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn:true,
-        user: action.payload,
+       user: {...action.payload},
       };
 
       

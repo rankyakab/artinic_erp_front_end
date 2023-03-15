@@ -6,7 +6,7 @@ export const MAP_API_KEY = 'unknown';
 
 // const token =
 //   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhbmt5YWthYnpAZ21haWwuY29tIiwiX2lkIjoiNjNiOTYyNDM0NDU2ZDFkNjUzZjcwNzNjIiwiaWF0IjoxNjczMDkzOTIwfQ.bY4UZTx-Xcz6YUb8FYVaP3SIPd_auyb0QcPg7Jk0OEs';
-const token = JSON.parse(localStorage.getItem('token'));
+const token = JSON.parse(localStorage.getItem('authToken'));
 
 export const httpRequest = async (params) => {
   try {
