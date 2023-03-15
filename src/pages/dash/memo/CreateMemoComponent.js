@@ -25,7 +25,7 @@ import { TablePagination } from '../../../utils/memoPaginationUtil';
 // import BackArrow from '../../../assets/images/memoBackArrow.png';
 import '../../../components/memo/memo.css';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
-import { Wrapper, GeneralInput } from '../styles';
+import { Wrapper, GeneralInput } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
 import { getAllVoucher } from '../../../redux/actions/VoucherAction';
 

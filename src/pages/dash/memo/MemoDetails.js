@@ -53,11 +53,13 @@ function MemoDetails() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
+/*
   const [data, setData] = useState({
     status: '',
     remarks: '',
   });
+
+  */
 const { user } = useSelector((state) => state.auth);
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1.0);
@@ -104,7 +106,7 @@ const { user } = useSelector((state) => state.auth);
  const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
   const handleFormChange = ({ name, value }) => {
-    setData((prev) => ({
+    setMemoData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -117,7 +119,16 @@ const { user } = useSelector((state) => state.auth);
     remarks: '',
     _id: memo[0]?._id,
   });
-
+const [memoData, setMemoData] = useState({
+    // memoDate: moment(memo[0]?.createdAt).format('L'),
+    memoTitle: memo[0]?.memoTitle,
+    memoBody: memo[0]?.memoBody,
+    ownerId: memo[0]?.ownerId,
+    memoId: params?.id,
+    attachment:"",
+    status:"",
+    remark:""
+  });
   const memoCopies = memo[0]?.copies;
 
   // console.log(memoCopies);
@@ -132,7 +143,7 @@ const { user } = useSelector((state) => state.auth);
 
       memoId: params?.id,
       ownerId: user?.user?.staffId,
-      ...data,
+      ...memoData,
     };
     // console.log(selected);
     dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
@@ -340,7 +351,7 @@ const { user } = useSelector((state) => state.auth);
                     SelectProps={{
                       native: true,
                     }}
-                    value={data?.status}
+                    value={memoData?.status}
                     name="status"
                     onChange={(e) => handleFormChange(e.target)}
                   >
@@ -361,7 +372,7 @@ const { user } = useSelector((state) => state.auth);
                   required
                   variant="outlined"
                   fullWidth
-                   value={data?.remarks}
+                   value={memoData?.remarks}
                     name="remarks"
                     onChange={(e) => handleFormChange(e.target)}
                   

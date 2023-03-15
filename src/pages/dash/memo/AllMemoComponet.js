@@ -183,20 +183,23 @@ function AllMemoComponet() {
                         )}
                       </TableCell> */}
                       <TableCell>
-                        <Action
+                        {data.recipientId===user.staffId ?(<Action
                           onClick={() => {
                             navigate(`/dashboard/memo-details/${data?._id}`);
                           }}
                         >
                           View More
-                        </Action>
-                        <Action
+                        </Action>):(
+                           <Action
                           onClick={() => {
                             navigate(`/dashboard/update-memo/${data?._id}`);
                           }}
                         >
                           Update Memo
                         </Action>
+                        )}
+                        
+                       
                       </TableCell>
                     </TableRow>
                   ))}

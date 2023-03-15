@@ -77,6 +77,7 @@ const [memoData, setMemoData] = useState({
     attachment: null,
     ownerId: user?.user?.staffId,
     recipientId: ""
+    
   });
  
 const handleFormChange = ({ name, value }) => {

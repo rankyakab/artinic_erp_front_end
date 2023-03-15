@@ -204,7 +204,7 @@ export const updateMemoStatus =
    // console.log(data);
    // console.log(isFormData);
     
-      
+   
     // const finalData = {
     //   ...data,
     //   completion: 'true',
@@ -277,7 +277,7 @@ export const sendMemoActionRedo = (data) => async (dispatch) => {
   }
 };
 export const sendMemoAction = (data) => async (dispatch) => {
-  console.log(data);
+ // console.log(data);
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({

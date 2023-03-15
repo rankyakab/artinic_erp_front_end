@@ -21,13 +21,13 @@ import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import PreviewIcon from '@mui/icons-material/Preview';
-
 import { Helmet } from 'react-helmet-async';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import { FormCard, Wrapper, Title, GeneralInput, InputLabel } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
 // import Iconify from '../../../components/iconify';
-import {  updateMemo } from '../../../redux/actions/MemoAction';
+
+import { updateMemoStatus } from '../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -74,23 +74,15 @@ const UpdateMemo = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const memoCopies = memo[0]?.copies?.map((copy) => ({
-    action: 'None',
-    recipientId: copy.recipientId,
-    status: 'true',
-    remarks: '',
-    _id: copy?._id,
-  }));
 
   const schema = yup.object().shape({
     // memoDate: yup.date().required(),
-    refId: yup.string().required(),
+    // refId: yup.string().required(),
     memoTitle: yup.string().required(),
     memoBody: yup.string().required(),
-    memoType: yup.string().required(),
-    recipient: yup.object().required(),
-    ownerId: yup.string().required(),
-    recipientId: yup.string().required(),
+ //   memoType: yup.string().required(),
+ //   recipient: yup.object().required(),
+   // ownerId: yup.string().required(),
   });
 
   const {
@@ -99,10 +91,7 @@ const UpdateMemo = () => {
     control,
     handleSubmit,
   } = useForm({
-    defaultValues: {
-      resolver: yupResolver(schema),
-      copies: memoCopies,
-    },
+   resolver: yupResolver(schema)
   });
 
   const { fields, append, prepend, remove } = useFieldArray({
@@ -114,16 +103,23 @@ const UpdateMemo = () => {
 
 const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
-console.log(TIMELINES)
+// console.log(TIMELINES)
  //  console.log(moment(memo[0]?.createdAt).format('L'));
 
   // console.log(memo[0]?.ownerId);
+    const [memoTitle, setMemoTitle] = useState('');
+
+
 
   const [memoData, setMemoData] = useState({
     // memoDate: moment(memo[0]?.createdAt).format('L'),
     memoTitle: memo[0]?.memoTitle,
     memoBody: memo[0]?.memoBody,
     ownerId: memo[0]?.ownerId,
+    memoId: params?.id,
+    attachment:"",
+    status:"",
+    remark:""
   });
 
   const [recipient, setRecipient] = useState({
@@ -139,13 +135,28 @@ console.log(TIMELINES)
       [name]: value,
     }));
   };
+  
 
   const handleFormChange = ({ name, value }) => {
+    
     setMemoData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+  const handleTitleChange = (title) => {
+   // console.log({name, value})
+    setMemoTitle(title );
+  };
+   function handleFileUpload(event) {
+    const file = event.target.files[0];
+    setMemoData((prevFormData) => ({
+      ...prevFormData,
+      attachment: file,
+    }));
+  }
+
+
 
   const handleFileDrop = (e) => {
     const { files } = e.target;
@@ -154,12 +165,19 @@ console.log(TIMELINES)
   };
 
   const handleUpdateMemo = (data) => {
+      const selected = {
+     
+      ...memoData,
+    };
+
+   console.log("these are captured with data",selected)
+    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+    /*
     const formData = new FormData();
 
-    console.log(filters);
     const selected = {
+      ...data,
       _id: params?.id,
-      copies: filters?.name ? JSON.stringify(data?.copies) : data?.copies,
       ...memoData,
       recipient: filters?.name ? JSON.stringify(recipient) : recipient,
     };
@@ -182,6 +200,8 @@ console.log(TIMELINES)
         filters?.name ? (isFormData = true) : (isFormData = false)
       )
     );
+
+    */
   };
 
   const handleClick = () => {
@@ -197,22 +217,22 @@ console.log(TIMELINES)
   return (
     <>
       <SuccessCard
-        open={open}
-        handleClose={handleClose}
-        message={successMessage}
-        btnText={'Continue'}
-        handleClick={handleClick}
+          open={open}
+          handleClose={handleClose}
+          message={successMessage}
+          btnText={'Continue'}
+          handleClick={handleClick}
       />
       <ErrorCard
-        open={error}
-        handleClose={handleClose}
-        message={errorMessage}
-        btnText={'Continue'}
-        handleClick={handleClick}
+                open={error}
+                handleClose={handleClose}
+                message={errorMessage}
+                btnText={'Continue'}
+                handleClick={handleClick}
       />
       <Helmet>Update Memo | Relia Energy</Helmet>
       <Wrapper>
-        <DashboardHeader title={'Update Memo'} text={'Update and send memos to designated offices.'} />
+        <DashboardHeader title={'Update Memo'} text={'Update and send memos to  the designated  offices.'} />
         <Stack>
           <Typography
             sx={{ color: 'primary.main', cursor: 'pointer', display: 'flex' }}
@@ -226,58 +246,66 @@ console.log(TIMELINES)
         </Stack>
 
         <FormCard
-          onSubmit={handleSubmit((data) => {
-           // console.log(data);
-            handleUpdateMemo(data);
-          })}
+          onSubmit={handleSubmit(  handleUpdateMemo)}
         >
-          <Title>Update Memo</Title>
+           <Title>Update Memo (Sent to:)</Title>
           <Grid container sx={{ mt: 4 }}>
             <Grid item xs={12} md={12}>
+
+
               <Stack>
                 <InputLabel id="memo_title">
                   Memo title <span style={{ color: 'red' }}>*</span>{' '}
                 </InputLabel>
+                
                 {errors?.memoTitle?.message && <FormHelperText error>{errors?.memoTitle?.message}</FormHelperText>}
                 <GeneralInput
                   required
                   variant="outlined"
                   fullWidth
+                  value= {memoData.memoTitle}
                   placeholder="Enter title"
-                  value={memoData?.memoTitle}
                   name="memoTitle"
-                  required
-                  onChange={(e) => handleFormChange(e.target)}
                    {...register('memoTitle')}
+                  
+                 onChange={(e) => handleFormChange(e.target)}
+                  // {...register('memoTitle')}
                 />
               </Stack>
+
+
+
             </Grid>
 
-          
           </Grid>
+         
 
           <Grid container sx={{ mt: 4 }}>
             <Grid item xs={12} md={12}>
               <Stack>
+                {errors?.memoBody?.message && <FormHelperText error>{errors?.memoBody?.message}</FormHelperText>}
+               
                 <InputLabel id="memo_body">
                   Memo body<span style={{ color: 'red' }}>*</span>
                 </InputLabel>
-                <TextField
-                  name="memoBody"
-                  // placeholder="Enter subject"
+               <TextField
                   multiline
                   rows={8}
-                  defaultValue="Enter subject"
-                  // variant="filled"
-                  value={memoData?.memoBody}
-                  name="memoBody"
                   required
-                  onChange={(e) => handleFormChange(e.target)}
-                  {...register('memoBody')}
-                  sx={{
-                    background: '#fff',
-                  }}
+                  variant="outlined"
+                  fullWidth
+                  value= {memoData.memoBody}
+                ///  placeholder="Enter title"
+                  name="memoBody"
+                   {...register('memoBody')}
+                  
+                 onChange={(e) => handleFormChange(e.target)}
+                  // {...register('memoTitle')}
                 />
+
+
+
+
               </Stack>
             </Grid>
           </Grid>
@@ -289,28 +317,22 @@ console.log(TIMELINES)
             }}
             spacing={4}
           >
+          {errors.attachment && <p>{errors.attachment.message}</p>}
+
             <MuButton variant="contained" component="label">
-              {filters?.name ? filters?.name : 'Add Attachement'}
+              {memoData?.attachment ? memoData?.attachment?.name  : 'Add Attachement'}
               <input
                 hidden
-                onChange={(e) => handleFileDrop(e)}
+                {...register('attachment')}
+            //   onChange={(e) => handleFileDrop(e)}
+              onChange={handleFileUpload}
                 ref={fileInputRef}
-                name="filing"
+                name="attachment"
                 accept="image/*, .pdf, .doc"
                 multiple
                 type="file"
               />
             </MuButton>
-         
-          </Stack>
-          {memo[0].status!=="pending approval"?(<Stack
-            direction="row"
-            sx={{
-              mt: '71px',
-            }}
-            spacing={4}
-          >
-          
             <button
               style={{
                 width: '31.5%',
@@ -324,18 +346,11 @@ console.log(TIMELINES)
               }}
               type="submit"
             >
-              {loading ? 'Loading...' : 'Update Memo'}
+              {loading ? 'Loading...' : 'Send Memo'}
             </button>
-          </Stack>) :(<Stack
-            direction="row"
-            sx={{
-              mt: '71px',
-            }}
-            spacing={4}
-          >
+          </Stack>
+
           
-            <p> You can only update memo after it must have been reviewed</p>
-          </Stack>) }
           
         </FormCard>
         <Container sx={{ my: 10 }}>

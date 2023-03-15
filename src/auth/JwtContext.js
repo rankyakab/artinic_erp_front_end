@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer, useCallback } from 'react';
+import { createContext,useState, useEffect, useReducer, useCallback } from 'react';
+import {useNavigate } from 'react-router-dom';
 // utils
 import axios from '../utils/axios';
 //
 import { isValidToken, setSession } from './utils';
-
+import { httpRequest } from '../helpers/index';
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -28,11 +29,13 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === 'LOGIN') {
+    console.log("this is context user", action.payload.user)
     return {
       ...state,
       isAuthenticated: true,
       user: action.payload.user,
     };
+
   }
   if (action.type === 'REGISTER') {
     return {
@@ -64,7 +67,9 @@ AuthProvider.propTypes = {
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+const [errorMessage, setErrorMessage] = useState("");
 
+/*
   const initialize = useCallback(async () => {
     try {
       const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
@@ -107,16 +112,70 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     initialize();
   }, [initialize]);
-
+*/
   // LOGIN
+  
   const login = async (email, password) => {
+    
+
+     
+try {
+    // Send request to authentication API
+    const response = await httpRequest( {
+      
+      method: 'POST',
+     
+      data: {
+        email,
+        password
+      },
+       url:'/auth/login',
+       needToken:false,
+      isFormData: false,
+      header: false
+      
+    });
+
+    // Handle response from API
+    if (response.status === 200 || response.status === 201) {
+      const data = await response.data;
+      // Save token to local storage
+      localStorage.setItem('authToken', data.token);
+      // console.log(data.token)
+      dispatch({
+      type: 'LOGIN',
+      payload: {
+        user:data.user,
+      },
+    });
+     // Redirect to login page
+    window.location.href = '/dashboard/one';
+    // navigate('/dashboard/one');
+    //  console.log("logged in user",data);
+      // dispatch({type:"LOGIN",data});
+      // Redirect to main page
+   //   window.location.href = '/dashboard/one';
+    } else {
+      console.log("User Authentication failed",response.error)
+      const errorData = "User Authentication failed";
+      setErrorMessage(errorData);
+    }
+
+    } catch (error) {
+  console.log("User Authentication failed 3",error);
+ // dispatch(setIsLoading(false));
+  } finally {
+   // dispatch(setIsLoading(false));
+   console.log("it didnt happen")
+  }
+    /*
     console.log(email, password);
     const response = await axios.post('/api/account/login', {
       email,
       password,
     });
 
-    console.log(response);
+    // console.log(response);
     const { accessToken, user } = response.data;
 
     setSession(accessToken);
@@ -127,6 +186,7 @@ export function AuthProvider({ children }) {
         user,
       },
     });
+    */
   };
 
   // REGISTER
@@ -150,21 +210,30 @@ export function AuthProvider({ children }) {
   };
 
   // LOGOUT
-  const logout = async () => {
-    setSession(null);
-    dispatch({
-      type: 'LOGOUT',
-    });
+  const logout = () => {
+  //  setSession(null);
+   // dispatch({
+    //  type: 'LOGOUT',
+   // });
+ 
+    // Clear token from local storage
+    localStorage.removeItem('authToken');
+    // Redirect to login page
+    window.location.href = '/login';
+
   };
 
   return (
     <AuthContext.Provider
       value={{
-        ...state,
+        state,
         method: 'jwt',
         login,
         logout,
         register,
+        errorMessage,
+        dispatch
+        
       }}
     >
       {children}

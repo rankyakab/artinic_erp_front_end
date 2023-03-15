@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -25,8 +25,9 @@ import {
 import ReliaLogo from '../../components/logo';
 import Iconify from '../../components/iconify';
 import Energy from '../../assets/images/energy.svg';
-// import {AuthContext} from '../../auth/JwtContext';
- import { loginUser } from '../../redux/actions/AuthAction';
+ import {useAuthContext} from '../../auth/useAuthContext';
+// auth
+// import { loginUser } from '../../redux/actions/AuthAction';
 
 // const LOGIN_URL = '/auth/login';
 
@@ -35,11 +36,13 @@ import Energy from '../../assets/images/energy.svg';
 export default function LoginPage() {
   
   const navigate = useNavigate();
-
+  const { login ,state} = useAuthContext();
  // const { setAuth } = useContext(AuthContext);
 
 
   const dispatch = useDispatch();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
    const { loading, loggedIn } = useSelector((state) => state.auth);
 
   const userRef = useRef();
@@ -52,21 +55,37 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-   const isLoggedIn = (status)=>{
+   const checkLoggedIn = (status)=>{
+
     if(status){
       navigate('/dashboard/one');
     }
    }
 
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      setIsLoggedIn(true);
+      
+      checkLoggedIn(true);
+    }
+   
     userRef.current.focus();
   }, []);
+  
 
-  useEffect(()=>{
-    isLoggedIn(loggedIn);
-  }, []);
+  
+  
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
 
-
+    if (token) {
+      setIsLoggedIn(true);
+      
+      // checkLoggedIn(isLoggedIn);
+    }
+  }, [state]);
 
   useEffect(() => {
     setErrMsg('');
@@ -77,6 +96,8 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
  e?.preventDefault();
+ login(email, password)
+/*
     try {
       dispatch(loginUser({ email, password }, navigate, setEmail, setPassword));
     } catch (err) {
@@ -92,7 +113,7 @@ export default function LoginPage() {
       }
       errRef.current.focus();
     }
-   
+   */
     
   };
 
