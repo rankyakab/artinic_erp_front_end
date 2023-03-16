@@ -37,7 +37,7 @@ function AllMemoComponet() {
       (memo) => 
         memo?.copies?.some( copy => copy===user?.user?.staffId) || memo?.recipientId === user?.user?.staffId ||  memo?.recipientId===user?.user?._id || memo?.ownerId=== user?.user?.staffId);
     setLoggedInUserMemo(result);
-  };
+  };     
 
 
 
