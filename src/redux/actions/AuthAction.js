@@ -32,7 +32,7 @@ export const loginUser = (data, navigate, setEmail, setPassword) => async (dispa
       dispatch(setIsLoading(false));
       dispatch({
         type: AuthTypes?.LOGIN,
-        payload: res?.data,
+        payload: res?.data.user,
       }); 
 
       // setSuccess(true);
@@ -42,8 +42,8 @@ export const loginUser = (data, navigate, setEmail, setPassword) => async (dispa
     }
   } catch (error) {
   console.log(error);
-  dispatch(setIsLoading(false));
+  dispatch(setIsLoading(false)); 
   } finally {
-    dispatch(setIsLoading(false));
+    dispatch(setIsLoading(false)); 
   }
 };

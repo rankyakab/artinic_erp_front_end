@@ -146,7 +146,7 @@ try {
 
     //  localStorage.setItem('authToken', data.token);
     //  localStorage.setItem('user', JSON.stringify(data.user));
-      console.log("this is the token being saved to loa=calsto",JSON.parse(localStorage.getItem('user')))
+    //  console.log("this is the token being saved to loa=calsto",JSON.parse(localStorage.getItem('user')))
     
      // Redirect to login page
     window.location.href = '/dashboard/one';
@@ -218,6 +218,8 @@ try {
  
     // Clear token from local storage
     localStorage.removeItem('token');
+    // Clear token from local storage
+    localStorage.removeItem('user');
     // Redirect to login page
     window.location.href = '/login';
 

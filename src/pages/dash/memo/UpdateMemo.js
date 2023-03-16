@@ -29,7 +29,7 @@ import { FormCard, Wrapper, Title, GeneralInput, InputLabel } from '../../../sty
 import Back from '../../../assets/images/arrow_left.svg';
 // import Iconify from '../../../components/iconify';
 
-import { updateMemoStatus } from '../../../redux/actions/MemoAction';
+import { updateMemoStatus , getSingleMemo} from '../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
@@ -42,8 +42,8 @@ const UpdateMemo = () => {
   const fileInputRef = useRef(null);
   const [filters, setFilters] = useState({});
   const [staffName, setStaffName] = useState('');
-
-  const { loading, allMemo } = useSelector((state) => state?.memo);
+    const params = useParams();
+  const { loading, memo } = useSelector((state) => state?.memo);
 
   const { staffs } = useSelector((state) => state?.staff);
 
@@ -55,12 +55,12 @@ const UpdateMemo = () => {
 
     setStaffName(capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName));
 
-    return <p>{filterStaff[0]?.firstName}</p>;
+    return filterStaff[0]?.firstName;
   };
 
-  const params = useParams();
+  
 
-  const memo = allMemo?.filter((item) => item?._id === params?.id);
+ //  const memo = allMemo?.filter((item) => item?._id === params?.id);
 
    // console.log("this is the memo",memo);
 
@@ -103,7 +103,7 @@ const UpdateMemo = () => {
 
   // ----------------------------------------------------------------------
 
-const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
+const TIMELINES =memo?.trail ? memo?.trail: [];
 
  console.log(" Memo trail is here",TIMELINES)
  //  console.log(moment(memo[0]?.createdAt).format('L'));
@@ -115,9 +115,9 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
   const [memoData, setMemoData] = useState({
     // memoDate: moment(memo[0]?.createdAt).format('L'),
-    memoTitle: memo[0]?.memoTitle,
-    memoBody: memo[0]?.memoBody,
-    ownerId: memo[0]?.ownerId,
+    memoTitle: memo?.memoTitle,
+    memoBody: memo?.memoBody,
+    ownerId: memo?.ownerId,
     memoId: params?.id,
     attachment:"",
     status:"",
@@ -125,7 +125,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
   });
 
   const [recipient, setRecipient] = useState({
-    recipientId: memo[0]?.recipient?.[0]?.recipientId,
+    recipientId: memo?.recipient?.[0]?.recipientId,
     action: '',
     status: '',
     remarks: '',
@@ -174,6 +174,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
    console.log("these are captured with data",selected)
     dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+    
     /*
     const formData = new FormData();
 
@@ -212,7 +213,9 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
 
   useEffect(() => {
     dispatch(getAllStaffs());
-    getName(memo[0]?.ownerId);
+    dispatch(getSingleMemo(params.id));
+    getName(memo?.ownerId);
+
   }, []);
    
 
@@ -335,7 +338,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                 type="file"
               />
             </MuButton>
-            {memoData?.status==="pending approval" && (        
+            {memo.trail[memo.trail.length - 1].ownerId!==user.user.staffId && (        
             <button
               style={{
                 width: '31.5%',
@@ -383,7 +386,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color="primary" />
-                     {memo[0].updatedAt}
+                     {memo.updatedAt}
                   
                   </Badge>
                     
@@ -397,18 +400,14 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
+                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
+                   
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.status}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.remark.toUpperCase()}
+                      {item?.remarks?.toUpperCase()}
                     </Typography>
                     
                        
-                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      View
-                    </Button>
+                      
                      
                       
                     
@@ -432,7 +431,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
+                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
                       {item.memoBody}
                     </Typography>
@@ -456,7 +455,7 @@ const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color="primary" />
-                     {memo[0].updatedAt}
+                     {memo.updatedAt}
                   
                   </Badge>
                       

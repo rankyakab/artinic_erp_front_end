@@ -35,7 +35,7 @@ export const getAllMemo = () => async (dispatch) => {
   } finally {
     dispatch(setIsLoading(false));
   }
-};
+}; 
 
 export const getSingleMemo = (id) => async (dispatch) => {
   try {
@@ -46,13 +46,13 @@ export const getSingleMemo = (id) => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+    console.log("response of server",res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
       dispatch({
         type: MemoTypes?.GET_SINGLE_MEMO,
-        payload: res?.data?.memos,
+        payload: res?.data?.memo,
       });
     }
   } catch (error) {

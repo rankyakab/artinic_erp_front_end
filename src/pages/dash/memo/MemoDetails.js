@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Document, Page } from 'react-pdf';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 // Import { PDFDocument, PDFText, PDFTable, PDFTableRow, PDFTableColumn, PDFColumns, PDFColumn } from 'react-pdfmake';
@@ -26,7 +27,6 @@ import {   Stack,TextField, Paper, Container, Grid,Badge,  Typography } from '@m
 import Back from '../../../assets/images/arrow_left.svg';
 // import ReliabuildInvoiceTemp from '../../../assets/images/ReliabuildInvoiceTemp.png';
 import Invoice from '../../../assets/icons/Invoice.svg';
-
 import { Block } from '../../../sections/_examples/Block';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import {
@@ -38,8 +38,10 @@ import {
   MemoDetailsSpan,
   Wrapper,
 } from '../../../styles/main';
+
+// import { updateMemoStatus } from '../../../redux/actions/MemoAction';
 import { capitalize } from '../../../utils/formatNumber';
-import { updateMemoStatus } from '../../../redux/actions/MemoAction';
+import { updateMemoStatus , getSingleMemo} from '../../../redux/actions/MemoAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 
@@ -55,6 +57,7 @@ function MemoDetails() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [pageNumber, setPageNumber] = useState(1);
 /*
   const [data, setData] = useState({
     status: '',
@@ -63,26 +66,27 @@ function MemoDetails() {
 
   */
 const { user } = useSelector((state) => state.auth);
+  const { memo, loading } = useSelector((state) => state.memo);
+   const { staffs } = useSelector((state) => state.staff);
   const [numPages, setNumPages] = useState(null);
-  const [scale, setScale] = useState(1.0);
+  // const [scale, setScale] = useState(1.0);
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   };
 
-  const { allMemo, loading } = useSelector((state) => state.memo);
- // const { user } = useSelector((state) => state.auth);
+
 
     const getCcName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
 
    // console.log(filterStaff);
    // console.log(id);
-
-    return capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName);
+     // return "Hello dear";
+ return capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName);
 
   };
 
-  const { staffs } = useSelector((state) => state.staff);
+ 
 
  // console.log(staffs);
 
@@ -94,18 +98,21 @@ const { user } = useSelector((state) => state.auth);
    // console.log(filterStaff);
 
     return (
-      <p>
-        {capitalize(filterStaff[0]?.firstName)} {capitalize(filterStaff[0]?.lastName)}
-      </p>
+      
+        <>
+         { capitalize(filterStaff[0]?.firstName)} {capitalize(filterStaff[0]?.lastName)
+         }
+      </>
     );
   };
 
  // console.log(params);
+ // console.log("this is all memeo",allMemo)
 
-  const memo = allMemo?.filter((item) => item?._id === params?.id);
+ // const memo = allMemo?.filter((item) => item?._id === params?.id);
 
- // console.log(memo);
- const TIMELINES =memo[0]?.trail ? memo[0]?.trail: [];
+  console.log(memo);
+ const TIMELINES =memo?.trail ? memo?.trail: [];
 
   const handleFormChange = ({ name, value }) => {
     setMemoData((prev) => ({
@@ -113,25 +120,29 @@ const { user } = useSelector((state) => state.auth);
       [name]: value,
     }));
   };
+  /*
 
   const [recipient, setRecipient] = useState({
-    recipientId: memo[0]?.recipientId,
+    recipientId: memo?.recipientId,
     action: '',
     status: '',
     remarks: '',
-    _id: memo[0]?._id,
+    _id: memo?._id,
   });
+  */
 const [memoData, setMemoData] = useState({
     // memoDate: moment(memo[0]?.createdAt).format('L'),
-    memoTitle: memo[0]?.memoTitle,
-    memoBody: memo[0]?.memoBody,
-    ownerId: memo[0]?.ownerId,
+    memoTitle: memo?.memoTitle,
+    memoBody: memo?.memoBody,
+    ownerId: user?.user?.staffId,
     memoId: params?.id,
     attachment:"",
     status:"",
     remark:""
   });
-  const memoCopies = memo[0]?.copies;
+  
+  
+  // const memoCopies = memo?.copies;
 
   // console.log(memoCopies);
 
@@ -159,6 +170,12 @@ const [memoData, setMemoData] = useState({
   const handleClick = () => {
     handleClose();
   };
+   useEffect(() => {
+
+    dispatch(getSingleMemo(params.id));
+    
+  }, []);
+  
   return (
     <>
       <SuccessCard
@@ -177,7 +194,7 @@ const [memoData, setMemoData] = useState({
       />
       <Helmet>Memo Detail | Relia Energy</Helmet>
       <Wrapper>
-        <DashboardHeader title={'Client Invoice Details'} text={'View client’s invoice details'} icon={Invoice} />
+        <DashboardHeader title={'MEMO    Details'} text={'View Staff’s memo details'} icon={Invoice} />
         <Stack>
           <Typography
             sx={{ color: 'primary.main', cursor: 'pointer', display: 'flex', mt: '42px', mb: '32px' }}
@@ -216,21 +233,21 @@ const [memoData, setMemoData] = useState({
           </Document>
         </Box> */}
             <Stack spacing={6} sx={{ mb: '50px' }}>
-              <Typography variant="h4">{memo[0]?.memoType}</Typography>
+              <Typography variant="h4">{memo?.memoType}</Typography>
               <Stack spacing={4} sx={{ gap: '30px' }}>
                 <MemoDetailsParagraph variant="h5">
-                  Date: <MemoDetailsSpan>{moment(memo[0]?.createdAt).format('L')}</MemoDetailsSpan>
+                  Date: <MemoDetailsSpan>{moment(memo?.createdAt).format('L')}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
                 <MemoDetailsParagraph variant="h5">
-                  From: <MemoDetailsSpan> {getName(memo[0]?.ownerId)}</MemoDetailsSpan>
+                  From: <MemoDetailsSpan> {getName(memo?.ownerId)}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
                 <MemoDetailsParagraph variant="h5">
-                  To: <MemoDetailsSpan> {getName(memo[0]?.recipientId)}</MemoDetailsSpan>
+                  To: <MemoDetailsSpan> {getName(memo?.recipientId)}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
 
                 <Stack sx={{ marginTop: '0px !important' }}>
                   {React.Children.toArray(
-                    memo[0]?.copies?.map((copy, index) => (
+                    memo?.copies?.map((copy, index) => (
                       <Stack direction={'row'} alignItems="center">
                         <MemoDetailsParagraph>{`CC${index + 1}:`} </MemoDetailsParagraph>
                         <MemoDetailsSpan>{getName(copy)}</MemoDetailsSpan>
@@ -241,11 +258,11 @@ const [memoData, setMemoData] = useState({
 
                 <MemoDetailsParagraph>
                   Attachment:
-                  <MemoDetailsSpan>{memo[0]?.attachment === '' ? 'No' : 'Yes'}</MemoDetailsSpan>
+                  <MemoDetailsSpan>{memo?.attachment === '' ? 'No' : 'Yes'}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
                 <MemoDetailsParagraph>
                   Memo Message:
-                  <MemoDetailsSpan>{memo[0]?.memoBody}</MemoDetailsSpan>
+                  <MemoDetailsSpan>{memo?.memoBody}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
               </Stack>
             </Stack>
@@ -268,8 +285,13 @@ const [memoData, setMemoData] = useState({
               }}
             >
               
-                     <p>DOCUMENT APPEARS HERE</p>    
-              
+                    <Document
+        file={"https://www.gutenberg.org/files/42911/Bizet-Variations_Chromatiques_de_concert/Bizet-Variations_Chromatiques_de_concert_var_03_A4.pdf"}
+        onLoadSuccess={onDocumentLoadSuccess}
+      >
+        <Page pageNumber={pageNumber} />
+      </Document>  
+              <p>Page {pageNumber} of {numPages}</p>
             </Grid>
             <Stack direction={'row'} sx={{ mt: '3rem' }} alignItems="center" spacing={4} width="100%">
               <Typography
@@ -402,7 +424,7 @@ const [memoData, setMemoData] = useState({
           </Stack>
         </HeadCard>
          <Container sx={{ my: 10 }}>
-               <Block title="Memo Trail">
+         <Block title="Memo Trail">
            <Timeline position="">
             
             {TIMELINES.map((item) => (
@@ -426,7 +448,7 @@ const [memoData, setMemoData] = useState({
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color="primary" />
-                     {memo[0].updatedAt}
+                     {memo.updatedAt}
                   
                   </Badge>
                     
@@ -440,18 +462,17 @@ const [memoData, setMemoData] = useState({
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
+                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
+                   
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.status}
+                      {item?.momoBody?.toUpperCase()}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.remark.toUpperCase()}
-                    </Typography>
-                    
-                       
-                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
                       View
                     </Button>
+                    
+                       
+                      
                      
                       
                     
@@ -475,15 +496,12 @@ const [memoData, setMemoData] = useState({
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item.memoTitle.toUpperCase()}</Typography>
-                    <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.memoBody}
+                      <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item.remarks}
                     </Typography>
                     
                        
-                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      View
-                    </Button>
+                      
                      
                   </Paper>
                   ):(
@@ -499,7 +517,7 @@ const [memoData, setMemoData] = useState({
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color="primary" />
-                     {memo[0].updatedAt}
+                     {memo.updatedAt}
                   
                   </Badge>
                       
