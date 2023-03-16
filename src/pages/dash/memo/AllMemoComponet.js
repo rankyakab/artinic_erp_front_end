@@ -37,7 +37,6 @@ function AllMemoComponet() {
       (memo) => 
         memo?.copies?.some( copy => copy===user?.user?.staffId) || memo?.recipientId === user?.user?.staffId ||  memo?.recipientId===user?.user?._id || memo?.ownerId=== user?.user?.staffId);
     setLoggedInUserMemo(result);
-   // console.log("all filtered memo",result);
   };
 
 
@@ -183,13 +182,15 @@ function AllMemoComponet() {
                         )}
                       </TableCell> */}
                       <TableCell>
-                        {data.recipientId===user.staffId ?(<Action
+                        {data.recipientId===user.staffId &&(<Action
                           onClick={() => {
                             navigate(`/dashboard/memo-details/${data?._id}`);
                           }}
                         >
                           View More
-                        </Action>):(
+                        </Action>)}
+                      {
+                        data.ownerId===user.staffId &&(
                            <Action
                           onClick={() => {
                             navigate(`/dashboard/update-memo/${data?._id}`);
