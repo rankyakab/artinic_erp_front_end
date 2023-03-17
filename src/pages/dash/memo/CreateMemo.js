@@ -106,13 +106,61 @@ const handleFormChange = ({ name, value }) => {
   };
 
   const handleCreateMemo = (data) => {
-      const selected={...data, ownerId:memoData.ownerId, attachment:memoData.attachment};
-          
- 
+    //  const selected={...data, ownerId:memoData.ownerId, attachment:memoData.attachment};
+      const copies = data.copies ?  data.copies.map(copy => copy.recipientId):[];
+      let selected = '';
+      let isFormData=true;
+      if (memoData.attachment){
+         isFormData=true;
+          selected = new FormData();
+          selected.append("memoTitle", memoData.memoTitle);
+          selected.append("memoBody", memoData.memoBody);
+          selected.append("attachment", memoData.attachment);
+          selected.append("ownerId", memoData.ownerId);
+          selected.append("recipientId", memoData.recipientId);
+          selected.append("copies", JSON.stringify(copies));
+          selected.append("status", "pending approval");
+          selected.append("trail", JSON.stringify([{ 
+                                    memoTitle: memoData.memoTitle,
+                                    memoBody: memoData.memoBody,
+                                    status: "pending approval" ,
+                                    remarks:  "" ,
+                                    ownerId: memoData.ownerId,
+                                
+                                  }]));
+      } else {
+         isFormData=false;
+         selected = {  
+                    ownerId: memoData.ownerId,
+                    recipientId: memoData.recipientId,
+                    attachment:"", 
+                    memoBody: memoData.memoBody,
+                    memoTitle: memoData.memoTitle,
+                    status : "pending approval",
+                    trail :[
+                  
+                            { 
+                              memoTitle:memoData.memoTitle,
+                              memoBody: memoData.memoBody,
+                              attachment:"", 
+                              status: "pending approval" ,
+                              remarks:  "" ,
+                              ownerId: memoData.ownerId,
+                          
+                            },
+                            
+                            
+                            ],
+
+                    copies
+                    
+       }
+
+      }
 
     
 
-    const isFormData=false;
+    
     dispatch(
       createMemo(
         selected,
@@ -389,8 +437,8 @@ const handleFormChange = ({ name, value }) => {
               onChange={handleFileUpload}
                 ref={fileInputRef}
                 name="attachment"
-                accept="image/*, .pdf, .doc"
-                multiple
+                accept=" .pdf"
+               
                 type="file"
               />
             </MuButton>

@@ -105,11 +105,11 @@ const UpdateMemo = () => {
 
 const TIMELINES =memo?.trail ? memo?.trail: [];
 
- console.log(" Memo trail is here",TIMELINES)
+ // console.log(" Memo trail is here",TIMELINES)
  //  console.log(moment(memo[0]?.createdAt).format('L'));
 
   // console.log(memo[0]?.ownerId);
-    const [memoTitle, setMemoTitle] = useState('');
+   // const [memoTitle, setMemoTitle] = useState('');
 
 
 
@@ -121,7 +121,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     memoId: params?.id,
     attachment:"",
     status:"",
-    remark:""
+    remarks:""
   });
 
   const [recipient, setRecipient] = useState({
@@ -148,7 +148,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   };
   const handleTitleChange = (title) => {
    // console.log({name, value})
-    setMemoTitle(title );
+   // setMemoTitle(title );
   };
    function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -160,6 +160,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
 
 
+
   const handleFileDrop = (e) => {
     const { files } = e.target;
     // console.log(files);
@@ -167,12 +168,32 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   };
 
   const handleUpdateMemo = (data) => {
-      const selected = {
      
-      ...memoData,
-    };
+         let selected = '';
+      let isFormData=true;
+      if (memoData.attachment){
+         isFormData=true;
+          selected = new FormData();
+         selected.append("trail", JSON.stringify("memoTitle", memoData.memoTitle));
+         selected.append("trail", JSON.stringify("memoBody", memoData.memoBody));
+          selected.append("trail", JSON.stringify("status", memoData.status));
+           selected.append("trail", JSON.stringify("remarks", memoData.remarks));
+            selected.append("trail", JSON.stringify("ownerId", memoData.ownerId));
+               selected.append("trail", JSON.stringify("attachment", memoData.attachment));
+          
+      } else {
+         isFormData=false;
+         selected = {  
+                   
+                    ...memoData
+                  
+                 }
 
-   console.log("these are captured with data",selected)
+      }
+
+    
+
+  // console.log("these are captured with data",selected)
     dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
     
     /*
@@ -333,12 +354,12 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
               onChange={handleFileUpload}
                 ref={fileInputRef}
                 name="attachment"
-                accept="image/*, .pdf, .doc"
+                accept=".pdf"
                 multiple
                 type="file"
               />
             </MuButton>
-            {memo.trail[memo.trail.length - 1].ownerId!==user.user.staffId && (        
+            {memo?.status!=="pending approval" && (        
             <button
               style={{
                 width: '31.5%',

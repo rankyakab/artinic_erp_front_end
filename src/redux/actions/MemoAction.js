@@ -64,52 +64,6 @@ export const getSingleMemo = (id) => async (dispatch) => {
 };
 
 export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData) => async (dispatch) => {
-  // console.log(data);
- //  console.log(isFormData);
- // console.log("file", data.attachment);
-// const att = await uploadFileToS3(data.attachment);
- // /console.log("attly deh go o", att);
-// data.attachment=att;
-  // const finalData = {
-  //   ...data,
-  //   completion: 'true',
-  // };
- const copies = data.copies ?  data.copies.map(copy => copy.recipientId):[];
- 
- // console.log("na my wahala be this",copies);
- // copies=[];
- const attachment = data.attachment? data.attachment.name : "";
-   data = {  ...data,
-    ownerId: data.ownerId,
-    recipientId: data.recipientId,
-    attachment, 
-    memoBody: data.memoBody,
-    memoTitle: data.memoTitle,
-    status : "pending approval",
-    trail :[
-  
-             { 
-               memoTitle: data.memoTitle,
-              memoBody: data.memoBody,
-               attachment, 
-              status: "pending approval" ,
-              remarks:  "" ,
-              ownerId: data.ownerId,
-           
-             },
-             
-             
-            ],
-
-     copies
-    
-  }
-
-
-
-
-
-
 
 
 
@@ -144,7 +98,7 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
     }
   } catch (error) {
       dispatch(setIsLoading(false));
-   // console.log(error);
+    console.log(error);
     dispatch(setIsLoading(false));
     setError(true);
    // setErrorMessage(error?.data?.message || 'Something went wrong try again later');
@@ -155,8 +109,8 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
 
 export const updateMemo =
   (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
-    console.log(data);
-    console.log(isFormData);
+  //  console.log(data);
+ //   console.log(isFormData);
     // const finalData = {
     //   ...data,
     //   completion: 'true',
