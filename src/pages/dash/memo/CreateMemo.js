@@ -73,7 +73,7 @@ const CreateMemo = () => {
 const [memoData, setMemoData] = useState({
     // memoDate: '',
     memoTitle: '',
-    memoBody: 'hababa na',
+    memoBody: '',
     attachment: null,
     ownerId: user?.user?.staffId,
     recipientId: ""
@@ -408,7 +408,7 @@ const handleFormChange = ({ name, value }) => {
                   name="memoBody"
                    {...register('memoBody')}
                   
-               //   onChange={(e) => handleFormChange(e.target)}
+                 onChange={(e) => handleFormChange(e.target)}
                   // {...register('memoTitle')}
                 />
 

@@ -23,7 +23,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 // import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 // import pdfFonts from 'pdfmake/build/vfs_fonts';
 import PreviewIcon from '@mui/icons-material/Preview';
-import {   Stack,TextField, Paper, Container, Grid,Badge,  Typography } from '@mui/material';
+import {  Button, Stack,TextField, Paper, Container, Grid,Badge,  Typography } from '@mui/material';
 // import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
 import Back from '../../../assets/images/arrow_left.svg';
 // import ReliabuildInvoiceTemp from '../../../assets/images/ReliabuildInvoiceTemp.png';
@@ -31,7 +31,6 @@ import Invoice from '../../../assets/icons/Invoice.svg';
 import { Block } from '../../../sections/_examples/Block';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import {
-  Button,
   GeneralInput,
   HeadCard,
   InputLabel,
@@ -417,7 +416,7 @@ const [memoData, setMemoData] = useState({
                   alignItems: 'center',
                 }}
               >
-                <Button type="submit" sx={{ width: '100%', height: '55px' }}>
+                <Button type="submit" sx={{ width: '100%', height: '55px', margin: '16px'  }}>
                   {loading ? 'Please wait...' : ' Submit'}
                 </Button>
               </Grid>
@@ -473,7 +472,7 @@ const [memoData, setMemoData] = useState({
                     </Button>
                      
                        
-                      
+                    
                      
                       
                     
