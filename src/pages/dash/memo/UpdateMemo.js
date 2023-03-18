@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alpha } from '@mui/material/styles';
 import {  Paper, Container, Typography , Stack,  Grid, TextField, FormHelperText,Badge, Button as MuButton } from '@mui/material';
 // import { Stack, StackTypeMap } from '@material-ui/core';
+
 import {
   Timeline,
   TimelineDot,
@@ -20,7 +21,7 @@ import { useForm, useFieldArray} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams ,Link} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { Helmet } from 'react-helmet-async';
@@ -459,7 +460,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                     
                        
                       <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      View
+                       <Link to="/newpage">View Details</Link>
                     </Button>
                      
                   </Paper>

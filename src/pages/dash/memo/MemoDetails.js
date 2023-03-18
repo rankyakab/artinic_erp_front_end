@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Document, Page } from 'react-pdf';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 // Import { PDFDocument, PDFText, PDFTable, PDFTableRow, PDFTableColumn, PDFColumns, PDFColumn } from 'react-pdfmake';
 import { useNavigate, useParams } from 'react-router';
 import {
@@ -468,9 +469,9 @@ const [memoData, setMemoData] = useState({
                       {item?.momoBody?.toUpperCase()}
                     </Typography>
                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      View
+                      <Link to="/newpage">View Details</Link>
                     </Button>
-                    
+                     
                        
                       
                      
