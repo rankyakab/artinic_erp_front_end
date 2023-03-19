@@ -163,8 +163,7 @@ function AllMemoComponet() {
                     <TableRow key={key} sx={{ ' td,  th': { borderBottom: '0.5px solid #D0D0D0', py: 0 } }}>
                       <TableCell component="th" scope="row">
                         {key + 1}
-                        {console.log("this is one memeo",data)}
-                        {console.log("this is one user", user)}
+                    
                       </TableCell>
                       <TableCell>{data?.memoTitle}</TableCell>
                       <TableCell>{getName(data?.ownerId)}</TableCell>
@@ -184,7 +183,7 @@ function AllMemoComponet() {
                         )}
                       </TableCell> */}
                       <TableCell>
-                        {data.recipientId===user.user.staffId &&(<Action
+                        {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(<Action
                           onClick={() => {
                             navigate(`/dashboard/memo-details/${data?._id}`);
                           }}

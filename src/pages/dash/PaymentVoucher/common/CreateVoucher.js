@@ -8,11 +8,10 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
-import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
+import {  Wrapper, Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
 // import { PaymentVoucher } from './common/procurementTables';
 import Back from '../../../../assets/images/arrow_left.svg';
 import { PaymentVoucher } from './PaymentVoucherTable';
-import { createMemo } from '../../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 import { createVoucher } from '../../../../redux/actions/VoucherAction';
 import SuccessCard from '../../../../components/SuccessCard';
@@ -38,7 +37,7 @@ const CreateVoucher = () => {
 
   const schema = yup.object().shape({
     refId: yup.string().required(),
-    memoTitle: yup.string().required(),
+    voucherTitle: yup.string().required(),
     body: yup.string().required(),
     recipient: yup.object().required(),
     ownerId: yup.string().required(),
@@ -72,12 +71,7 @@ const CreateVoucher = () => {
     defaultValues: {
       resolver: yupResolver(schema),
       copies: [
-        {
-          action: 'None',
-          recipientId: '',
-          status: 'true',
-          remarks: '',
-        },
+        
       ],
       voucherTotals: {
         totalAmount: '',
@@ -104,7 +98,7 @@ const CreateVoucher = () => {
     },
   });
 
-  const { fields, append, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'copies',
     control,
   });
@@ -118,10 +112,11 @@ const CreateVoucher = () => {
     beneficiaryAccountNumber: '',
     beneficiaryAccountName: '',
     beneficiaryBank: '',
-    subject: '',
     body: '',
     completion: 'true',
+    subject:"",
     preparedBy: user?.user?.staffId,
+    recipientId: '',
   });
 
   const [recipient, setRecipient] = useState({
@@ -153,25 +148,33 @@ const CreateVoucher = () => {
   };
 
   const handleCreateVoucher = (data) => {
+    const copies =data.copies.map(item=>item.recipientId);
+    const voucherTotals={ ...data.voucherTotals};
+    const voucherSheet =[...data.voucherSheet];
     const selected = {
-      copies: data?.copies,
+      
       ...voucherData,
-      recipient,
-      voucherSheet: data?.voucherSheet,
+       ...voucherTotals,
+      copies,
+      voucherSheet
+     
     };
+  console.log("this is the selected ones begining **********");
+    console.log("this is the selected ones ",selected);
 
-    console.log(selected);
+     console.log("this is the selected ones ending **********");
+       console.log("this is the selected ones ending **********");
 
-    dispatch(createVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+   dispatch(createVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
 
   const getStaffName = (id) => {
     //   const { staffs } = useSelector((state) => state.staff);
 
-    console.log(id);
+   // console.log(id);
 
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
-
+    console.log("this is the staff object", filterStaff)
     setStaffName(capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName));
 
     return '';
@@ -188,11 +191,12 @@ const CreateVoucher = () => {
 
   useEffect(() => {
     dispatch(getAllStaffs());
+    console.log("the user id ", user?.user?.staffId);
     getStaffName(user?.user?.staffId);
   }, []);
 
   useEffect(() => {
-    console.log('nnnn');
+  //  console.log('nnnn');
 
     fieldArray?.fields?.forEach((sheet, index) => {
       const qty = watch(`voucherSheet[${index}].qty`);
@@ -227,7 +231,7 @@ const CreateVoucher = () => {
 
       const vatTotal = vatFields?.reduce((acc, cur) => acc + cur, 0);
 
-      console.log(vatTotal);
+      // console.log(vatTotal);
 
       setValue(`voucherTotals.vatAmount`, vatTotal);
 
@@ -237,7 +241,7 @@ const CreateVoucher = () => {
 
       const grossTotal = grossFields?.reduce((acc, cur) => acc + cur, 0);
 
-      console.log(grossTotal);
+      // console.log(grossTotal);
 
       setValue(`voucherTotals.grossAmount`, grossTotal);
 
@@ -296,7 +300,7 @@ const CreateVoucher = () => {
         <form
           onSubmit={handleSubmit((data) => {
             // e.preventDefault();
-            console.log(data);
+           //  console.log(data);
             handleCreateVoucher(data);
             // const formData = new FormData();
 
@@ -332,17 +336,20 @@ const CreateVoucher = () => {
                   <InputLabel id="memo_title">
                     Subject <span style={{ color: 'red' }}>*</span>{' '}
                   </InputLabel>
-                  {errors?.subject?.message && <FormHelperText error>{errors?.subject?.message}</FormHelperText>}
+                  {errors?.subject?.message && <FormHelperText error>{errors?.voucherTitle?.message}</FormHelperText>}
                   <GeneralInput
                     variant="outlined"
                     fullWidth
                     placeholder="Enter title"
                     value={voucherData?.subject}
                     name="subject"
+                    type="text"
                     required
                     onChange={(e) => handleFormChange(e.target)}
-                    // {...register('memoTitle')}
+                //     {...register('voucherTitle')}
                   />
+
+                  
                 </Stack>
               </Grid>
 
@@ -357,6 +364,7 @@ const CreateVoucher = () => {
                     name="sentFrom"
                     required
                     onChange={(e) => handleFormChange(e.target)}
+                  //  {...register('sentFrom')}
                     disabled
                   />
                 </Stack>
@@ -372,10 +380,10 @@ const CreateVoucher = () => {
                     SelectProps={{
                       native: true,
                     }}
-                    value={recipient?.recipientId}
+                    value={voucherData?.recipientId}
                     name="recipientId"
                     required
-                    onChange={(e) => handleRecipientChange(e.target)}
+                    onChange={(e) => handleFormChange(e.target)}
                     // {...register('recipientId')}
                   >
                     <option value="">Select Option</option>
@@ -405,7 +413,7 @@ const CreateVoucher = () => {
                           native: true,
                         }}
                         // value={voucherData?.cc1}
-                        name="recipientId"
+                       name="copies"
                         onChange={(e) => handleFormChange(e.target)}
                         {...register(`copies.${index}.recipientId`)}
                       >
@@ -433,38 +441,61 @@ const CreateVoucher = () => {
                         fontSize: '30px',
                         // marginLeft: '1rem',
                       }}
-                      disabled={fields?.length <= 1}
+                    
                       onClick={(e) => {
                         e.preventDefault();
-                        if (fields?.length > 1) remove(index);
+                      remove('copies', index);
                       }}
                     >
                       -
                     </button>
 
-                    <button
-                      style={{
-                        width: '55px',
-                        height: '55px',
-                        border: '1px solid #D0D0D0',
-                        borderRadius: '11px',
-                        background: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '30px',
-                      }}
-                      disabled={fields?.length >= 3}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (fields?.length < 3) append();
-                      }}
-                    >
-                      +
-                    </button>
                   </Grid>
                 </Fragment>
               ))}
-            </Grid>
 
+
+
+
+
+
+              <Grid container sx={{ mt: 4 }}>
+            <Grid item xs={12} md={12}>
+              <Stack>
+                  <button
+                    style={{
+                      width: '55px',
+                      height: '55px',
+                      border: '1px solid #D0D0D0',
+                      borderRadius: '11px',
+                      background: '#fff',
+                      cursor: 'pointer',
+                      fontSize: '30px',
+                    }}
+                    type="button"
+                    disabled={false}
+                    onClick={() => {
+          append('copies', { recipientId: '', description: '' });
+        }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                        append('copies', {
+         
+                                                      action: 'None',
+                                                      recipientId: '',
+                                                      status: 'true',
+                                                      remarks: '',
+                                                    });
+                     
+                    }}
+                  >
+                   CC+
+                  </button>
+              </Stack>
+           </Grid>
+           </Grid>
+            </Grid>
+  
             <Grid container sx={{ mt: 4 }}>
               <Grid item xs={12} md={12}>
                 <Stack>
@@ -475,13 +506,13 @@ const CreateVoucher = () => {
                     // placeholder="Enter subject"
                     multiline
                     rows={8}
-                    defaultValue="Enter subject"
+                    placeholder="Enter subject"
                     // variant="filled"
                     value={voucherData?.body}
                     name="body"
                     required
                     onChange={(e) => handleFormChange(e.target)}
-                    // {...register('memoBody')}
+                   //  {...register('memoBody')}
                     sx={{
                       background: '#fff',
                     }}
@@ -526,6 +557,7 @@ const CreateVoucher = () => {
                       placeholder="Enter Name"
                       name="beneficiaryAccountName"
                       value={voucherData?.beneficiaryAccountName}
+                     //  {...register('beneficiaryAccountName')}
                     />
                   </Stack>
                 </Grid>
@@ -545,6 +577,7 @@ const CreateVoucher = () => {
                       fullWidth
                       name="beneficiaryAccountNumber"
                       value={voucherData?.beneficiaryAccountNumber}
+                    //  {...register('beneficiaryAccountNumber')}
                     />
                   </Stack>
                 </Grid>
@@ -564,6 +597,8 @@ const CreateVoucher = () => {
                       fullWidth
                       name="beneficiaryBank"
                       value={voucherData?.beneficiaryBank}
+
+                    //  {...register('beneficiaryBank')}
                     />
                   </Stack>
                 </Grid>

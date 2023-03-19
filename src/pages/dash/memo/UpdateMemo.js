@@ -41,23 +41,12 @@ const UpdateMemo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
-  const [filters, setFilters] = useState({});
-  const [staffName, setStaffName] = useState('');
     const params = useParams();
   const { loading, memo } = useSelector((state) => state?.memo);
 
   const { staffs } = useSelector((state) => state?.staff);
 
-  const getName = (id) => {
-    const filterStaff = staffs?.filter((staff) => staff?._id === id);
-
-   // console.log(filterStaff);
-   // console.log(id);
-
-    setStaffName(capitalize(filterStaff[0]?.firstName) + capitalize(filterStaff[0]?.lastName));
-
-    return filterStaff[0]?.firstName;
-  };
+  
 
   
 
@@ -74,6 +63,34 @@ const UpdateMemo = () => {
     setOpen(false);
     setError(false);
   };
+   const getName = (id) => {
+    const filterStaff = staffs?.filter((staff) => staff?._id === id);
+
+   // console.log(id);
+
+   // console.log(filterStaff);
+
+   return capitalize(`${filterStaff[0]?.firstName}  `) + capitalize(filterStaff[0]?.lastName);
+
+  };
+
+ const sectionColor = (item) =>{
+let color = "";
+ //  item = item.toLowerCase();
+  if(item==="pending approval"){
+    color = "#FFA500";
+  } else if (item==="rejected") {
+    color = "#ff0000";
+  } else if (item==="comment") {
+     color ="#0000ff";
+  } else if (item==="approved"){
+     color = "#008000";
+  } else {
+    color = "#FFA500";
+  }
+  return color;
+ }
+
 
   const { user } = useSelector((state) => state.auth);
 
@@ -125,20 +142,8 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     remarks:""
   });
 
-  const [recipient, setRecipient] = useState({
-    recipientId: memo?.recipient?.[0]?.recipientId,
-    action: '',
-    status: '',
-    remarks: '',
-  });
 
-  const handleRecipientChange = ({ name, value }) => {
-    setRecipient((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  
+ 
 
   const handleFormChange = ({ name, value }) => {
     
@@ -147,10 +152,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
       [name]: value,
     }));
   };
-  const handleTitleChange = (title) => {
-   // console.log({name, value})
-   // setMemoTitle(title );
-  };
+
    function handleFileUpload(event) {
     const file = event.target.files[0];
     setMemoData((prevFormData) => ({
@@ -158,15 +160,6 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
       attachment: file,
     }));
   }
-
-
-
-
-  const handleFileDrop = (e) => {
-    const { files } = e.target;
-    // console.log(files);
-    setFilters(files[0]);
-  };
 
   const handleUpdateMemo = (data) => {
      
@@ -236,11 +229,12 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   useEffect(() => {
     dispatch(getAllStaffs());
     dispatch(getSingleMemo(params.id));
-    getName(memo?.ownerId);
+    
 
   }, []);
    
-
+  const statuscolor = sectionColor(memo.status)
+  console.log("status color ", statuscolor);
   return (
     <>
       <SuccessCard
@@ -390,24 +384,24 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
             {TIMELINES.map((item) => (
               
                  <TimelineItem key={item._id} >
-                  
+                
                 <TimelineOppositeContent>
                   
                  
-                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                  <Typography variant="body2" sx={{ color: statuscolor }}>
                     {item.ownerId===user?.user?.staffId?(
                  
                   <>
-                  <Badge color="secondary" badgeContent={0} >
+                  <Badge color="secondary"  badgeContent={0} >
                     
-                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
                       {item.status}
                   
                   </Badge>
-                  <Typography variant="body2" sx={{ color: 'success' }}>
-                    <Badge color="secondary" badgeContent={0} >
+                  <Typography variant="body2" >
+                    <Badge color="secondary"  badgeContent={0} >
                     
-                      <AccessTimeFilledIcon color="primary" />
+                      <AccessTimeFilledIcon color={statuscolor} />
                      {memo.updatedAt}
                   
                   </Badge>
@@ -422,13 +416,16 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
-                   
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item?.remarks?.toUpperCase()}
+                      {getName(item.ownerId)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: statuscolor }}>
+                      {item?.remarks}
                     </Typography>
                     
-                       
+                      
+                      
+                    
                       
                      
                       
@@ -442,41 +439,47 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
 
                 <TimelineSeparator>
-                  <TimelineDot color={item.color} />
+                  <TimelineDot />
                   <TimelineConnector />
                 </TimelineSeparator>
+
+
                 <TimelineContent>
                   {item.ownerId===user?.user?.staffId?(
-                  <Paper
+                   <Paper
                     sx={{
                       p: 3,
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
                     <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
+                   
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item.memoBody}
+                      {item?.momoBody?.toUpperCase()}
                     </Typography>
-                    
-                       
-                      <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                       <Link to="/newpage">View Details</Link>
+                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      <Link to="/newpage">View Details</Link>
                     </Button>
                      
+                       
+                    
+                     
+                      
+                    
                   </Paper>
                   ):(
                      
                   <>
                   <Badge color="secondary" badgeContent={0} >
                     
-                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
                       {item.status}
                   
                   </Badge>
-                  <Typography variant="body2" sx={{ color: 'primary' }}>
+                  <Typography variant="body2" sx={{ color:statuscolor }}>
                     <Badge color="secondary" badgeContent={0} >
                     
-                      <AccessTimeFilledIcon color="primary" />
+                      <AccessTimeFilledIcon color={statuscolor} />
                      {memo.updatedAt}
                   
                   </Badge>
@@ -488,12 +491,14 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                   )}
                   
                 </TimelineContent>
+
+
               </TimelineItem>
   
-            
+              
              
             ))}
-
+ 
           </Timeline>
         </Block>
       </Container>

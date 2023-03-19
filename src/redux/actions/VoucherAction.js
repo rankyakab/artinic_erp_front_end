@@ -77,7 +77,7 @@ export const createVoucher = (data, setOpen, setError, setErrorMessage, setSucce
       // body: data,
     });
 
-    console.log(res);
+   // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -89,7 +89,7 @@ export const createVoucher = (data, setOpen, setError, setErrorMessage, setSucce
       setSuccessMessage(res?.data?.message);
     }
   } catch (error) {
-    console.log(error);
+   // console.log(error);
     dispatch(setIsLoading(false));
     setError(true);
     setErrorMessage(error?.data?.message || 'Something went wrong try again later');

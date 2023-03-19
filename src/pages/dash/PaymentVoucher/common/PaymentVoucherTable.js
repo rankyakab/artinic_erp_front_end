@@ -14,14 +14,13 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 import { useNavigate } from 'react-router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm, useWatch } from 'react-hook-form';
-import * as yup from 'yup';
+
+
 import { useDispatch, useSelector } from 'react-redux';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
-import { Title, Action, VoucherInput, GeneralInput, InputLabel } from '../../../../styles/main';
+import { Title, Action, VoucherInput} from '../../../../styles/main';
 import { GetStaffName } from '../../../../utils/getValueById';
-import { getAllStaffs } from '../../../../redux/actions/StaffAction';
+// import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 
 export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
   const [page, setPage] = React.useState(0);
@@ -157,7 +156,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
             </TableHead>
             <TableBody>
               {fieldArray?.fields?.map((field, index) => {
-                console.log(field);
+                console.log("");
                 return (
                   <TableRow key={field?.id} sx={{ ' td,  th': { borderBottom: '0.5px solid #D0D0D0', py: 2 } }}>
                     <TableCell component="th" scope="row">
@@ -169,7 +168,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].class`}
                         type="text"
                         {...register(`voucherSheet[${index}].class`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                       //  onChange={(e) => handleFormChange(e.target)}
                       />
                     </TableCell>
                     <TableCell>
@@ -178,7 +177,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].description`}
                         type="text"
                         {...register(`voucherSheet[${index}].description`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                       // onChange={(e) => handleFormChange(e.target)}
                       />
                     </TableCell>
                     <TableCell>
@@ -188,7 +187,8 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].qty`}
                         type="number"
                         {...register(`voucherSheet[${index}].qty`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                     //   onChange={(e) => handleFormChange(e.target)}
+                        
                       />
                     </TableCell>
                     <TableCell>
@@ -198,7 +198,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].unitPrice`}
                         type="number"
                         {...register(`voucherSheet[${index}].unitPrice`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                      //   onChange={(e) => handleFormChange(e.target)}
                       />
                     </TableCell>
                     <TableCell>
@@ -208,7 +208,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].amount`}
                         type="number"
                         {...register(`voucherSheet[${index}].amount`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                      //   onChange={(e) => handleFormChange(e.target)}
                         disabled
                       />
                     </TableCell>
@@ -219,7 +219,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].vat`}
                         // type="number"
                         {...register(`voucherSheet[${index}].vat`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                      //  onChange={(e) => handleFormChange(e.target)}
                       />
                     </TableCell>
                     <TableCell>
@@ -228,7 +228,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].vatAmount`}
                         type="number"
                         {...register(`voucherSheet[${index}].vatAmount`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                    //     onChange={(e) => handleFormChange(e.target)}
                         disabled
                       />
                     </TableCell>
@@ -239,7 +239,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].grossAmount`}
                         type="number"
                         {...register(`voucherSheet[${index}].grossAmount`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                   //      onChange={(e) => handleFormChange(e.target)}
                         disabled
                       />
                     </TableCell>
@@ -250,7 +250,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].whtRate`}
                         // type="number"
                         {...register(`voucherSheet[${index}].whtRate`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                       //  onChange={(e) => handleFormChange(e.target)}
                       />
                     </TableCell>
                     <TableCell>
@@ -260,7 +260,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].whtAmount`}
                         type="nuber"
                         {...register(`voucherSheet[${index}].whtAmount`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                     //    onChange={(e) => handleFormChange(e.target)}
                         disabled
                       />
                     </TableCell>
@@ -271,10 +271,33 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                         name={`voucherSheet[${index}].netAmount`}
                         type="number"
                         {...register(`voucherSheet[${index}].netAmount`)}
-                        // onChange={(e) => handleFormChange(e.target)}
+                       // onChange={(e) => handleFormChange(e.target)}
                         disabled
                       />
                     </TableCell>
+                    <TableCell>
+                  <button
+                    style={{
+                      width: '55px',
+                      height: '55px',
+                      border: '1px solid #D0D0D0',
+                      borderRadius: '11px',
+                      background: '#fff',
+                      cursor: 'pointer',
+                      fontSize: '30px',
+                      // marginLeft: '1rem',
+                    }}
+                    type="button"
+                    disabled={false}
+                    onClick={() => {
+
+                   fieldArray.remove(index);
+                    }}
+                  >
+                    -
+                  </button>
+                
+                </TableCell>
                   </TableRow>
                 );
               })}
@@ -299,7 +322,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                     name={`voucherTotals.totalAmount`}
                     type="number"
                     {...register(`voucherTotals.totalAmount`)}
-                    // onChange={(e) => handleFormChange(e.target)}
+                  //   onChange={(e) => handleFormChange(e.target)}
                   />
                 </TableCell>
 
@@ -364,6 +387,7 @@ export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormCh
                     }}
                   />
                 </TableCell>
+                
               </TableRow>
             </TableBody>
           </Table>

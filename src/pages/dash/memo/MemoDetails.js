@@ -74,7 +74,24 @@ const { user } = useSelector((state) => state.auth);
     setNumPages(numPages);
   };
 
+ const sectionColor = (item) =>{
+let color = "";
+  // item = item.toLowerCase();
+  if(item==="pending approval"){
+    color = "#FFA500";
+  } else if (item==="rejected") {
+    color = "#ff0000";
+  } else if (item==="comment") {
+     color ="#0000ff";
+  } else if (item==="approved"){
+     color = "#008000";
+  } else {
+    color = "#FFA500";
+  }
+  return color;
+ }
 
+  const statuscolor = sectionColor(memo.status)
 
     const getCcName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
@@ -111,7 +128,7 @@ const { user } = useSelector((state) => state.auth);
 
  // const memo = allMemo?.filter((item) => item?._id === params?.id);
 
-  console.log(memo);
+ 
  const TIMELINES =memo?.trail ? memo?.trail: [];
 
   const handleFormChange = ({ name, value }) => {
@@ -264,35 +281,42 @@ const [memoData, setMemoData] = useState({
                   Memo Message:
                   <MemoDetailsSpan>{memo?.memoBody}</MemoDetailsSpan>
                 </MemoDetailsParagraph>
+                {console.log("This is the memo attachment",memo?.attachment)}
               </Stack>
             </Stack>
-            {/* <img
+            {
+            /* <img
               src={memo[0]?.attachment}
               alt="invoice"
               style={{
                 margin: '24px 0px 0px 0px',
               }}
-            /> */}
-            <Grid
+            /> */
+            }
+            {memo.attachment &&(
+ <Grid
               xs={12}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '400px',
+                height: '800px',
+                width: '100%',
                 overflowX: 'hidden',
                 margin: '3rem 1rem',
               }}
             >
               
-                    <Document
-        file={memo?.attachment}
-        onLoadSuccess={onDocumentLoadSuccess}
-      >
-        <Page pageNumber={pageNumber} />
-      </Document>  
-              <p>Page {pageNumber} of {numPages}</p>
+       <iframe
+        src={memo.attachment}
+        width="100%"
+        height="700px"
+        title=" "
+       />
+
             </Grid>
+            )}
+           
             <Stack direction={'row'} sx={{ mt: '3rem' }} alignItems="center" spacing={4} width="100%">
               <Typography
                 variant="h5"
@@ -440,14 +464,14 @@ const [memoData, setMemoData] = useState({
                   <>
                   <Badge color="secondary" badgeContent={0} >
                     
-                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      <SignalWifiStatusbar4BarIcon color={statuscolor}/>
                       {item.status}
                   
                   </Badge>
-                  <Typography variant="body2" sx={{ color: 'success' }}>
+                  <Typography variant="body2" sx={{ color: statuscolor }}>
                     <Badge color="secondary" badgeContent={0} >
                     
-                      <AccessTimeFilledIcon color="primary" />
+                      <AccessTimeFilledIcon color={statuscolor} />
                      {memo.updatedAt}
                   
                   </Badge>
@@ -485,7 +509,7 @@ const [memoData, setMemoData] = useState({
 
 
                 <TimelineSeparator>
-                  <TimelineDot color={item.color} />
+                  <TimelineDot  />
                   <TimelineConnector />
                 </TimelineSeparator>
                 <TimelineContent>
@@ -496,12 +520,14 @@ const [memoData, setMemoData] = useState({
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                      <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      <Typography variant="body2" sx={{ color: statuscolor }}>
                       {item.remarks}
                     </Typography>
                     
                        
-                      
+                        <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {getCcName(item.ownerId)}
+                    </Typography>
                      
                   </Paper>
                   ):(
@@ -509,14 +535,14 @@ const [memoData, setMemoData] = useState({
                   <>
                   <Badge color="secondary" badgeContent={0} >
                     
-                      <SignalWifiStatusbar4BarIcon color="primary" />
+                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
                       {item.status}
                   
                   </Badge>
                   <Typography variant="body2" sx={{ color: 'primary' }}>
                     <Badge color="secondary" badgeContent={0} >
                     
-                      <AccessTimeFilledIcon color="primary" />
+                      <AccessTimeFilledIcon color={statuscolor} />
                      {memo.updatedAt}
                   
                   </Badge>
