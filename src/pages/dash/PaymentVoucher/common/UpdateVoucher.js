@@ -40,10 +40,10 @@ const UpdateVoucher = () => {
 
   const voucher = vouchers?.filter((item) => item?._id === params?.id);
 
-  console.log(voucher);
-  console.log(params);
 
   const voucherSheetCopies = voucher[0]?.voucherSheet?.map((voucher) => ({
+     
+  
     class: voucher?.class,
     description: voucher?.description,
     qty: voucher?.qty,
@@ -58,15 +58,15 @@ const UpdateVoucher = () => {
     _id: voucher?._id,
   }));
 
-  console.log(voucherSheetCopies);
-
+  // console.log(voucherSheetCopies);
+/*
   const vouchersCopies = vouchers[0]?.copies?.map((copy) => ({
     action: 'None',
     recipientId: copy?.recipientId,
     status: 'true',
     remarks: '',
   }));
-
+*/
   const schema = yup.object().shape({
     refId: yup.string().required(),
     memoTitle: yup.string().required(),
@@ -101,7 +101,7 @@ const UpdateVoucher = () => {
   } = useForm({
     defaultValues: {
       resolver: yupResolver(schema),
-      copies: vouchersCopies,
+      
       voucherSheet: voucherSheetCopies,
     },
   });
@@ -117,13 +117,22 @@ const UpdateVoucher = () => {
   });
 
   const [voucherData, setVoucherData] = useState({
+
+    
+    
+    
+    
+    preparedBy: user?.user?.staffId,
+    recipientId: voucher[0]?.recipientId,
+
     beneficiaryAccountNumber: voucher[0]?.beneficiaryAccountNumber,
     beneficiaryAccountName: voucher[0]?.beneficiaryAccountName,
     beneficiaryBank: voucher[0]?.beneficiaryBank,
     subject: voucher[0]?.subject,
-
+    body: voucher[0]?.body,
+    copies: voucher[0]?.copies,
     completion: 'true',
-    preparedBy: user?.user?._id,
+   
   });
 
   const [recipient, setRecipient] = useState({
@@ -149,22 +158,26 @@ const UpdateVoucher = () => {
 
   const handleFileDrop = (e) => {
     const { files } = e.target;
-    console.log(files);
+   // console.log(files);
     setFilters(files[0]);
   };
 
   const handleCreateVoucher = (data) => {
-    const selected = {
+    const voucherTotals={ ...data.voucherTotals};
+    const voucherSheet =[...data.voucherSheet];
+
+        const selected = {
       _id: params?.id,
-      copies: data?.copies,
       ...voucherData,
-      recipient,
-      voucherSheet: data?.voucherSheet,
+       ...voucherTotals,
+      voucherSheet
+     
     };
 
-    console.log(selected);
 
-    dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+    console.log("these are the selected",selected);
+
+   //  dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
 
   const getStaffName = (id) => {
@@ -197,6 +210,7 @@ const UpdateVoucher = () => {
     console.log('nnnn');
 
     fieldArray?.fields?.forEach((sheet, index) => {
+
       const qty = watch(`voucherSheet[${index}].qty`);
       const unitPrice = watch(`voucherSheet[${index}].unitPrice`);
       const vat = watch(`voucherSheet[${index}].vat`);
@@ -297,25 +311,12 @@ const UpdateVoucher = () => {
 
         <form
           onSubmit={handleSubmit((data) => {
-            // e.preventDefault();
-            console.log(data);
+             // e.preventDefault();
+           //  console.log(data);
             handleCreateVoucher(data);
             // const formData = new FormData();
 
-            // console.log(filters);
-            // const selected = {
-            //   copies: data?.copies,
-            //   ...voucherData,
-            //   recipient,
-            //   voucherSheet: data?.voucherSheet,
-            // };
-
-            // console.log(selected);
-            // formData.append('filing', filters);
-
-            // Object.keys(selected).forEach((e) => {
-            //   console.log(e, selected[e]);
-            //   formData.append(e, JSON.stringify(selected[e]));
+            
             // });
           })}
         >
@@ -376,7 +377,7 @@ const UpdateVoucher = () => {
                     SelectProps={{
                       native: true,
                     }}
-                    value={recipient?.recipientId}
+                    value={voucherData.recipientId}
                     name="recipientId"
                     required
                     onChange={(e) => handleRecipientChange(e.target)}
@@ -394,102 +395,10 @@ const UpdateVoucher = () => {
                   </GeneralInput>
                 </Stack>
               </Grid>
-              {fields.map((field, index) => (
-                <Fragment key={index}>
-                  <Grid item xs={12} md={4}>
-                    <Stack>
-                      <InputLabel id="action">
-                        {`CC${index + 1}`}
-                        <span style={{ color: 'red' }}>*</span>
-                      </InputLabel>
-                      <GeneralInput
-                        select
-                        variant="outlined"
-                        SelectProps={{
-                          native: true,
-                        }}
-                        // value={voucherData?.cc1}
-                        name="recipientId"
-                        onChange={(e) => handleFormChange(e.target)}
-                        {...register(`copies.${index}.recipientId`)}
-                      >
-                        <option value="">Select Option</option>
-                        {React.Children.toArray(
-                          staffs?.map((staff) => (
-                            <option value={staff?._id}>
-                              {staff?.firstName} {staff?.lastName}
-                            </option>
-                          ))
-                        )}
-                      </GeneralInput>
-                    </Stack>
-                  </Grid>
-
-                  <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <button
-                      style={{
-                        width: '55px',
-                        height: '55px',
-                        border: '1px solid #D0D0D0',
-                        borderRadius: '11px',
-                        background: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '30px',
-                        // marginLeft: '1rem',
-                      }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        remove(index);
-                      }}
-                    >
-                      -
-                    </button>
-                    <button
-                      style={{
-                        width: '55px',
-                        height: '55px',
-                        border: '1px solid #D0D0D0',
-                        borderRadius: '11px',
-                        background: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '30px',
-                      }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        append();
-                      }}
-                    >
-                      +
-                    </button>
-                  </Grid>
-                </Fragment>
-              ))}
+              
             </Grid>
-            {/* 
-            <Grid container sx={{ mt: 4 }}>
-              <Grid item xs={12} md={12}>
-                <Stack>
-                  <InputLabel id="memo_body">
-                    Body<span style={{ color: 'red' }}>*</span>
-                  </InputLabel>
-                  <TextField
-                    // placeholder="Enter subject"
-                    multiline
-                    rows={8}
-                    defaultValue="Enter subject"
-                    // variant="filled"
-                    value={voucherData?.body}
-                    name="body"
-                    required
-                    onChange={(e) => handleFormChange(e.target)}
-                    // {...register('memoBody')}
-                    sx={{
-                      background: '#fff',
-                    }}
-                  />
-                </Stack>
-              </Grid>
-            </Grid> */}
+            
+         
           </Box>
 
           <Box

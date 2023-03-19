@@ -29,16 +29,26 @@ const PaymentVoucher = () => {
   const dispatch = useDispatch();
 
   const { vouchers, voucherLoading } = useSelector((state) => state?.voucher);
-const [myVoucher, setMyVoucher] = useState("");
+const [myVoucher, setMyVoucher] = useState([]);
   // console.log(vouchers);
 
   useEffect(() => {
     dispatch(getAllVoucher());
     dispatch(getAllStaffs());
-    setMyVoucher(vouchers.filter(
-      (voucher) => 
-        voucher?.copies?.some( copy => copy===user?.user?.staffId) || voucher?.recipientId === user?.user?.staffId  || voucher?.preparedBy=== user?.user?.staffId))
+   
+      
   }, []);
+
+  useEffect(() => {
+    setMyVoucher(vouchers.filter(
+
+      voucher => 
+        voucher?.copies?.some( copy => copy===user?.user?.staffId) || voucher?.recipientId === user?.user?.staffId  || voucher?.preparedBy=== user?.user?.staffId))
+           console.log("my trimed voutecher",myVoucher);
+        console.log("my trimed voutecher");
+        console.log("my trimed voutecher",vouchers);
+  
+  }, [vouchers]);
 
   return (
     <>
@@ -54,7 +64,7 @@ const [myVoucher, setMyVoucher] = useState("");
         <HeadCard>
           <Grid item md={3} sx={{ display: 'flex', justifyContent: 'center ', alignItems: 'center' }}>
             <Box>
-              <Typography sx={{ fontWeight: 'bold', fontSize: 30 }}>{vouchers?.length}</Typography>
+              <Typography sx={{ fontWeight: 'bold', fontSize: 30 }}>{myVoucher?.length}</Typography>
               <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
                 Total number of vouchers
               </Typography>

@@ -94,7 +94,7 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
                         data.preparedBy===user.user.staffId &&(
                            <Action
                           onClick={() => {
-                            navigate(`/dashboard/update-memo/${data?._id}`);
+                            navigate(`/dashboard/update-voucher/${data?._id}`);
                           }}
                         >
                           Update Voucher
