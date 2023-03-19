@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -24,16 +24,20 @@ import { getAllStaffs } from '../../../redux/actions/StaffAction';
 
 const PaymentVoucher = () => {
   const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const { vouchers, voucherLoading } = useSelector((state) => state?.voucher);
-
-  console.log(vouchers);
+const [myVoucher, setMyVoucher] = useState("");
+  // console.log(vouchers);
 
   useEffect(() => {
     dispatch(getAllVoucher());
     dispatch(getAllStaffs());
+    setMyVoucher(vouchers.filter(
+      (voucher) => 
+        voucher?.copies?.some( copy => copy===user?.user?.staffId) || voucher?.recipientId === user?.user?.staffId  || voucher?.preparedBy=== user?.user?.staffId))
   }, []);
 
   return (
@@ -102,7 +106,7 @@ const PaymentVoucher = () => {
               <CircularProgress />
             </Container>
           ) : (
-            <AllPaymentVoucher vouchers={vouchers} />
+            <AllPaymentVoucher vouchers={myVoucher} />
           )}
         </FormCard>
       </Wrapper>
