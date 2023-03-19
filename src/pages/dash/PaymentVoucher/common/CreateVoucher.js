@@ -143,12 +143,12 @@ const CreateVoucher = () => {
 
   const handleFileDrop = (e) => {
     const { files } = e.target;
-    console.log(files);
+ // console.log(files);
     setFilters(files[0]);
   };
 
   const handleCreateVoucher = (data) => {
-    const copies =data.copies.map(item=>item.recipientId);
+    const copies = data.copies.map(item=>item.recipientId);
     const voucherTotals={ ...data.voucherTotals};
     const voucherSheet =[...data.voucherSheet];
     const selected = {
@@ -159,11 +159,7 @@ const CreateVoucher = () => {
       voucherSheet
      
     };
-  console.log("this is the selected ones begining **********");
-    console.log("this is the selected ones ",selected);
-
-     console.log("this is the selected ones ending **********");
-       console.log("this is the selected ones ending **********");
+  
 
    dispatch(createVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
@@ -191,7 +187,7 @@ const CreateVoucher = () => {
 
   useEffect(() => {
     dispatch(getAllStaffs());
-    console.log("the user id ", user?.user?.staffId);
+   // console.log("the user id ", user?.user?.staffId);
     getStaffName(user?.user?.staffId);
   }, []);
 

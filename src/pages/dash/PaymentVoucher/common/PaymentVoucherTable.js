@@ -23,6 +23,7 @@ import { GetStaffName } from '../../../../utils/getValueById';
 // import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 
 export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
+  const { user } = useSelector((state) => state.auth);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
@@ -77,16 +78,34 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
                   <TableCell>{data?.subject}</TableCell>
                   <TableCell>{moment(data?.createdAt).format('L')}</TableCell>
                   <TableCell>{GetStaffName(data?.preparedBy, staffs)}</TableCell>
-                  <TableCell>{GetStaffName(data?.recipient[key]?.recipientId, staffs)}</TableCell>
+                  <TableCell>{GetStaffName(data?.recipientId, staffs)}</TableCell>
                   <TableCell>
-                    <Action>View More</Action>
-                    <Action
-                      onClick={() => {
-                        navigate(`/dashboard/update-voucher/${data?._id}`);
-                      }}
-                    >
-                      Update Voucher
-                    </Action>
+
+
+
+                   {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(<Action
+                          onClick={() => {
+                            navigate(`/dashboard/update-voucher/${data?._id}`);
+                          }}
+                        >
+                          View More
+                        </Action>)}
+                      {
+                        data.preparedBy===user.user.staffId &&(
+                           <Action
+                          onClick={() => {
+                            navigate(`/dashboard/update-memo/${data?._id}`);
+                          }}
+                        >
+                          Update Voucher
+                        </Action>
+                        )}
+                        
+
+
+
+
+
                   </TableCell>
                 </TableRow>
               ))}
