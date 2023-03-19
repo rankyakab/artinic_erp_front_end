@@ -25,7 +25,7 @@ const API_ROUTES = {
   },
 
   updateVoucher: {
-    route: '/voucher/update',
+    route: '/voucher/edit',
     method: 'patch',
   },
 };

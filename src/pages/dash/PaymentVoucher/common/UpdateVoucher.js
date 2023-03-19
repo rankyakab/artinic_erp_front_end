@@ -175,9 +175,9 @@ const UpdateVoucher = () => {
     };
 
 
-    console.log("these are the selected",selected);
+   // console.log("these are the selected",selected);
 
-   //  dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+     dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
 
   const getStaffName = (id) => {
