@@ -142,7 +142,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     memoId: params?.id,
     trail:memo?.trail,
     attachment:"",
-    status:"",
+    status:"pending approval",
     remarks:""
   });
 
