@@ -138,7 +138,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     ownerId: memo?.ownerId,
     memoId: params?.id,
     trail:memo?.trail,
-    attachment:"",
+    attachment:null,
     status:"pending approval",
     remarks:""
   });
