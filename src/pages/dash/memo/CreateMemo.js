@@ -15,7 +15,7 @@ import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { capitalize } from '../../../utils/formatNumber';
 
-const CreateMemo = () => {
+const CreateMemo = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
@@ -29,6 +29,7 @@ const CreateMemo = () => {
   const handleClose = () => {
     setOpen(false);
     setError(false);
+      navigate(-1);
   };
 
   const { user } = useSelector((state) => state.auth);

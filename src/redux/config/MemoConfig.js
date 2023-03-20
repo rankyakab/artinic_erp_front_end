@@ -22,6 +22,10 @@ const API_ROUTES = {
     route: '/memo/update/status',
     method: 'patch',
   },
+   sendDeleteAction: {
+    route: '/memo/delete',
+    method: 'delete',
+  },
   sendMemoAction: {
     route: '/action',
     method: 'post',

@@ -46,7 +46,10 @@ const UpdateMemo = () => {
 
   const { staffs } = useSelector((state) => state?.staff);
 
-  
+console.log("this is the memo",memo);
+console.log("this is the memo",memo);
+console.log("this is the memo",memo);
+console.log("this is the memo",memo);
 
   
 
@@ -137,6 +140,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     memoBody: memo?.memoBody,
     ownerId: memo?.ownerId,
     memoId: params?.id,
+    trail:memo?.trail,
     attachment:"",
     status:"",
     remarks:""
@@ -229,12 +233,22 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   useEffect(() => {
     dispatch(getAllStaffs());
     dispatch(getSingleMemo(params.id));
-    
+    setMemoData({
+    // memoDate: moment(memo[0]?.createdAt).format('L'),
+    memoTitle: memo?.memoTitle,
+    memoBody: memo?.memoBody,
+    ownerId: memo?.ownerId,
+    memoId: params?.id,
+    trail:memo?.trail,
+    attachment:memo?.attachment,
+    status:memo?.status,
+    remarks:memo?.remarks
+  })
 
   }, []);
    
   const statuscolor = sectionColor(memo.status)
-  console.log("status color ", statuscolor);
+ 
   return (
     <>
       <SuccessCard

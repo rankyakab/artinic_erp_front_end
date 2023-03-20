@@ -58,13 +58,9 @@ function MemoDetails() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
-/*
-  const [data, setData] = useState({
-    status: '',
-    remarks: '',
-  });
 
-  */
+
+  
 const { user } = useSelector((state) => state.auth);
   const { memo, loading } = useSelector((state) => state.memo);
    const { staffs } = useSelector((state) => state.staff);
@@ -182,6 +178,7 @@ const [memoData, setMemoData] = useState({
   const handleClose = () => {
     setOpen(false);
     setError(false);
+    navigate(-1)
   };
 
   const handleClick = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect ,useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   Box,
@@ -12,7 +12,23 @@ import {
   Grid,
   Container,
   CircularProgress,
+    Paper ,
+    Badge
 } from '@mui/material';
+import { alpha } from '@mui/material/styles';
+// the updated
+import {
+  Timeline,
+  TimelineDot,
+  TimelineItem,
+  TimelineContent,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import PreviewIcon from '@mui/icons-material/Preview';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
@@ -21,10 +37,12 @@ import { AllPaymentVoucher } from './common/PaymentVoucherTable';
 import { Wrapper, HeadCard, FormCard } from '../../../styles/main';
 import { getAllVoucher } from '../../../redux/actions/VoucherAction';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import { Block } from '../../../sections/_examples/Block';
 
 const PaymentVoucher = () => {
   const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
+    
 
   const dispatch = useDispatch();
 
@@ -49,7 +67,26 @@ const [myVoucher, setMyVoucher] = useState([]);
         console.log("my trimed voutecher",vouchers);
   
   }, [vouchers]);
+  const TIMELINES =vouchers?.trail ? vouchers?.trail: [];
 
+ const sectionColor = (item) =>{
+let color = "";
+  // item = item.toLowerCase();
+  if(item==="pending approval"){
+    color = "#FFA500";
+  } else if (item==="rejected") {
+    color = "#ff0000";
+  } else if (item==="comment") {
+     color ="#0000ff";
+  } else if (item==="approved"){
+     color = "#008000";
+  } else {
+    color = "#FFA500";
+  }
+  return color;
+ }
+ 
+  const statuscolor = sectionColor("start")
   return (
     <>
       <Helmet>
@@ -116,7 +153,12 @@ const [myVoucher, setMyVoucher] = useState([]);
               <CircularProgress />
             </Container>
           ) : (
+            <>
+            
             <AllPaymentVoucher vouchers={myVoucher} />
+             
+            </>
+
           )}
         </FormCard>
       </Wrapper>

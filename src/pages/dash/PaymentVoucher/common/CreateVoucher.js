@@ -179,6 +179,7 @@ const CreateVoucher = () => {
   const handleClose = () => {
     setOpen(false);
     setError(false);
+    navigate(-1);
   };
 
   const handleClick = () => {
@@ -299,7 +300,7 @@ const CreateVoucher = () => {
            //  console.log(data);
             handleCreateVoucher(data);
             // const formData = new FormData();
-
+           
             // console.log(filters);
             // const selected = {
             //   copies: data?.copies,
@@ -394,61 +395,61 @@ const CreateVoucher = () => {
                   </GeneralInput>
                 </Stack>
               </Grid>
-              {fields.map((field, index) => (
-                <Fragment key={index}>
-                  <Grid item xs={12} md={4}>
-                    <Stack>
-                      <InputLabel id="action">
-                        {`CC${index + 1}`}
-                        <span style={{ color: 'red' }}>*</span>
-                      </InputLabel>
-                      <GeneralInput
-                        select
-                        variant="outlined"
-                        SelectProps={{
-                          native: true,
-                        }}
-                        // value={voucherData?.cc1}
-                       name="copies"
-                        onChange={(e) => handleFormChange(e.target)}
-                        {...register(`copies.${index}.recipientId`)}
-                      >
-                        <option value="">Select Option</option>
-                        {React.Children.toArray(
-                          staffs?.map((staff) => (
-                            <option value={staff?._id}>
-                              {staff?.firstName} {staff?.lastName}
-                            </option>
-                          ))
-                        )}
-                      </GeneralInput>
-                    </Stack>
-                  </Grid>
+                      {fields.map((field, index) => (
+                        <Fragment key={index}>
+                          <Grid item xs={12} md={4}>
+                            <Stack>
+                              <InputLabel id="action">
+                                {`CC${index + 1}`}
+                                <span style={{ color: 'red' }}>*</span>
+                              </InputLabel>
+                              <GeneralInput
+                                select
+                                variant="outlined"
+                                SelectProps={{
+                                  native: true,
+                                }}
+                                // value={voucherData?.cc1}
+                              name="copies"
+                                onChange={(e) => handleFormChange(e.target)}
+                                {...register(`copies.${index}.recipientId`)}
+                              >
+                                <option value="">Select Option</option>
+                                {React.Children.toArray(
+                                  staffs?.map((staff) => (
+                                    <option value={staff?._id}>
+                                      {staff?.firstName} {staff?.lastName}
+                                    </option>
+                                  ))
+                                )}
+                              </GeneralInput>
+                            </Stack>
+                          </Grid>
 
-                  <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <button
-                      style={{
-                        width: '55px',
-                        height: '55px',
-                        border: '1px solid #D0D0D0',
-                        borderRadius: '11px',
-                        background: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '30px',
-                        // marginLeft: '1rem',
-                      }}
-                    
-                      onClick={(e) => {
-                        e.preventDefault();
-                      remove('copies', index);
-                      }}
-                    >
-                      -
-                    </button>
+                          <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <button
+                              style={{
+                                width: '55px',
+                                height: '55px',
+                                border: '1px solid #D0D0D0',
+                                borderRadius: '11px',
+                                background: '#fff',
+                                cursor: 'pointer',
+                                fontSize: '30px',
+                                // marginLeft: '1rem',
+                              }}
+                            
+                              onClick={(e) => {
+                                e.preventDefault();
+                              remove('copies', index);
+                              }}
+                            >
+                              -
+                            </button>
 
-                  </Grid>
-                </Fragment>
-              ))}
+                          </Grid>
+                        </Fragment>
+                      ))}
 
 
 
@@ -456,7 +457,7 @@ const CreateVoucher = () => {
 
 
               <Grid container sx={{ mt: 4 }}>
-            <Grid item xs={12} md={12}>
+             <Grid item xs={12} md={12}>
               <Stack>
                   <button
                     style={{
@@ -489,7 +490,7 @@ const CreateVoucher = () => {
                   </button>
               </Stack>
            </Grid>
-           </Grid>
+              </Grid>
             </Grid>
   
             <Grid container sx={{ mt: 4 }}>

@@ -14,12 +14,20 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 import { useNavigate } from 'react-router';
-
+import IconButton  from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllVoucher , deleteVoucher } from '../../../../redux/actions/VoucherAction';
+
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title, Action, VoucherInput} from '../../../../styles/main';
 import { GetStaffName } from '../../../../utils/getValueById';
+
+import SuccessCard from '../../../../components/SuccessCard';
+import ErrorCard from '../../../../components/ErrorCard';
 // import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 
 export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
@@ -27,6 +35,10 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(16);
   const [paginationPage, setPaginationPage] = React.useState(1);
+  const [open, setOpen] = useState(false);
+ const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+   const [successMessage, setSuccessMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -37,13 +49,42 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
     setPaginationPage(newPage);
     setPage(page);
   };
-
+  const deleteVoucherOnClick = (id)=>{
+    // console.log("these are captured with data",selected)
+   // const allData = allMemo.filter(id=> id!==memoId);
+    dispatch(deleteVoucher(id, setOpen, setError, setErrorMessage, setSuccessMessage));
+    dispatch(getAllVoucher());
+    // getAllVoucher()
+    setOpen(true);
+  }
+  const handleClick = () => {
+    handleClose();
+  };
+const handleClose = () => {
+    setOpen(false);
+    setError(false);
+      
+  };
   const { staffs } = useSelector((state) => state?.staff);
 
   const tableHead = ['S/N', 'Subject', 'Date', 'Prepared By', 'Send To', 'Action'];
 
   return (
     <>
+       <SuccessCard
+        open={open}
+        handleClose={handleClose}
+        message="You have successfully deleted a Voucher"
+        btnText={'Continue'}
+        handleClick={handleClick}
+      />
+      <ErrorCard
+        open={error}
+        handleClose={handleClose}
+        message={errorMessage}
+        btnText={'Continue'}
+        handleClick={handleClick}
+      />
       <Box>
         <TableContainer component={Paper}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 3 }}>
@@ -83,22 +124,38 @@ export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
 
 
 
-                   {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(<Action
-                          onClick={() => {
+                   {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(
+                   
+                     <div style={{ display: 'flex' }}>
+                          <IconButton  color="primary" aria-label="view more"  onClick={() => {
                             navigate(`/dashboard/update-voucher/${data?._id}`);
                           }}
-                        >
-                          View More
-                        </Action>)}
+                          >
+                            <ExpandMoreIcon />
+                          </IconButton>
+                         </div>
+                   
+                   
+                   )}
                       {
                         data.preparedBy===user.user.staffId &&(
-                           <Action
-                          onClick={() => {
+
+                          <div style={{ display: 'flex' }}>
+                          <IconButton color="error" aria-label="delete" onClick={()=>deleteVoucherOnClick(data?._id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                          <IconButton color="warning" aria-label="edit" style={{ marginLeft: '3px' }} 
+                            onClick={() => {
                             navigate(`/dashboard/update-voucher/${data?._id}`);
                           }}
-                        >
-                          Update Voucher
-                        </Action>
+                          
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </div>
+
+
+                           
                         )}
                         
 

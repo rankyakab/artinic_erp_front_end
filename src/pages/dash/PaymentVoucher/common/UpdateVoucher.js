@@ -1,15 +1,35 @@
-import { Stack, Typography, Box, Button as MuButton, Grid, TextField, FormHelperText } from '@mui/material';
+import {  
+
+  Stack,
+ 
+    Paper ,
+    Badge, Typography, Box, Button as MuButton, Grid, FormHelperText,TextField } from '@mui/material';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams ,Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import {
+  Timeline,
+  TimelineDot,
+  TimelineItem,
+  TimelineContent,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import { alpha } from '@mui/material/styles';
+import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 import DashboardHeader from '../../../../layouts/dashboard/DashboardHeader';
+
 import { FormCard, Wrapper, Button, Title, GeneralInput, InputLabel } from '../../../../styles/main';
 // import { PaymentVoucher } from './common/procurementTables';
+import { Block } from '../../../../sections/_examples/Block';
 import Back from '../../../../assets/images/arrow_left.svg';
 import { PaymentVoucher } from './PaymentVoucherTable';
 import { createMemo } from '../../../../redux/actions/MemoAction';
@@ -18,6 +38,8 @@ import { createVoucher, updateVoucher } from '../../../../redux/actions/VoucherA
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
+
+  
 
 const UpdateVoucher = () => {
   const { user } = useSelector((state) => state.auth);
@@ -57,7 +79,38 @@ const UpdateVoucher = () => {
     netAmount: voucher?.netAmount,
     _id: voucher?._id,
   }));
+ const sectionColor = (item) =>{
+let color = "";
+  // item = item.toLowerCase();
+  if(item==="pending approval"){
+    color = "#FFA500";
+  } else if (item==="rejected") {
+    color = "#ff0000";
+  } else if (item==="comment") {
+     color ="#0000ff";
+  } else if (item==="approved"){
+     color = "#008000";
+  } else {
+    color = "#FFA500";
+  }
+  return color;
+ }
+ const handleMemoAction = (e) => {
+    e.preventDefault();
+    const selected = {
+             
+            
+              
+              
 
+      memoId: params?.id,
+      ownerId: user?.user?.staffId,
+     // ...memoData,
+    };
+    // console.log(selected);
+  //  dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+  };
+  const statuscolor = sectionColor("start")
   // console.log(voucherSheetCopies);
 /*
   const vouchersCopies = vouchers[0]?.copies?.map((copy) => ({
@@ -67,6 +120,7 @@ const UpdateVoucher = () => {
     remarks: '',
   }));
 */
+const TIMELINES =voucher?.trail ? voucher?.trail: [];
   const schema = yup.object().shape({
     refId: yup.string().required(),
     memoTitle: yup.string().required(),
@@ -484,7 +538,195 @@ const UpdateVoucher = () => {
             </Box>
           </Box>
         </form>
+          <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
+              <Grid item xs={12} md={4}>
+                <Stack>
+                  <InputLabel id="action">Action</InputLabel>
+                  <GeneralInput
+                    select
+                    variant="outlined"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    value={""
+                      // memoData?.status
+                    }
+                    name="status"
+                    onChange={(e) => handleFormChange(e.target)}
+                  >
+                    <option value="">Select action</option>
+                    <option value="approve">Approve</option>
+                    <option value="comment">Comment</option>
+                    <option value="reject">Reject</option>
+                  </GeneralInput>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={12}>
+                <Stack>
+                  <InputLabel id="date">Remarks</InputLabel>
+                  
+                <TextField
+                  multiline
+                  rows={8}
+                  required
+                  variant="outlined"
+                  fullWidth
+                   value={""
+                    // memoData?.remarks
+                  }
+                    name="remarks"
+                    onChange={(e) => handleFormChange(e.target)}
+                  
+               //   onChange={(e) => handleFormChange(e.target)}
+                  // {...register('memoTitle')}
+                />
+
+
+                </Stack>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Button type="submit" sx={{ width: '100%', height: '55px', margin: '16px'  }}>
+                  {loading ? 'Please wait...' : ' Submit'}
+                </Button>
+              </Grid>
+            </Grid>
       </Wrapper>
+       <Block title="Voucher Trail">
+           <Timeline position="">
+            
+            {TIMELINES.map((item) => (
+              
+                 <TimelineItem key={item._id} >
+                
+                <TimelineOppositeContent>
+                  
+                 
+                  <Typography variant="body2" sx={{ color: statuscolor }}>
+                    {item.ownerId===user?.user?.staffId?(
+                 
+                  <>
+                  <Badge color="secondary"  badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
+                      {item.status}
+                  
+                  </Badge>
+                  <Typography variant="body2" >
+                    <Badge color="secondary"  badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color={statuscolor} />
+                    
+                  
+                  </Badge>
+                    
+                  </Typography>
+                  </>
+                  
+                  ):(
+                      <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {
+                      // getName(item.ownerId)
+                      }
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: statuscolor }}>
+                      {item?.remarks}
+                    </Typography>
+                    
+                      
+                      
+                    
+                      
+                     
+                      
+                    
+                  </Paper>
+                  )}
+                  
+                 
+                  </Typography>
+                </TimelineOppositeContent>
+
+
+                <TimelineSeparator>
+                  <TimelineDot />
+                  <TimelineConnector />
+                </TimelineSeparator>
+
+
+                <TimelineContent>
+                  {item.ownerId===user?.user?.staffId?(
+                   <Paper
+                    sx={{
+                      p: 3,
+                      bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+                    }}
+                  >
+                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
+                   
+                    <Typography variant="body2" sx={{ color: 'secondary' }}>
+                      {item?.momoBody?.toUpperCase()}
+                    </Typography>
+                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
+                      <Link to="/newpage">View Details</Link>
+                    </Button>
+                     
+                       
+                    
+                     
+                      
+                    
+                  </Paper>
+                  ):(
+                     
+                  <>
+                  <Badge color="secondary" badgeContent={0} >
+                    
+                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
+                      {item.status}
+                  
+                  </Badge>
+                  <Typography variant="body2" sx={{ color:statuscolor }}>
+                    <Badge color="secondary" badgeContent={0} >
+                    
+                      <AccessTimeFilledIcon color={statuscolor} />
+                     {
+                     
+                     // memo.updatedAt
+                     }
+                  
+                  </Badge>
+                      
+                     
+
+                  </Typography>
+                  </>
+                  )}
+                  
+                </TimelineContent>
+
+
+              </TimelineItem>
+  
+              
+             
+            ))}
+ 
+          </Timeline>
+        </Block>
     </>
   );
 };

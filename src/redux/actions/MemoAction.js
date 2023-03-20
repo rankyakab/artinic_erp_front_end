@@ -37,6 +37,7 @@ export const getAllMemo = () => async (dispatch) => {
   }
 }; 
 
+
 export const getSingleMemo = (id) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
@@ -106,7 +107,6 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
     dispatch(setIsLoading(false));
   }
 };
-
 export const updateMemo =
   (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
   //  console.log(data);
@@ -146,6 +146,49 @@ export const updateMemo =
       }
     } catch (error) {
       console.log(error);
+      dispatch(setIsLoading(false));
+      setError(true);
+      setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const deleteMemo =
+  (data, setReloadAllData,setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
+  //  console.log(data);
+ //   console.log(isFormData);
+    // const finalData = {
+    //   ...data,
+    //   completion: 'true',
+    // };
+    try {
+      dispatch(setIsLoading(true));
+      const res = await httpRequest({
+        url: API_ROUTES?.sendDeleteAction?.route,
+        method: API_ROUTES?.sendDeleteAction?.method,
+        needToken: true,
+        data:{_id:data},
+        header: isFormData
+          ? {
+              'Access-Control-Allow-Origin': '*',
+              mode: 'no-cors',
+              'Content-Type': 'multipart/form-data',
+            }
+          : false,
+        isFormData,
+        // body: data,
+      });
+
+     // console.log(res);
+
+      if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
+        dispatch(getAllMemo());
+        setOpen(true);
+        setSuccessMessage(res?.data?.message);
+      }
+    } catch (error) {
+    //  console.log(error);
       dispatch(setIsLoading(false));
       setError(true);
       setErrorMessage(error?.data?.message || 'Something went wrong try again later');

@@ -17,7 +17,7 @@ export const getAllVoucher = () => async (dispatch) => {
       needToken: true,
     });
 
-    console.log(res);
+  //  console.log(res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
@@ -97,3 +97,49 @@ export const createVoucher = (data, setOpen, setError, setErrorMessage, setSucce
     dispatch(setIsLoading(false));
   }
 };
+
+export const deleteVoucher =
+  (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
+  //  console.log(data);
+ //   console.log(isFormData);
+    // const finalData = {
+    //   ...data,
+    //   completion: 'true',
+    // };
+ 
+
+    try {
+      dispatch(setIsLoading(true));
+      const res = await httpRequest({
+        url: API_ROUTES?.destroyVoucher?.route,
+        method: API_ROUTES?.destroyVoucher?.method,
+        needToken: true,
+        data:{_id:data},
+        header: isFormData
+          ? {
+              'Access-Control-Allow-Origin': '*',
+              mode: 'no-cors',
+              'Content-Type': 'multipart/form-data',
+            }
+          : false,
+        isFormData,
+        // body: data,
+      });
+
+     // console.log(res);
+
+      if (res.status === 200 || res.status === 201) {
+        dispatch(setIsLoading(false));
+        
+        setOpen(true);
+        setSuccessMessage(res?.data?.message);
+      }
+    } catch (error) {
+    //  console.log(error);
+      dispatch(setIsLoading(false));
+      setError(true);
+      setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };

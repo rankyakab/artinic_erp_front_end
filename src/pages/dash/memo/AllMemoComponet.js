@@ -14,15 +14,23 @@ import {
   Table,
   CircularProgress,
   Container,
+  IconButton
 } from '@mui/material';
+// import IconButton as from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router';
 import { TablePagination } from '../../../utils/memoPaginationUtil';
 import { Title, Action } from '../../../styles/main';
 // import HeaderCard from '../../../components/HeaderCard';
 import HeaderCard from '../../../components/HeaderCard';
-import { getAllMemo } from '../../../redux/actions/MemoAction';
+import { getAllMemo,deleteMemo } from '../../../redux/actions/MemoAction';
 import { capitalize } from '../../../utils/formatNumber';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import SuccessCard from '../../../components/SuccessCard';
+import ErrorCard from '../../../components/ErrorCard';
 // import { API_ROUTES } from '../../../redux/config/StaffConfig';
 // import { BASE_URL } from '../../../helpers';
 
@@ -31,7 +39,11 @@ function AllMemoComponet() {
   const { user } = useSelector((state) => state.auth);
 
   const [loggedInUserMemo, setLoggedInUserMemo] = useState([]);
+const [open, setOpen] = useState(false);
+ const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const [successMessage, setSuccessMessage] = useState('');
   const memoFilter = () => {
     const result = allMemo.filter(
       (memo) => 
@@ -39,7 +51,13 @@ function AllMemoComponet() {
     setLoggedInUserMemo(result);
   };     
 
-
+ const deleteMemoOnClick = (memoId)=>{
+  // console.log("these are captured with data",selected)
+   // const allData = allMemo.filter(id=> id!==memoId);
+    dispatch(deleteMemo(memoId,getAllMemo, setOpen, setError, setErrorMessage, setSuccessMessage));
+    
+    getAllMemo()
+ }
 
   // const [loggedInUser, setLoggedInUser] = useState({});
   // const [viewAccess, setViewAccess] = useState(false);
@@ -100,6 +118,14 @@ function AllMemoComponet() {
     dispatch(getAllMemo());
     dispatch(getAllStaffs());
   }, []);
+  const handleClick = () => {
+    handleClose();
+  };
+const handleClose = () => {
+    setOpen(false);
+    setError(false);
+      
+  };
 
   useEffect(() => {
     memoFilter();
@@ -128,6 +154,21 @@ function AllMemoComponet() {
           <CircularProgress />
         </Container>
       ) : (
+        <>
+         <SuccessCard
+        open={open}
+        handleClose={handleClose}
+        message="You have successfully added a new memo"
+        btnText={'Continue'}
+        handleClick={handleClick}
+      />
+      <ErrorCard
+        open={error}
+        handleClose={handleClose}
+        message={errorMessage}
+        btnText={'Continue'}
+        handleClick={handleClick}
+      />
         <Box sx={{ my: 3 }}>
           <TableContainer component={Paper} sx={{ p: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 3 }}>
@@ -155,6 +196,8 @@ function AllMemoComponet() {
                     <TableCell key={key}>{td}</TableCell>
                   ))}
                 </TableRow>
+              { // console.log("all memo ", loggedInUserMemo)
+              }
               </TableHead>
               <TableBody>
                 {(memoSearch.length === 0 ? loggedInUserMemo : memoSearch)
@@ -183,26 +226,38 @@ function AllMemoComponet() {
                         )}
                       </TableCell> */}
                       <TableCell>
-                        {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(<Action
-                          onClick={() => {
+                       
+
+                        {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(
+                        <div style={{ display: 'flex' }}>
+                          <IconButton  color="primary" aria-label="view more" onClick={() => {
                             navigate(`/dashboard/memo-details/${data?._id}`);
-                          }}
-                        >
-                          View More
-                        </Action>)}
+                          }}>
+                            <ExpandMoreIcon />
+                          </IconButton>
+                         </div>
+                         
+                       )}
+
+                        
                       {
                         data.ownerId===user.user.staffId &&(
-                           <Action
-                          onClick={() => {
+                           <div style={{ display: 'flex' }}>
+                          <IconButton color="error" aria-label="delete" onClick={()=>deleteMemoOnClick(data?._id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                          <IconButton color="warning" aria-label="edit" style={{ marginLeft: '3px' }}  onClick={() => {
                             navigate(`/dashboard/update-memo/${data?._id}`);
-                          }}
-                        >
-                          Update Memo
-                        </Action>
+                          }}>
+                            <EditIcon />
+                          </IconButton>
+                        </div>
+                          
                         )}
                         
-                       
+                      
                       </TableCell>
+                      
                     </TableRow>
                   ))}
               </TableBody>
@@ -217,6 +272,7 @@ function AllMemoComponet() {
             />
           </Stack>
         </Box>
+        </>
       )}
     </>
   );
