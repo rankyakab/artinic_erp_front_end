@@ -189,7 +189,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     console.log("before you go meet wike",selected)
 
   // console.log("these are captured with data",selected)
-    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+//    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
     
     /*
     const formData = new FormData();
