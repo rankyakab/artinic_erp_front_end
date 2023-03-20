@@ -46,10 +46,7 @@ const UpdateMemo = () => {
 
   const { staffs } = useSelector((state) => state?.staff);
 
-console.log("this is the memo",memo);
-console.log("this is the memo",memo);
-console.log("this is the memo",memo);
-console.log("this is the memo",memo);
+
 
   
 
@@ -189,7 +186,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
       }
 
-    
+    console.log("before you go meet wike",selected)
 
   // console.log("these are captured with data",selected)
     dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
