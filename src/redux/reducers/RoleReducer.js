@@ -5,6 +5,7 @@ const initialState = {
   api_error: '',
   roles: [],
   createRole: {},
+  role:""
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,7 +21,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         roles: action.payload,
       };
-
+ case RoleTypes?.GET_ALL_ROLES_BY_ID:
+      return {
+        ...state,
+        role: action.payload,
+      };
     case RoleTypes?.CREATE_ROLE:
       return {
         ...state,

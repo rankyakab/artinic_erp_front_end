@@ -47,6 +47,7 @@ export default function NavList({ data, depth, hasChild }) {
         active={active}
         isExternalLink={isExternalLink}
         onClick={handleToggle}
+        process={data?.process}
       />
 
       {hasChild && (

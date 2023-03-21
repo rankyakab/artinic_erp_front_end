@@ -35,6 +35,35 @@ export const getAllRole = () => async (dispatch) => {
   }
 };
 
+export const getRoleById = (id) => async (dispatch) => {
+  try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES?.getRoleById?.route+id,
+      method: API_ROUTES?.getRoleById?.method,
+      needToken: true,
+    });
+
+    console.log(res);
+
+    localStorage.setItem('role', JSON.stringify(res?.data?.role));
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch(setIsLoading(false));
+      dispatch({
+        type: RoleTypes?.GET_ALL_ROLES_BY_ID,
+        payload: res?.data?.role,
+      });
+    }
+  } catch (error) {
+   // console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+
 export const createRole = (data, setErrorMessage, setSuccessMessage, setOpen, setError) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));

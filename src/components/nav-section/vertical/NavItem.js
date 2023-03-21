@@ -21,7 +21,7 @@ NavItem.propTypes = {
   isExternalLink: PropTypes.bool,
 };
 
-export default function NavItem({ item, depth, open, active, isExternalLink, ...other }) {
+export default function NavItem({ item, depth, process,open, active, isExternalLink, ...other }) {
   const { translate } = useLocales();
 
   const { title, path, icon, info, children, disabled, caption, roles } = item;

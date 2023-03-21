@@ -1,3 +1,5 @@
+import React, {  useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 // @mui
 import { List, Stack } from '@mui/material';
@@ -7,6 +9,7 @@ import { useLocales } from '../../../locales';
 //
 import { StyledSubheader } from './styles';
 import NavList from './NavList';
+import { getRoleById } from '../../../redux/actions/RoleAction';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +20,25 @@ NavSectionVertical.propTypes = {
 
 export default function NavSectionVertical({ data, sx, ...other }) {
   const { translate } = useLocales();
+    const dispatch = useDispatch();
   // const user = JSON.parse(localStorage.getItem('user'));
+const { role } = useSelector((state) => state.role);
+      const user = localStorage.getItem('user');
+         
+ const [userRole, setUserRole] = useState({})
+
+useEffect(() => {
+    dispatch(getRoleById());
+    
+    getRoleById(user?.user?.role);
+    const userRolde = JSON.parse(localStorage.getItem('role'));
+    console.log("this is your ysoueer role",userRolde);
+
+    console.log("this is your ysoueer role from dispatch",role);
+  }, []);
+
+
+      // user.role
 
  //  console.log(user);
  
@@ -44,9 +65,9 @@ export default function NavSectionVertical({ data, sx, ...other }) {
           <List key={key} disablePadding sx={{ px: 2 }}>
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
-            {group.items.map((list) => (
-              <NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />
-            ))}
+            {group.items.map(
+              (list) => list.process && (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
+            )}
           </List>
         );
       })}

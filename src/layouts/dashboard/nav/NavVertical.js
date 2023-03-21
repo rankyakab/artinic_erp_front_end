@@ -69,16 +69,37 @@ export default function NavVertical({ openNav, onCloseNav }) {
     approvals: icon('ic_approvals'),
     balance: icon('ic_balance'),
   };
+        const pageProcess = {
+        user:"641974848f2327e71d493fa2",
+        staff:"641974ab8f2327e71d493faa",
+        memo:"641974ca8f2327e71d493fb0",
+        privileges:"641985a65ab751646ea17f51",
+        action:"6419856b5ab751646ea17f20",
+        process:"6419854d5ab751646ea17ef1",
+         roles:"641985305ab751646ea17eeb",
+         paymentVouchers:"641985075ab751646ea17ee5"
+
+
+
+}
+const pageAction = {
+        delete:"63cc3f305f65076b29b782c7",
+        edit:"63cc3f435f65076b29b782cd",
+        recommendForApproval:"63cc3f555f65076b29b782d3",
+        approve:"63cc43da5f65076b29b7831b",
+        create:"6407db43cb270b8c08ea1ada",
+        convertToUser:"641974218f2327e71d493f6a",
+}
 
   const navConfig =[
         {
           items: [
-            { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard },
-             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user },
-            { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff },
-            { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo },
+            { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
+             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
+            { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
+            { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
      //       { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
-          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll },
+          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
       //      { title: 'Circulars', path: PATH_DASHBOARD.circulars, icon: ICONS.circulars },
       //      { title: 'Maintenance', path: PATH_DASHBOARD.maintenance, icon: ICONS.maintenance },
       //      { title: 'Logistics', path: PATH_DASHBOARD.logistics, icon: ICONS.logistics },
@@ -87,10 +108,10 @@ export default function NavVertical({ openNav, onCloseNav }) {
             // { title: 'Notifications', path: PATH_DASHBOARD.notifications, icon: ICONS.notification },
       //      { title: 'Capacity Building', path: PATH_DASHBOARD.capacity_building, icon: ICONS.build },
         //    { title: 'Procurements', path: PATH_DASHBOARD.procurement, icon: ICONS.procurement },
-            { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role },
-            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process },
-             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action },
-            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges },
+            { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role ,process:pageProcess.roles},
+            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
+             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
+            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privilages},
 
             // Operations User
          //   { title: 'Operations', path: PATH_DASHBOARD.operations_dashboard, icon: ICONS.dashboard },
