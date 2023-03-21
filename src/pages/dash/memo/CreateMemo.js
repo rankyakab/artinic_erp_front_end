@@ -107,6 +107,9 @@ const handleFormChange = ({ name, value }) => {
   };
 
   const handleCreateMemo = (data) => {
+     console.log ("the main the main");
+      console.log ("datea",data);
+    console.log (data);
     //  const selected={...data, ownerId:memoData.ownerId, attachment:memoData.attachment};
       const copies = data.copies ?  data.copies.map(copy => copy.recipientId):[];
       let selected = '';
