@@ -39,9 +39,10 @@ useEffect(() => {
   const userRole = JSON.parse(localStorage.getItem('role'));
 // const privilage = userRole.privilege.map(item => item.processId)
 let  prev ="";
+prev = userRole.privilege.map(event=>event.processId);
   useEffect(() => {
     
-      prev = userRole.privilege.map(event=>event.processId)
+      
     console.log("this is your ysoueer local storagerole",prev);
   
     console.log("this is your ysoueer local storagerole",userRole.privilege);
@@ -79,7 +80,7 @@ let  prev ="";
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) => prev.includes(list.process)&&(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>)
+              (list) => prev.includes(list.process)?(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>):(<>no link</>)
             )}
           </List>
         );
