@@ -111,6 +111,7 @@ function Process() {
     dispatch(getAllProcess());
     dispatch(getAllAction());
     dispatch(getAllStaffs());
+    console.log("this is the log for process", processes);
   }, []);
   // console.log(processes);
   // console.log(actions);
