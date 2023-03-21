@@ -4,7 +4,7 @@ import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Title, Action, Button } from '../../../../styles/main';
 
 export const ClientInvoice = () => {
-  const tableHead = ['S/N', 'Invoice Title', 'Action'];
+  const tableHead = ['S/N', 'Client Invoice Under Construction', 'Action'];
 
   const tableData = [
     {
@@ -12,25 +12,7 @@ export const ClientInvoice = () => {
       invoice_title: 'Payment request for project xyz',
     },
 
-    {
-      id: '02',
-      invoice_title: 'Payment request for system installation',
-    },
-
-    {
-      id: '03',
-      invoice_title: 'Payment request for office equipment supply',
-    },
-
-    {
-      id: '04',
-      invoice_title: 'Payment request for project xyz',
-    },
-
-    {
-      id: '05',
-      invoice_title: 'Payment request for project xyz',
-    },
+   
   ];
 
   return (
@@ -38,7 +20,7 @@ export const ClientInvoice = () => {
       <Box>
         <TableContainer component={Paper}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 3 }}>
-            <Title>Client Invoices</Title>
+            <Title>Client Invoices Under Construction</Title>
             <Button
             //   onClick={() => {
             //     navigate('/dashboard/procurement_request');
@@ -88,7 +70,7 @@ export const ClientInvoice = () => {
 };
 
 export const ClientReceipt = () => {
-  const tableHead = ['S/N', 'Invoice Title', 'Action'];
+  const tableHead = ['S/N', 'Procurement Invoices Under Construction', 'Action'];
 
   const tableData = [
     {
@@ -96,25 +78,8 @@ export const ClientReceipt = () => {
       invoice_title: 'Payment request for project xyz',
     },
 
-    {
-      id: '02',
-      invoice_title: 'Payment request for system installation',
-    },
-
-    {
-      id: '03',
-      invoice_title: 'Payment request for office equipment supply',
-    },
-
-    {
-      id: '04',
-      invoice_title: 'Payment request for project xyz',
-    },
-
-    {
-      id: '05',
-      invoice_title: 'Payment request for project xyz',
-    },
+   
+    
   ];
 
   return (
@@ -122,7 +87,7 @@ export const ClientReceipt = () => {
       <Box>
         <TableContainer component={Paper}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 3 }}>
-            <Title>Client Invoices</Title>
+            <Title>Procurement Invoices Under Construction</Title>
             <Button
             //   onClick={() => {
             //     navigate('/dashboard/procurement_request');

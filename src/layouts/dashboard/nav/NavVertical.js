@@ -86,7 +86,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
        //     { title: 'Office Assets', path: PATH_DASHBOARD.stocks_and_inventory, icon: ICONS.analytics },
             // { title: 'Notifications', path: PATH_DASHBOARD.notifications, icon: ICONS.notification },
       //      { title: 'Capacity Building', path: PATH_DASHBOARD.capacity_building, icon: ICONS.build },
-            { title: 'Procurements', path: PATH_DASHBOARD.procurement, icon: ICONS.procurement },
+        //    { title: 'Procurements', path: PATH_DASHBOARD.procurement, icon: ICONS.procurement },
             { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role },
             { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process },
              { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action },

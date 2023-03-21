@@ -89,7 +89,8 @@ const Operations = () => {
         </Grid>
 
         <FormCard>
-          <Title>Projects Statisticss</Title>
+          <Title>Projects Statistics</Title>
+          <Title>Under Construction</Title>
           <OperationStat />
         </FormCard>
 
