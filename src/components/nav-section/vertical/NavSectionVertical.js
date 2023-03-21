@@ -28,9 +28,9 @@ const { role } = useSelector((state) => state.role);
  const [userRole, setUserRole] = useState({})
 
 useEffect(() => {
-    dispatch(getRoleById());
+    dispatch(getRoleById(user?.user?.role));
     
-    getRoleById(user?.user?.role);
+    ;
     const userRolde = JSON.parse(localStorage.getItem('role'));
     console.log("this is your ysoueer role",userRolde);
 
