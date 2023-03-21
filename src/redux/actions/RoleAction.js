@@ -44,9 +44,9 @@ export const getRoleById = (id) => async (dispatch) => {
       needToken: true,
     });
 
-    console.log("please work",res);
+    console.log("please work",res.data.role[0]);
 
-    localStorage.setItem('role', JSON.stringify(res?.data?.role[0][0]));
+    localStorage.setItem('role', JSON.stringify(res?.data?.role[0]));
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));
