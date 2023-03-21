@@ -37,7 +37,7 @@ useEffect(() => {
 
     
   const userRole = JSON.parse(localStorage.getItem('role'));
-const privilage = userRole.privilage.map(item => item.processId)
+const privilage = userRole.privilege.map(item => item.processId)
   useEffect(() => {
     
     
