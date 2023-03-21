@@ -39,7 +39,7 @@ useEffect(() => {
   const userRole = JSON.parse(localStorage.getItem('role'));
 // const privilage = userRole.privilege.map(item => item.processId)
 let  prev ="";
-prev = userRole.privilege.map(event=>event.processId);
+prev = userRole?.privilege.map(event=>event.processId);
   useEffect(() => {
     
       
