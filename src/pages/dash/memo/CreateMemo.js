@@ -113,7 +113,7 @@ const handleFormChange = ({ name, value }) => {
       let isFormData=true;
       if (memoData.attachment){
         console.log("this is the attachemnt",memoData.attachment)
-         isFormData=true;
+         isFormData=false;
           selected = new FormData();
             
           selected.append("memoTitle", memoData.memoTitle);
@@ -162,7 +162,7 @@ const handleFormChange = ({ name, value }) => {
       }
 
     
- console.log("make this happen",selected);
+ console.log("make this happen",{...selected});
     
 
     dispatch(
