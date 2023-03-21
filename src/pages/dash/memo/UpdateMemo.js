@@ -172,6 +172,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
          selected.append("trail", JSON.stringify("memoTitle", memoData.memoTitle));
          selected.append("trail", JSON.stringify("memoBody", memoData.memoBody));
           selected.append("trail", JSON.stringify("status", memoData.status));
+          selected.append("trail", JSON.stringify("status", memoData.attachment));
            selected.append("trail", JSON.stringify("remarks", memoData.remarks));
             selected.append("trail", JSON.stringify("ownerId", memoData.ownerId));
                selected.append("trail", JSON.stringify("attachment", memoData.attachment));
@@ -189,7 +190,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     console.log("before you go meet wike",selected)
 
   // console.log("these are captured with data",selected)
-   dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+  // dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
     
     /*
     const formData = new FormData();
@@ -346,8 +347,8 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
               <input
                 hidden
                 {...register('attachment')}
-            //   onChange={(e) => handleFileDrop(e)}
-              onChange={handleFileUpload}
+               onChange={(e) => handleFormChange(e.target)}
+            //  onChange={handleFileUpload}
                 ref={fileInputRef}
                 name="attachment"
                 accept=".pdf"

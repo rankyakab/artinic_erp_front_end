@@ -112,8 +112,10 @@ const handleFormChange = ({ name, value }) => {
       let selected = '';
       let isFormData=true;
       if (memoData.attachment){
+        console.log("this is the attachemnt",memoData.attachment)
          isFormData=true;
           selected = new FormData();
+            
           selected.append("memoTitle", memoData.memoTitle);
           selected.append("memoBody", memoData.memoBody);
           selected.append("attachment", memoData.attachment);
@@ -160,17 +162,20 @@ const handleFormChange = ({ name, value }) => {
       }
 
     
-
+ console.log("make this happen",selected);
     
+
     dispatch(
       createMemo(
-        selected,
+        {...selected},
         setOpen,
         setError,
         setErrorMessage,
         isFormData
       )
+    
     );
+      
   };
 
 
