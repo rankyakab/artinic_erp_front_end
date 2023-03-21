@@ -38,10 +38,11 @@ useEffect(() => {
     
   const userRole = JSON.parse(localStorage.getItem('role'));
 // const privilage = userRole.privilege.map(item => item.processId)
+let  prev ="";
   useEffect(() => {
     
-    
-    console.log("this is your ysoueer local storagerole",userRole.privilege);
+      prev = userRole.privilege.map(event=>event.process)
+    console.log("this is your ysoueer local storagerole",prev);
 
   //  console.log("this is your ysoueer role from dispatch",role);
    //  console.log("this is your ysoueer user from localstorage",user);
