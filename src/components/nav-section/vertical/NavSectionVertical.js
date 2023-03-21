@@ -28,9 +28,9 @@ export default function NavSectionVertical({ data, sx, ...other }) {
  const [userRole, setUserRole] = useState({})
 
 useEffect(() => {
-    dispatch(getRoleById(user?.role));
+    dispatch(getRoleById(user?.user.role));
     
-    ;
+    
     const userRolde = JSON.parse(localStorage.getItem('role'));
     console.log("this is your ysoueer role",userRolde);
 

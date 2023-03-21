@@ -35,7 +35,7 @@ const EditUser = () => {
 
 
   const [userRole, setUserRole] = useState({
-    role:filterUser[0].role,
+   // role:filterUser[0].role,
   });
 
   // console.log(userData);
