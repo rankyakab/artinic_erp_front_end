@@ -21,9 +21,9 @@ NavSectionVertical.propTypes = {
 export default function NavSectionVertical({ data, sx, ...other }) {
   const { translate } = useLocales();
     const dispatch = useDispatch();
-  // const user = JSON.parse(localStorage.getItem('user'));
-// const { role } = useSelector((state) => state.role);
-      const user = localStorage.getItem('user');
+   const user = JSON.parse(localStorage.getItem('user'));
+ const { role } = useSelector((state) => state.role);
+    //  const user = localStorage.getItem('user');
          
  const [userRole, setUserRole] = useState({})
 
@@ -32,9 +32,10 @@ useEffect(() => {
     
     
     const userRolde = JSON.parse(localStorage.getItem('role'));
-    console.log("this is your ysoueer role",userRolde);
+    console.log("this is your ysoueer local storagerole",userRolde);
 
-   // console.log("this is your ysoueer role from dispatch",role);
+    console.log("this is your ysoueer role from dispatch",role);
+     console.log("this is your ysoueer user from localstorage",user);
   }, []);
 
 
