@@ -114,7 +114,7 @@ const navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
     setError(false);
-    navigate(-1);
+    window.location.reload();
   };
 
   const handleClick = () => {
