@@ -41,7 +41,7 @@ useEffect(() => {
   useEffect(() => {
     
     
-    console.log("this is your ysoueer local storagerole",userRole);
+    console.log("this is your ysoueer local storagerole",userRole.privilege);
 
   //  console.log("this is your ysoueer role from dispatch",role);
    //  console.log("this is your ysoueer user from localstorage",user);
