@@ -107,6 +107,7 @@ const handleFormChange = ({ name, value }) => {
   };
 
   const handleCreateMemo = (data) => {
+
      console.log ("the main the main");
       console.log ("datea",data);
     console.log (data);
@@ -117,6 +118,7 @@ const handleFormChange = ({ name, value }) => {
       if (memoData.attachment){
         console.log("this is the attachemnt",memoData.attachment)
          isFormData=false;
+         
           selected = new FormData();
             
           selected.append("memoTitle", memoData.memoTitle);
