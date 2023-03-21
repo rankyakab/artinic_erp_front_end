@@ -45,7 +45,7 @@ prev = userRole?.privilege.map(event=>event.processId)&&userRole?.privilege.map(
       
     console.log("this is your ysoueer local storagerole",prev);
   
-    console.log("this is your ysoueer local storagerole",userRole.privilege);
+    console.log("this is your ysoueer local storagerole",userRole?.privilege);
   //  console.log("this is your ysoueer role from dispatch",role);
    //  console.log("this is your ysoueer user from localstorage",user);
   }, [dispatch]);
