@@ -74,13 +74,17 @@ prev = userRole.privilege.map(event=>event.processId);
 
        // console.log(group.subheader);
        // list.process &&
-
+       let count = 0;
         return (
           <List key={key} disablePadding sx={{ px: 2 }}>
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) => prev.includes(list.process)?(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>):(<>no link</>)
+              (list) =>{
+                count+=1;
+                 console.log("this is the link ", count);
+                return  prev.includes(list.process)?(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>):(<>no link</>)
+                }
             )}
           </List>
         );
