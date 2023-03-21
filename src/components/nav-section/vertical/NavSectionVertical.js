@@ -33,12 +33,12 @@ useEffect(() => {
     
 
   }, []);
-   let userRolde="";
+
   useEffect(() => {
     
     
     
-     userRolde = JSON.parse(localStorage.getItem('role'));
+        const userRolde = JSON.parse(localStorage.getItem('role'));
     console.log("this is your ysoueer local storagerole",userRolde);
 
     console.log("this is your ysoueer role from dispatch",role);
@@ -68,13 +68,14 @@ useEffect(() => {
         const key = group.subheader || group.items[0].title;
 
        // console.log(group.subheader);
+       // list.process &&
 
         return (
           <List key={key} disablePadding sx={{ px: 2 }}>
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) => list.process && (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
+              (list) =>  (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
             )}
           </List>
         );
