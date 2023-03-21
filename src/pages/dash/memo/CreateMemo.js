@@ -117,7 +117,7 @@ const handleFormChange = ({ name, value }) => {
       let isFormData=true;
       if (memoData.attachment){
         console.log("this is the attachemnt",memoData.attachment)
-         isFormData=false;
+         isFormData=true;
 
           selected = new FormData();
             
