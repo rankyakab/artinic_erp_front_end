@@ -66,9 +66,27 @@ export const getSingleMemo = (id) => async (dispatch) => {
 
 export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData) => async (dispatch) => {
                             
+ try {
+    dispatch(setIsLoading(true));
+    const res = await httpRequest({
+      url: API_ROUTES?.createMemo?.route,
+      method: API_ROUTES?.createMemo?.method,
+      needToken: true,
+      data,
+      header: {
+            'Access-Control-Allow-Origin': '*',
+            "mode": 'no-cors',
+            
+            'Content-Type': 'multipart/form-data',
+          }
+        ,
+      isFormData:true,
+      // body: data,
+    });
 
 
   ///
+  /*
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
@@ -86,7 +104,7 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
       isFormData,
       // body: data,
     });
-
+*/
    // console.log(res);
 
     if (res.status === 200 || res.status === 201) {
