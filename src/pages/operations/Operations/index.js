@@ -19,7 +19,7 @@ const Operations = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state?.auth);
- //  const { staffs } = useSelector((state) => state?.staff);
+   const { staffs } = useSelector((state) => state?.staff);
 
   const [loggedInUser, setLoggedInUser] = useState({});
 /*
@@ -56,7 +56,7 @@ const Operations = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'10'}
+              number={staffs.length}
               text={'Total number of staff'}
               // per={'12 more than last quarter'}
               img={ProspectiveProject}
@@ -64,7 +64,7 @@ const Operations = () => {
           </Grid>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'50'}
+              number={'Under Construction'}
               text={'Total application'}
               per={'0.2% lower than last quarter'}
               img={TotalProject}
@@ -72,7 +72,7 @@ const Operations = () => {
           </Grid>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'20'}
+              number={'Under Construction'}
               text={'Total projects'}
               //  per={'2% more than last quarter'}
               img={OngoingProject}
@@ -80,7 +80,7 @@ const Operations = () => {
           </Grid>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'30'}
+              number={'Under Construction'}
               text={'Total departments'}
               //  per={'50 more than last year'}
               img={CompleteProject}
