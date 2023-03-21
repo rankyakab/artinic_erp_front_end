@@ -20,6 +20,7 @@ import { convertStaffToUser, getAllStaffs } from '../../../../redux/actions/Staf
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
+import { checkPrivilege } from '../../../../utils/checkPrivilege';
 
 export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
   const dispatch = useDispatch();
@@ -110,11 +111,12 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                         onClick={() => {
                           setEditUser(data);
                           navigate(`/dashboard/edit-staff/${data?._id}`);
+                         // 6419cb3d5ab751646ea183b4
                         }}
                       >
                         View More
                       </Action>
-                      {!data?.userId && (
+                      {!data?.userId && checkPrivilege("6419ec4e5ab751646ea18437","6419cabd5ab751646ea1839a") && (
                         <Action
                           onClick={() => {
                             setId(data?._id);
