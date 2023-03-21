@@ -158,14 +158,14 @@ export default function Router() {
         { path: 'edit-user/:id', element: <EditUser /> },
         { path: 'new-staff', element: <NewStaff /> },
         { path: 'edit-staff/:id', element: <EditStaff /> },
-        { path: 'payroll', element: <Payroll /> },
-        { path: 'generate-payslip', element: <GeneratePayroll /> },
-        { path: 'generate-basic', element: <GenerateBasic /> },
-        { path: 'generate-allowance', element: <GenerateAllowance /> },
-        { path: 'generate-bonus', element: <GenerateBonuses /> },
-        { path: 'generate-allowed-deduction', element: <GenerateAllowedDeduction /> },
-        { path: 'generate-staff-deduction', element: <GenerateStaffDeduction /> },
-        { path: 'generate-employer-deduction', element: <GenerateEmployerDeduction /> },
+//        { path: 'payroll', element: <Payroll /> },
+   //     { path: 'generate-payslip', element: <GeneratePayroll /> },
+    //    { path: 'generate-basic', element: <GenerateBasic /> },
+   //     { path: 'generate-allowance', element: <GenerateAllowance /> },
+    //    { path: 'generate-bonus', element: <GenerateBonuses /> },
+      //  { path: 'generate-allowed-deduction', element: <GenerateAllowedDeduction /> },
+    //    { path: 'generate-staff-deduction', element: <GenerateStaffDeduction /> },
+    //    { path: 'generate-employer-deduction', element: <GenerateEmployerDeduction /> },
         { path: 'memo', element: <Memo /> },
         { path: 'create-memo', element: <CreateMemo /> },
         { path: 'memo-details/:id', element: <MemoDetails /> },
@@ -173,6 +173,7 @@ export default function Router() {
         { path: 'payment_voucher', element: <PaymentVoucher /> },
         { path: 'create_voucher', element: <CreateVoucher /> },
         { path: 'update-voucher/:id', element: <UpdateVoucher /> },
+    /*
         { path: 'circulars', element: <Circulars /> },
         { path: 'create-circulars', element: <CreateCircular /> },
         { path: 'maintenance', element: <Maintenance /> },
@@ -191,12 +192,14 @@ export default function Router() {
         { path: 'training_request', element: <TrainingRequest /> },
         { path: 'procurement', element: <Procurement /> },
         { path: 'procurement_request', element: <ProcurementRequest /> },
+      */
         { path: 'roles', element: <Role /> },
         { path: 'process', element: <Process /> },
         { path: 'action', element: <Action /> },
         { path: 'privileges', element: <Privileges /> },
 
         // Operations User
+        /*
         { path: 'operations_dashboard', element: <Operations /> },
         { path: 'create_projects', element: <CreateProjects /> },
         { path: 'projects', element: <ProjectManagement /> },
@@ -208,8 +211,9 @@ export default function Router() {
         { path: 'receipt', element: <Receipt /> },
         { path: 'report', element: <ReportFeature /> },
         { path: 'create-reports', element: <CreateReports /> },
-
+*/
         // Accounts
+        /*
         { path: 'accounts_dashboard', element: <Accounts /> },
 
         { path: 'expenses', element: <Expenses /> },
@@ -217,6 +221,7 @@ export default function Router() {
         { path: '/dashboard/client-balance-details/:id', element: <ClientBalanceDetails /> },
         { path: 'approvals', element: <Approvals /> },
         { path: '/dashboard/approvals-details/:id', element: <ApprovalDetails /> },
+       */
         // { path: 'accounts_dashboard', element: <Accounts /> },
         // { path: 'expenses', element: <Expenses /> },
       ],
