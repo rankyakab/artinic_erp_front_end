@@ -25,7 +25,7 @@ export default function NavSectionVertical({ data, sx, ...other }) {
  const { role } = useSelector((state) => state.role);
     //  const user = localStorage.getItem('user');
          
- const [userRole, setUserRole] = useState({})
+ // const [userRole, setUserRole] = useState({})
 
 useEffect(() => {
     dispatch(getRoleById(user?.user.role));
@@ -34,12 +34,14 @@ useEffect(() => {
 
   }, []);
 
+
+    
+  const userRole = JSON.parse(localStorage.getItem('role'));
+const privilage = userRole.privilage.map(item => item.processId)
   useEffect(() => {
     
     
-    
-        const userRolde = JSON.parse(localStorage.getItem('role'));
-    console.log("this is your ysoueer local storagerole",userRolde);
+    console.log("this is your ysoueer local storagerole",userRole);
 
     console.log("this is your ysoueer role from dispatch",role);
      console.log("this is your ysoueer user from localstorage",user);
@@ -75,7 +77,7 @@ useEffect(() => {
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) =>  (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
+              (list) => privilage.includes(list.process) && (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
             )}
           </List>
         );

@@ -45,6 +45,7 @@ export const getRoleById = (id) => async (dispatch) => {
     });
 
     console.log("please work",res.data.role[0]);
+     console.log("please work",res.data.role[0].privilege);
 
     localStorage.setItem('role', JSON.stringify(res?.data?.role[0]));
 
