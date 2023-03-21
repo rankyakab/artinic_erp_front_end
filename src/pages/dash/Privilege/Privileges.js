@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 // import HeaderCard from '../../../components/HeaderCard';
 import { getAllRole ,editRole} from '../../../redux/actions/RoleAction';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
@@ -16,7 +17,7 @@ import ErrorCard from '../../../components/ErrorCard';
 
 function Privileges() {
   const dispatch = useDispatch();
-
+const navigate = useNavigate();
   const { roles } = useSelector((state) => state?.role);
   const { processes } = useSelector((state) => state?.process);
   const { actions } = useSelector((state) => state?.action);
@@ -113,6 +114,7 @@ function Privileges() {
   const handleClose = () => {
     setOpen(false);
     setError(false);
+    navigate(-1);
   };
 
   const handleClick = () => {
