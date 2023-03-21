@@ -65,7 +65,7 @@ export const getSingleMemo = (id) => async (dispatch) => {
 };
 
 export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData) => async (dispatch) => {
-
+                            
 
 
   ///

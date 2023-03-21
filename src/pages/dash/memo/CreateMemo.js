@@ -168,7 +168,7 @@ const handleFormChange = ({ name, value }) => {
 
     
  console.log("make this happen",{...selected});
-    
+     isFormData = true;
 
     dispatch(
       createMemo(
