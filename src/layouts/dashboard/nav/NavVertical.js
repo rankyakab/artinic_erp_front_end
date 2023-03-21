@@ -70,9 +70,9 @@ export default function NavVertical({ openNav, onCloseNav }) {
     balance: icon('ic_balance'),
   };
         const pageProcess = {
-        user:"641974848f2327e71d493fa2",
-        staff:"641974ab8f2327e71d493faa",
-        memo:"641974ca8f2327e71d493fb0",
+        user:"641974ab8f2327e71d493faa",
+        staff:"6419ec4e5ab751646ea18437",
+        memo:"6419cb3d5ab751646ea183b4",
         privileges:"641985a65ab751646ea17f51",
         action:"6419856b5ab751646ea17f20",
         process:"6419854d5ab751646ea17ef1",

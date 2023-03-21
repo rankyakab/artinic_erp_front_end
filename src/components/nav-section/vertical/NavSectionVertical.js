@@ -79,7 +79,7 @@ let  prev ="";
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) => (<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process', group.items)}</>)
+              (list) => prev.includes(list.process)&&(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process', group.items)}</>)
             )}
           </List>
         );
