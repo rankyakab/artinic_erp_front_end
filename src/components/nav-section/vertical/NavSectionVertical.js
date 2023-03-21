@@ -37,14 +37,14 @@ useEffect(() => {
 
     
   const userRole = JSON.parse(localStorage.getItem('role'));
-const privilage = userRole.privilege.map(item => item.processId)
+// const privilage = userRole.privilege.map(item => item.processId)
   useEffect(() => {
     
     
     console.log("this is your ysoueer local storagerole",userRole);
 
-    console.log("this is your ysoueer role from dispatch",role);
-     console.log("this is your ysoueer user from localstorage",user);
+  //  console.log("this is your ysoueer role from dispatch",role);
+   //  console.log("this is your ysoueer user from localstorage",user);
   }, [dispatch]);
 
 
@@ -77,7 +77,7 @@ const privilage = userRole.privilege.map(item => item.processId)
             {group.subheader && <StyledSubheader disableSticky>{translate(group.subheader)}</StyledSubheader>}
 
             {group.items.map(
-              (list) => privilage.includes(list.process) && (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
+              (list) => list.process && (<NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />)
             )}
           </List>
         );
