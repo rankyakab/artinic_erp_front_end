@@ -83,7 +83,7 @@ prev = userRole.privilege.map(event=>event.processId);
               (list) =>{
                 count+=1;
                  console.log("this is the link ", count);
-                return  prev.includes(list.process)&&(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>)
+                return  !prev.includes(list.process)&&(<><NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />{console.log('hello process', list.process)} {console.log('hello process list', list)}</>)
                 }
             )}
           </List>
