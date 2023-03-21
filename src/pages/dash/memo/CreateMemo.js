@@ -75,7 +75,7 @@ const [memoData, setMemoData] = useState({
     // memoDate: '',
     memoTitle: '',
     memoBody: '',
-    attachment: null,
+    attachment: '',
     ownerId: user?.user?.staffId,
     recipientId: ""
     
@@ -118,7 +118,7 @@ const handleFormChange = ({ name, value }) => {
       if (memoData.attachment){
         console.log("this is the attachemnt",memoData.attachment)
          isFormData=false;
-         
+
           selected = new FormData();
             
           selected.append("memoTitle", memoData.memoTitle);
@@ -443,7 +443,7 @@ const handleFormChange = ({ name, value }) => {
               {memoData?.attachment ? memoData?.attachment?.name  : 'Add Attachement'}
               <input
                 hidden
-                {...register('attachment')}
+            //    {...register('attachment')}
             //   onChange={(e) => handleFileDrop(e)}
               onChange={handleFileUpload}
                 ref={fileInputRef}
