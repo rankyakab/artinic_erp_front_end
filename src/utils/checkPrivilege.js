@@ -3,6 +3,6 @@ export function checkPrivilege(processId, actionid) {
   const userRole = JSON.parse(localStorage.getItem('role'));
  // compares it with the role and priviledges of the logged in user
 
-return userRole.privilege.find(prev=>prev.processId===processId)?.action?.find(act=>act===actionid)
+return userRole?.privilege.find(prev=>prev.processId===processId)?.action?.find(act=>act===actionid)
 
 }
