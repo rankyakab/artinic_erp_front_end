@@ -31,12 +31,19 @@ useEffect(() => {
     dispatch(getRoleById(user?.user.role));
     
     
-    const userRolde = JSON.parse(localStorage.getItem('role'));
+
+  }, []);
+   let userRolde="";
+  useEffect(() => {
+    
+    
+    
+     userRolde = JSON.parse(localStorage.getItem('role'));
     console.log("this is your ysoueer local storagerole",userRolde);
 
     console.log("this is your ysoueer role from dispatch",role);
      console.log("this is your ysoueer user from localstorage",user);
-  }, []);
+  }, [dispatch]);
 
 
       // user.role
