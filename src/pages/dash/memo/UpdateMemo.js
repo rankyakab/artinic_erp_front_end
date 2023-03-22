@@ -232,7 +232,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     dispatch(getAllStaffs());
     dispatch(getSingleMemo(params.id));
    
-
+setMemoData({...memo})
   }, []);
    
   const statuscolor = sectionColor(memo.status)
