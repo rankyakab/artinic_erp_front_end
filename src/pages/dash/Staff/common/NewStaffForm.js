@@ -257,6 +257,28 @@ const NewStaffForm = ({ handleFormChange, userData, positions }) => {
             />
           </Stack>
         </Grid>
+        <Grid item xs={12} md={6}>
+          <Stack>
+            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+              Designation
+            </FormLabel>
+            <GeneralInput
+              select
+              variant="outlined"
+              SelectProps={{
+                native: true,
+              }}
+              value={userData?.designation}
+              name="designation"
+              onChange={(e) => handleFormChange(e.target)}
+            >
+            
+              <option value="">Select Gender</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </GeneralInput>
+          </Stack>
+        </Grid>
 
         <Grid item xs={12} md={6}>
           <Stack>

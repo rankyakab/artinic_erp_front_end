@@ -13,6 +13,7 @@ import { createStaff } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
+import { getAllRole } from '../../../redux/actions/RoleAction';
 
 const NewStaff = () => {
   // const { themeStretch } = useSettingsContext();
@@ -47,8 +48,9 @@ const NewStaff = () => {
 
   const { loading } = useSelector((state) => state.staff);
   const { positions } = useSelector((state) => state.payroll);
-
+  const { roles } = useSelector((state) => state.role);
   console.log(positions);
+  console.log("these are the roles",roles);
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -138,6 +140,7 @@ const NewStaff = () => {
 
   useEffect(() => {
     dispatch(getAllPositions());
+    dispatch(getAllRole());
   }, [dispatch]);
 
   return (
@@ -269,7 +272,7 @@ const NewStaff = () => {
               </Button>
             </Grid>
             <Grid items xs={12} md={8} sx={{ pl: 5 }}>
-              <NewStaffForm userData={userData} handleFormChange={handleFormChange} positions={positions} />
+              <NewStaffForm userData={userData} handleFormChange={handleFormChange} positions={positions} roles={roles} />
             </Grid>
           </Grid>
         </FormCard>
