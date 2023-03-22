@@ -172,7 +172,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
           selected = new FormData();
          selected.append("memoTitle", memoData.memoTitle);
          selected.append("memoBody",  memoData.memoBody);
-          selected.append("status",  memoData?.status);
+          selected.append("status",  "pending approval");
           selected.append("remarks",  memoData?.remarks);
           selected.append("ownerId",  memoData?.ownerId);
            selected.append("memoId",  memoData?.memoId);
@@ -232,13 +232,8 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
    dispatch(getSingleMemo(params.id));
    
 
-  }, []);
-   useEffect(() => {
-    
-      setMemoData({...memoData,...memo})
-console.log("this is memoData", memoData)
-
-  }, [dispatch]);
+  },[params.id]);
+  
 
   const statuscolor = sectionColor(memo.status)
  
