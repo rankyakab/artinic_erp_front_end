@@ -43,13 +43,14 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   // console.log("these are captured with data",selected)
    // const allData = allMemo.filter(id=> id!==memoId);
    dispatch(deleteStaffById(memoId,setOpen, setSuccessMessage, setError, setErrorMessage, setLoading));
-    
-    getAllStaffs()
+   
+
  }
 
   const handleClose = () => {
     setOpen(false);
     setError(false);
+ navigate(-1)
   };
 
   const handleClick = () => {
