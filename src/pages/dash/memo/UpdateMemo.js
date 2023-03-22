@@ -231,10 +231,15 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
     dispatch(getAllStaffs());
    dispatch(getSingleMemo(params.id));
    
-setMemoData({attachment:null,...memo})
-console.log("this is memoData", memoData)
+
   }, []);
-   
+   useEffect(() => {
+    
+      setMemoData({attachment:null,...memo})
+console.log("this is memoData", memoData)
+
+  }, [dispatch]);
+
   const statuscolor = sectionColor(memo.status)
  
   return (
