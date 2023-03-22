@@ -121,7 +121,7 @@ const handleFormChange = ({ name, value }) => {
 
           selected = new FormData();
             console.log("htis is the memdatat", memoData);
-          selected.append("memoTitle", memoData.memoTitle);
+          selected.append("memoTitle", data.memoTitle);
           selected.append("memoBody", memoData.memoBody);
           selected.append("attachment", memoData.attachment);
           selected.append("ownerId", memoData.ownerId);
@@ -129,7 +129,7 @@ const handleFormChange = ({ name, value }) => {
           selected.append("copies", JSON.stringify(copies));
           selected.append("status", "pending approval");
           selected.append("trail", JSON.stringify([{ 
-                                    memoTitle: memoData.memoTitle,
+                                    memoTitle: data.memoTitle,
                                     memoBody: memoData.memoBody,
                                     status: "pending approval" ,
                                     remarks:  "" ,
