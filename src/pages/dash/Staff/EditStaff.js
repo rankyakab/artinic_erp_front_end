@@ -98,9 +98,13 @@ const EditStaff = () => {
   };
 
   const handleFileDrop = (e) => {
-    const { files } = e.target;
+    const { files, name, value } = e.target;
     // console.log(files);
     setFilters(files[0]);
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
     const reader = new FileReader();
 

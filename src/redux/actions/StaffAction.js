@@ -122,7 +122,7 @@ export const createStaff = (data, setOpen, setError, setErrorMessage, isFormData
 export const editStaff =
   (data, id, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
     try {
-      console.log(data);
+      console.log("this is the data to be logied in ", data);
       dispatch(setIsLoading(true));
       const res = await httpRequest({
         url: API_ROUTES?.editStaff?.route + id,

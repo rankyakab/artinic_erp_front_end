@@ -75,7 +75,7 @@ const NewStaff = () => {
     const { files ,name, value} = e.target;
     // console.log(files);
     setFilters(files[0]);
- userData((prev) => ({
+   userData((prev) => ({
       ...prev,
       [name]: value,
     }));

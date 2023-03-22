@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
+import Roles from '../../Roles/Roles';
 
 const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) => {
   return (
@@ -34,34 +35,8 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
           </Stack>
         </Grid>
 
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel id="last_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Last Name
-            </FormLabel>
-            <GeneralInput
-              placeholder="Enter Last Name"
-              value={userData?.lastName}
-              name="lastName"
-              onChange={(e) => handleFormChange(e.target)}
-            />
-          </Stack>
-        </Grid> */}
+     
 
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel id="email_address" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Email Address
-            </FormLabel>
-            <GeneralInput
-              value={userData?.personalEmail}
-              name="personalEmail"
-              onChange={(e) => handleFormChange(e.target)}
-              fullWidth
-              placeholder="Enter Email Address"
-            />
-          </Stack>
-        </Grid> */}
 
         <Grid item xs={12} md={6}>
           <Stack>
@@ -111,6 +86,7 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
               onChange={(e) => handleFormChange(e.target)}
               fullWidth
               select
+              disabled
               SelectProps={{
                 native: true,
               }}
@@ -124,42 +100,7 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
             </GeneralInput>
           </Stack>
         </Grid>
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel
-              id="ipPhone
-
-"
-              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
-            >
-              Ip Phone
-            </FormLabel>
-            <GeneralInput
-              value={userData?.ipPhone}
-              name="ipPhone"
-              onChange={(e) => handleFormChange(e.target)}
-              fullWidth
-              placeholder="Enter number "
-            />
-          </Stack>
-        </Grid> */}
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel
-              id="staffNo
-"
-              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
-            >
-              Staff ID
-            </FormLabel>
-            <GeneralInput
-              value={userData?.staffNo}
-              name="staffNo"
-              onChange={(e) => handleFormChange(e.target)}
-              fullWidth
-            />
-          </Stack>
-        </Grid> */}
+    
 
         <Grid item xs={12} md={6}>
           <Stack>
@@ -183,51 +124,7 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
           </Stack>
         </Grid>
 
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel id="role" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Role
-            </FormLabel>
-            <GeneralInput
-              select
-              variant="outlined"
-              SelectProps={{
-                native: true,
-              }}
-              // value={userData.lastName}
-              //     name="lastName"
-              onChange={(e) => handleFormChange(e.target)}
-            >
-              <option value="">Select Role</option>
-              <option value="staff">staff</option>
-              <option value="admin">Admin </option>
-              <option value="IT">I.T staff </option>
-              <option value="HR">Human Resources staff </option>
-            </GeneralInput>
-          </Stack>
-        </Grid> */}
-
-        {/* <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel id="phone_number" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Designation
-            </FormLabel>
-            <GeneralInput
-              select
-              variant="outlined"
-              SelectProps={{
-                native: true,
-              }}
-              // value={userData.lastName}
-              //     name="lastName"
-              onChange={(e) => handleFormChange(e.target)}
-            >
-              <option value="">Select Designation</option>
-              <option value="">Project Management</option>
-              <option value="">Operations </option>
-            </GeneralInput>
-          </Stack>
-        </Grid> */}
+   
 
         <Grid item xs={12} md={6}>
           <Stack>
@@ -245,10 +142,11 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
         <Grid item xs={12} md={6}>
           <Stack>
             <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Designation
+              Role
             </FormLabel>
             <GeneralInput
               value={userData?.designation}
+              disabled
               name="designation"
               onChange={(e) => handleFormChange(e.target)}
               placeholder="Designation"
