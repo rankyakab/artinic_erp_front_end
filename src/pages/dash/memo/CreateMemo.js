@@ -120,7 +120,7 @@ const handleFormChange = ({ name, value }) => {
          isFormData=true;
 
           selected = new FormData();
-            
+            console.log("htis is the memdatat", memoData);
           selected.append("memoTitle", memoData.memoTitle);
           selected.append("memoBody", memoData.memoBody);
           selected.append("attachment", memoData.attachment);
