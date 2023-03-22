@@ -409,11 +409,15 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
         
         <Block title="Memo Trail">
            <Timeline position="">
+           
             
             {TIMELINES.map((item) => (
               
                  <TimelineItem key={item._id} >
                 
+               
+               
+               
                 <TimelineOppositeContent>
                   
                  
@@ -465,6 +469,12 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                  
                   </Typography>
                 </TimelineOppositeContent>
+
+
+
+
+
+
 
 
                 <TimelineSeparator>
