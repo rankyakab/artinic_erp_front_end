@@ -33,10 +33,11 @@ export const httpRequest = async (params) => {
     if (data) options.data = isFormData ? data : JSON.stringify(data);
 
     // if (body) options.body = isFormData ? body : JSON.stringify(body);
-    // console.log(options);
+     console.log(options);
     const res = await axios(`${BASE_URL}${url}`, options);
     // const res = await fetch(`${BASE_URL}${url}`, options);
     if (res?.status === 401 || res?.status === 400 || res?.status === 406) {
+     console.log(res.message)
       return Promise.reject(res?.message);
     }
 

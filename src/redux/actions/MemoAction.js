@@ -74,13 +74,11 @@ export const createMemo = (data, setOpen, setError, setErrorMessage, isFormData)
       needToken: true,
       data,
       header: {
-            'Access-Control-Allow-Origin': '*',
-            "mode": 'no-cors',
-            
-            'Content-Type': 'multipart/form-data',
+         
+             "Content-Type": "multipart/form-data",
           }
         ,
-      isFormData:true,
+      isFormData
       // body: data,
     });
 
