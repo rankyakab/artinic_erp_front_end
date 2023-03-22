@@ -98,8 +98,8 @@ let color = "";
   const schema = yup.object().shape({
     // memoDate: yup.date().required(),
     // refId: yup.string().required(),
-    memoTitle: yup.string().required(),
-    memoBody: yup.string().required(),
+ //   memoTitle: yup.string().required(),
+  //  memoBody: yup.string().required(),
  //   memoType: yup.string().required(),
  //   recipient: yup.object().required(),
    // ownerId: yup.string().required(),
