@@ -12,8 +12,11 @@ import {
   TableContainer,
   Typography,
   Stack,
+  IconButton,
   CircularProgress,
 } from '@mui/material';
+// import IconButton as from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action } from '../../../../styles/main';
 import { convertStaffToUser, getAllStaffs } from '../../../../redux/actions/StaffAction';
@@ -21,6 +24,7 @@ import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
 import { checkPrivilege } from '../../../../utils/checkPrivilege';
+
 
 export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
   const dispatch = useDispatch();
@@ -35,6 +39,13 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+   const deleteUserOnClick = (memoId)=>{
+  // console.log("these are captured with data",selected)
+   // const allData = allMemo.filter(id=> id!==memoId);
+ //   dispatch(deleteMemo(memoId,getAllMemo, setOpen, setError, setErrorMessage, setSuccessMessage));
+    
+    getAllStaffs()
+ }
 
   const handleClose = () => {
     setOpen(false);
@@ -45,7 +56,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
     handleClose();
   };
 
-  const tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation', 'Action'];
+  const tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation','Delete', 'Action'];
 
   return (
     <>
@@ -106,6 +117,10 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                     <TableCell>{data?.phoneNumber}</TableCell>
 
                     <TableCell>{capitalize(data?.designation)}</TableCell>
+                    <TableCell>  <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
+                            <DeleteIcon />
+                          </IconButton></TableCell>
+                   
                     <TableCell>
                       <Action
                         onClick={() => {

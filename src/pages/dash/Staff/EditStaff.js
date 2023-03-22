@@ -295,6 +295,7 @@ const EditStaff = () => {
                     multiple
                     type="file"
                     style={{ width: '50%' }}
+                    
                   />{' '}
                 </Stack>
                 <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 5 }}>
