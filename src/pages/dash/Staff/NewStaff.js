@@ -231,34 +231,7 @@ const NewStaff = () => {
                     style={{ width: '50%' }}
                   />{' '}
                 </Stack>
-
-                <Stack sx={{ mt: '2rem' }} position={'center'} alignItems="center" width={'100%'}>
-                  {signaturePreviewUrl !== '' ? (
-                    <Box sx={{ padding: '2rem' }}>
-                      <img src={signaturePreviewUrl} alt="" />
-                    </Box>
-                  ) : (
-                    <p>Upload Signature</p>
-                  )}
-                  <input
-                    // hidden
-                    onChange={(e) => handleSignatureDrop(e)}
-                    ref={signatureInputRef}
-                    name="propic"
-                    accept="image/*"
-                    multiple
-                    type="file"
-                    style={{ width: '50%' }}
-                  />{' '}
-                </Stack>
-                <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 5 }}>
-                  <p style={{ fontSize: '12px' }}>Allowed Format</p>
-                  <p style={{ fontSize: '14px', marginTop: '-0.5rem' }}>JPG, JPEG, and PNG</p>
-                </Stack>
-                <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 1 }}>
-                  <p style={{ fontSize: '12px' }}> Max file size</p>
-                  <p style={{ fontSize: '14px', marginTop: '-0.5rem' }}>2MB</p>
-                </Stack>
+             
               </Box>
               <Button
                 sx={{
