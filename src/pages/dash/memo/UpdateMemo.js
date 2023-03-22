@@ -167,16 +167,17 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
          let selected = '';
       let isFormData=true;
       if (memoData.attachment){
+        console.log("this is the memoData for update", memoData);
          isFormData=true;
           selected = new FormData();
-         selected.append("trail", JSON.stringify("memoTitle", memoData.memoTitle));
-         selected.append("trail", JSON.stringify("memoBody", memoData.memoBody));
-          selected.append("trail", JSON.stringify("status", memoData.status));
-          selected.append("trail", JSON.stringify("status", memoData.attachment));
-           selected.append("trail", JSON.stringify("remarks", memoData.remarks));
-            selected.append("trail", JSON.stringify("ownerId", memoData.ownerId));
-               selected.append("trail", JSON.stringify("attachment", memoData.attachment));
-          
+         selected.append("memoTitle", memoData.memoTitle);
+         selected.append("memoBody",  memoData.memoBody);
+          selected.append("status",  memoData?.status);
+          selected.append("remarks",  memoData?.remarks);
+          selected.append("ownerId",  memoData?.ownerId);
+           selected.append("memoId",  memoData?.memoId);
+          selected.append("attachment", JSON.stringify( memoData?.attachment));
+          selected.append("trail", JSON.stringify( memoData?.trail));
       } else {
          isFormData=false;
          selected = {  
@@ -228,7 +229,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
   useEffect(() => {
     dispatch(getAllStaffs());
-    // dispatch(getSingleMemo(params.id));
+   dispatch(getSingleMemo(params.id));
    
 setMemoData({attachment:null,...memo})
 console.log("this is memo", memo)
@@ -346,8 +347,8 @@ console.log("this is memo", memo)
               <input
                 hidden
                 {...register('attachment')}
-               onChange={(e) => handleFormChange(e.target)}
-            //  onChange={handleFileUpload}
+              // onChange={(e) => handleFormChange(e.target)}
+                onChange={handleFileUpload}
                 ref={fileInputRef}
                 name="attachment"
                 accept=".pdf"
