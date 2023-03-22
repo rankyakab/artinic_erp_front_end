@@ -50,7 +50,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   const handleClose = () => {
     setOpen(false);
     setError(false);
- navigate(-1)
+ navigate(0)
   };
 
   const handleClick = () => {
