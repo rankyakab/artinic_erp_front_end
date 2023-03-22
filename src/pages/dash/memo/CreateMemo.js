@@ -101,9 +101,13 @@ const handleFormChange = ({ name, value }) => {
   
 
   const handleFileDrop = (e) => {
-    const { files } = e.target;
+    const { files,name,value } = e.target;
   //  console.log(files);
     setFilters(files[0]);
+     setMemoData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleCreateMemo = (data) => {

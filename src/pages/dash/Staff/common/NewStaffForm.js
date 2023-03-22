@@ -256,11 +256,12 @@ const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
               SelectProps={{
                 native: true,
               }}
+              
               value={userData?.designation}
               name="designation"
               onChange={(e) => handleFormChange(e.target)}
             >
-              <option value={roles[0]?._id}>Select Gender</option>
+              <option value={roles[0]?._id}>Select Designation</option>
            {React.Children.toArray(roles?.map(role=>(<option value={role?._id}>{role?.role}</option>))
               )}
               

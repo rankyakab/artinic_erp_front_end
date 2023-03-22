@@ -40,6 +40,7 @@ const NewStaff = () => {
     employmentDate: '',
     staffNo: '',
     staffPositionId: '',
+    propic:''
   });
 
   const handleBack = () => {
@@ -71,10 +72,13 @@ const NewStaff = () => {
   };
 
   const handleFileDrop = (e) => {
-    const { files } = e.target;
+    const { files ,name, value} = e.target;
     // console.log(files);
     setFilters(files[0]);
-
+ userData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     const reader = new FileReader();
 
     reader.onloadend = () => {
