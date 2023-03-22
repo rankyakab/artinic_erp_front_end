@@ -70,25 +70,27 @@ export default function NavVertical({ openNav, onCloseNav }) {
     balance: icon('ic_balance'),
   };
         const pageProcess = {
-        user:"641974ab8f2327e71d493faa",
+        user:"641a09d65ab751646ea18576",
         staff:"6419ec4e5ab751646ea18437",
         memo:"6419cb3d5ab751646ea183b4",
-        privileges:"641985a65ab751646ea17f51",
-        action:"6419856b5ab751646ea17f20",
-        process:"6419854d5ab751646ea17ef1",
-         roles:"641985305ab751646ea17eeb",
-         paymentVouchers:"641985075ab751646ea17ee5"
+        privileges:"641b18a9f4390d23c1841260",
+        action:"641b189af4390d23c184125a",
+        process:"641b187cf4390d23c1841242",
+         roles:"641b1866f4390d23c184123c",
+         paymentVouchers:"641b1851f4390d23c1841236"
 
 
 
 }
 const pageAction = {
-        delete:"63cc3f305f65076b29b782c7",
-        edit:"63cc3f435f65076b29b782cd",
-        recommendForApproval:"63cc3f555f65076b29b782d3",
-        approve:"63cc43da5f65076b29b7831b",
-        create:"6407db43cb270b8c08ea1ada",
-        convertToUser:"641974218f2327e71d493f6a",
+        delete:"6419ca9a5ab751646ea1838e",
+        edit:"6419ca8d5ab751646ea18388",
+        recommendForApproval:"6419caae5ab751646ea18394",
+        approve:"6419cac95ab751646ea183a0",
+        create:"6419ca705ab751646ea1837c",
+        convertToUser:"6419cabd5ab751646ea1839a",
+        read:"6419ca805ab751646ea18382",
+        
 }
 
   const navConfig =[
