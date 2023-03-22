@@ -42,7 +42,8 @@ const DashboardHeader = ({ text, title, icon }) => {
       </Box>
 
       <Box>
-        <NotificationsPopover />
+        { // <NotificationsPopover />
+        }
         <AccountPopover />
       </Box>
     </StyledRoot>

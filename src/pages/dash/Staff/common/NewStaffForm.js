@@ -118,7 +118,7 @@ const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
               }}
               placeholder="Enter employment type"
             >
-              <option value="">Select Option</option>
+              <option value="permanent staff">Select Option</option>
               <option value="permanent staff">Permanent Staff</option>
               <option value="temporary staff">Temporary Staff</option>
               <option value="intern">Intern</option>
@@ -261,11 +261,11 @@ const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
               name="designation"
               onChange={(e) => handleFormChange(e.target)}
             >
-              <option value={roles[0]?._id}>Select Designation</option>
+              <option value={roles[0]?._id}>Select Role</option>
            {React.Children.toArray(roles?.map(role=>(<option value={role?._id}>{role?.role}</option>))
               )}
               
-              <option value="male">Male</option>
+             
             </GeneralInput>
           </Stack>
         </Grid>
