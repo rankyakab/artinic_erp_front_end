@@ -235,7 +235,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   }, []);
    useEffect(() => {
     
-      setMemoData({attachment:null,...memo})
+      setMemoData({...memoData,...memo})
 console.log("this is memoData", memoData)
 
   }, [dispatch]);
