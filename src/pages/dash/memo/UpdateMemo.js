@@ -232,8 +232,24 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
    dispatch(getSingleMemo(params.id));
    
 
-  },[dispatch]);
+  },[]);
   
+   useEffect(() => {
+    // dispatch(getAllStaffs());
+   // dispatch(getSingleMemo(params.id));
+   setMemoData({
+    // memoDate: moment(memo[0]?.createdAt).format('L'),
+    memoTitle: memo?.memoTitle,
+    memoBody: memo?.memoBody,
+    ownerId: memo?.ownerId,
+    memoId: params?.id,
+    trail:memo?.trail,
+    attachment:null,
+    status:"pending approval",
+    remarks:""
+  })
+
+  },[memo]);
 
   const statuscolor = sectionColor(memo.status)
  
