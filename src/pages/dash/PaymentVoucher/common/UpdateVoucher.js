@@ -539,7 +539,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
           </Box>
         </form>
 
-        { (voucher.preparedBy!==user?.user?.staffId )(
+        { (voucher.preparedBy!==user?.user?.staffId )? (
           <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
               <Grid item xs={12} md={4}>
                 <Stack>
@@ -600,8 +600,9 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                 </Button>
               </Grid>
             </Grid>
-        )
-              }
+        ) :""
+        }
+              
       </Wrapper>
        <Block title="Voucher Trail">
            <Timeline position="">
