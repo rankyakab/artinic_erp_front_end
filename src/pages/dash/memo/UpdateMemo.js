@@ -232,7 +232,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
    dispatch(getSingleMemo(params.id));
    
 setMemoData({attachment:null,...memo})
-console.log("this is memo", memo)
+console.log("this is memoData", memoData)
   }, []);
    
   const statuscolor = sectionColor(memo.status)
@@ -286,10 +286,10 @@ console.log("this is memo", memo)
                         required
                         variant="outlined"
                         fullWidth
-                        value= {memo.memoTitle}
+                        value= {memoData.memoTitle}
                         placeholder="Enter title"
                         name="memoTitle"
-                        {...register('memoTitle')}
+                       // {...register('memoTitle')}
                         
                       onChange={(e) => handleFormChange(e.target)}
                         // {...register('memoTitle')}
@@ -317,7 +317,7 @@ console.log("this is memo", memo)
                   required
                   variant="outlined"
                   fullWidth
-                  value= {memo.memoBody}
+                  value= {memoData.memoBody}
                 ///  placeholder="Enter title"
                   name="memoBody"
                //    {// ...register('memoBody')}
@@ -346,7 +346,7 @@ console.log("this is memo", memo)
               {memoData?.attachment ? memoData?.attachment?.name  : 'Add Attachement'}
               <input
                 hidden
-                {...register('attachment')}
+              //  {...register('attachment')}
               // onChange={(e) => handleFormChange(e.target)}
                 onChange={handleFileUpload}
                 ref={fileInputRef}
