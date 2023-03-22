@@ -32,6 +32,33 @@ export const getAllStaffs = () => async (dispatch) => {
   }
 };
 
+export const deleteStaffById =  (id,setOpen, setSuccessMessage, setError, setErrorMessage, setLoading)=> async (dispatch) => {
+  try {
+    const res = await httpRequest({
+      url: API_ROUTES?.deleteStaff?.route + id,
+      method: API_ROUTES?.deleteStaff?.method,
+      needToken: true,
+    });
+     if (res.status === 200 || res.status === 201) {
+        setLoading(false);
+         dispatch({
+      type: StaffTypes?.GET_ALL_STAFF,
+      payload: res?.data?.staffs,
+    });
+        setOpen(true);
+        setSuccessMessage(res?.data?.message);
+      }
+   } catch (error) {
+      console.log(error);
+      setErrorMessage(error?.data?.message || 'Something went wrong try again later');
+      setError(true);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+
+  return {};
+};
 export const getStaffById = async (id) => {
   try {
     const res = await httpRequest({
@@ -47,7 +74,6 @@ export const getStaffById = async (id) => {
 
   return {};
 };
-
 export const convertStaffToUser =
   (id, setOpen, setSuccessMessage, setError, setErrorMessage, setLoading) => async (dispatch) => {
     setLoading(true);

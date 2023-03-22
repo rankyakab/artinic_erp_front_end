@@ -19,7 +19,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action } from '../../../../styles/main';
-import { convertStaffToUser, getAllStaffs } from '../../../../redux/actions/StaffAction';
+import { convertStaffToUser, getAllStaffs,deleteStaffById } from '../../../../redux/actions/StaffAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
@@ -42,7 +42,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
    const deleteUserOnClick = (memoId)=>{
   // console.log("these are captured with data",selected)
    // const allData = allMemo.filter(id=> id!==memoId);
- //   dispatch(deleteMemo(memoId,getAllMemo, setOpen, setError, setErrorMessage, setSuccessMessage));
+   dispatch(deleteStaffById(memoId,setOpen, setSuccessMessage, setError, setErrorMessage, setLoading));
     
     getAllStaffs()
  }

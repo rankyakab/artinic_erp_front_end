@@ -26,6 +26,10 @@ const API_ROUTES = {
     route: '/staff/',
     method: 'patch',
   },
+  deleteStaff: {
+    route: '/staff/',
+    method: 'delete',
+  },
 };
 
 export { API_ROUTES };
