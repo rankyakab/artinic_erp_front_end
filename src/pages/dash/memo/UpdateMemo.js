@@ -187,10 +187,8 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
       }
 
-    console.log("before you go meet wike",selected)
-
-  // console.log("these are captured with data",selected)
-  // dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+  
+   dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage,isFormData));
     
     /*
     const formData = new FormData();
@@ -230,9 +228,10 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
 
   useEffect(() => {
     dispatch(getAllStaffs());
-    dispatch(getSingleMemo(params.id));
+    // dispatch(getSingleMemo(params.id));
    
-setMemoData({...memo})
+setMemoData({attachment:null,...memo})
+console.log("this is memo", memo)
   }, []);
    
   const statuscolor = sectionColor(memo.status)
@@ -286,7 +285,7 @@ setMemoData({...memo})
                         required
                         variant="outlined"
                         fullWidth
-                        value= {memoData.memoTitle}
+                        value= {memo.memoTitle}
                         placeholder="Enter title"
                         name="memoTitle"
                         {...register('memoTitle')}
@@ -317,10 +316,10 @@ setMemoData({...memo})
                   required
                   variant="outlined"
                   fullWidth
-                  value= {memoData.memoBody}
+                  value= {memo.memoBody}
                 ///  placeholder="Enter title"
                   name="memoBody"
-                   {...register('memoBody')}
+               //    {// ...register('memoBody')}
                   
                  onChange={(e) => handleFormChange(e.target)}
                   // {...register('memoTitle')}

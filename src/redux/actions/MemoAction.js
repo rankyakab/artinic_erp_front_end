@@ -214,14 +214,7 @@ export const deleteMemo =
   };
 export const updateMemoStatus =
   (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
-   // console.log(data);
-   // console.log(isFormData);
-    
-   
-    // const finalData = {
-    //   ...data,
-    //   completion: 'true',
-    // };
+  
     try {
       dispatch(setIsLoading(true));
       const res = await httpRequest({
@@ -229,13 +222,10 @@ export const updateMemoStatus =
         method: API_ROUTES?.updateMemo?.method,
         needToken: true,
         data,
-        header: isFormData
-          ? {
-              'Access-Control-Allow-Origin': '*',
-              mode: 'no-cors',
-              'Content-Type': 'multipart/form-data',
-            }
-          : false,
+        header:{
+         
+             "Content-Type": "multipart/form-data",
+          },
         isFormData,
         // body: data,
       });
@@ -345,3 +335,4 @@ export const sendMemoActionRedoAgain = (data) => async (dispatch) => {
     dispatch(setIsLoading(false));
   }
 };
+
