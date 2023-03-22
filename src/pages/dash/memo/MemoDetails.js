@@ -172,7 +172,13 @@ const [memoData, setMemoData] = useState({
       ...memoData,
     };
     // console.log(selected);
-    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+    const header = {
+         
+             'Access-Control-Allow-Origin': '*',
+              'mode': 'no-cors',
+              'Content-Type': 'application/json',
+          };
+    dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage,header,false));
   };
 
   const handleClose = () => {

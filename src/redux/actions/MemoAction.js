@@ -212,8 +212,9 @@ export const deleteMemo =
       dispatch(setIsLoading(false));
     }
   };
+ 
 export const updateMemoStatus =
-  (data, setOpen, setError, setErrorMessage, setSuccessMessage, isFormData) => async (dispatch) => {
+  (data, setOpen, setError, setErrorMessage, setSuccessMessage,header, isFormData=false) => async (dispatch) => {
   
     try {
       dispatch(setIsLoading(true));
@@ -222,10 +223,7 @@ export const updateMemoStatus =
         method: API_ROUTES?.updateMemo?.method,
         needToken: true,
         data,
-        header:{
-         
-             "Content-Type": "multipart/form-data",
-          },
+        header,
         isFormData,
         // body: data,
       });

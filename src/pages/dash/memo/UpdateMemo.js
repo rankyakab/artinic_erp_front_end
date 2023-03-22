@@ -165,8 +165,13 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
   const handleUpdateMemo = (data) => {
      
          let selected = '';
+         let header="";
       let isFormData=true;
       if (memoData.attachment){
+        header = {
+         
+             "Content-Type": "multipart/form-data",
+          };
         console.log("this is the memoData for update", memoData);
          isFormData=true;
           selected = new FormData();
@@ -180,6 +185,12 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
           selected.append("trail", JSON.stringify( memoData?.trail));
       } else {
          isFormData=false;
+          header = {
+         
+             'Access-Control-Allow-Origin': '*',
+              'mode': 'no-cors',
+              'Content-Type': 'application/json',
+          };
          selected = {  
                    
                     ...memoData
@@ -189,7 +200,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
       }
 
   
-   dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage,isFormData));
+   dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage,header,isFormData));
     
     /*
     const formData = new FormData();
