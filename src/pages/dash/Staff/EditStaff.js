@@ -41,7 +41,7 @@ const EditStaff = () => {
 
   const { staffs } = useSelector((state) => state.staff);
 
-  console.log(staffs);
+  console.log("these are the staffs",staffs);
 
   const filterStaff = staffs?.filter((staff) => staff?._id === params?.id);
 
@@ -170,7 +170,7 @@ const EditStaff = () => {
       )
     );
   };
-
+  
   useEffect(() => {
     dispatch(getAllPositions());
     dispatch(getAllStaffs());

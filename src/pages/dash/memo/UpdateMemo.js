@@ -45,14 +45,14 @@ const UpdateMemo = () => {
   const { loading, memo } = useSelector((state) => state?.memo);
 
   const { staffs } = useSelector((state) => state?.staff);
-
+  const { user } = useSelector((state) => state.auth);
 
 
   
 
  //  const memo = allMemo?.filter((item) => item?._id === params?.id);
 
-   // console.log("this is the memo",memo);
+   console.log("this is the memo",memo);
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -92,7 +92,7 @@ let color = "";
  }
 
 
-  const { user } = useSelector((state) => state.auth);
+
 
 
   const schema = yup.object().shape({
@@ -232,7 +232,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
    dispatch(getSingleMemo(params.id));
    
 
-  },[params.id]);
+  },[dispatch]);
   
 
   const statuscolor = sectionColor(memo.status)
