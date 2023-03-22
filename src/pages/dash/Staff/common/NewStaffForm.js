@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 
-const NewStaffForm = ({ handleFormChange, userData, positions }) => {
+const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
   console.log(userData);
 
   return (
@@ -244,19 +244,7 @@ const NewStaffForm = ({ handleFormChange, userData, positions }) => {
             />
           </Stack>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack>
-            <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
-              Designation
-            </FormLabel>
-            <GeneralInput
-              value={userData?.designation}
-              name="designation"
-              onChange={(e) => handleFormChange(e.target)}
-              placeholder="Designation"
-            />
-          </Stack>
-        </Grid>
+      
         <Grid item xs={12} md={6}>
           <Stack>
             <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
@@ -272,9 +260,10 @@ const NewStaffForm = ({ handleFormChange, userData, positions }) => {
               name="designation"
               onChange={(e) => handleFormChange(e.target)}
             >
-            
-              <option value="">Select Gender</option>
-              <option value="female">Female</option>
+              <option value={roles[0]._id}>Select Gender</option>
+           {React.Children.toArray(roles.map(role=>(<option value={role._id}>{role.role}</option>))
+              )}
+              
               <option value="male">Male</option>
             </GeneralInput>
           </Stack>
