@@ -140,7 +140,7 @@ export const editStaff =
         isFormData,
       });
 
-      console.log(res);
+      console.log("this is the server responser",res);
 
       if (res.status === 200 || res.status === 201) {
         dispatch(setIsLoading(false));
@@ -153,7 +153,7 @@ export const editStaff =
         dispatch(getAllStaffs());
       }
     } catch (error) {
-      console.log(error);
+      console.log("This is the error from the server",error);
       setError(true);
       setErrorMessage(error?.data?.message || 'Something went wrong try again later');
     } finally {
