@@ -533,7 +533,9 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                 </Grid>
               </Grid>
             </Box>
-            
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '37%', mt: 3, mb: 5 }}>
+              <Button type="submit">{loading ? 'Loading...' : 'Update Voucher'}</Button>
+            </Box>
           </Box>
         </form>
           <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
