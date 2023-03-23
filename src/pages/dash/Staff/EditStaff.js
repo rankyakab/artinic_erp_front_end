@@ -2,14 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Grid, Box, Button, Stack, Avatar, Typography } from '@mui/material';
+import { Grid,FormLabel, Box, Button, Stack, Avatar, Typography } from '@mui/material';
+
 // import { useSettingsContext } from '../../../components/settings';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import Iconify from '../../../components/iconify/Iconify';
-import NewStaffForm from './common/NewStaffForm';
-import { FormCard, Wrapper } from '../../../styles/main';
+// import NewStaffForm from './common/NewStaffForm';
+import { FormCard, Wrapper,GeneralInput } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
-import { createStaff, editStaff, getAllStaffs } from '../../../redux/actions/StaffAction';
+import { createStaff,getStaffById, editStaff, getAllStaffs } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
@@ -22,16 +23,17 @@ const EditStaff = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const signatureInputRef = useRef(null);
+   
   const [filters, setFilters] = useState({});
 
   const [selectedSignature, setSelectedSignature] = useState({});
   const [signaturePreviewUrl, setSignaturePreviewUrl] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-  const [errorMsg, setErrorMsg] = useState(false);
+   const [errMsg, setErrMsg] = useState('');
 
   const params = useParams();
 
-  console.log(params);
+  console.log("these are the param parameters",params);
   const { loading } = useSelector((state) => state.staff);
   const { positions } = useSelector((state) => state.payroll);
   const { roles } = useSelector((state) => state.role);
@@ -77,7 +79,10 @@ const EditStaff = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
+  const [errorMsgs, setErrorMsgs] = useState(false);
+     const [phoneNumber, setPhoneNumber] = useState('');
+     const maxDate = new Date().toISOString().split('T')[0];
+   const errRef = useRef();
   const handleClose = () => {
     setOpen(false);
     setError(false);
@@ -92,6 +97,28 @@ const EditStaff = () => {
       [name]: value,
     }));
   };
+  function handlePhoneChange(event) {
+    setPhoneNumber(event.target.value);
+    setUserData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+    setErrMsg("")
+
+  }
+function isValidPhoneNumber() {
+  const phoneNumberRegex = /^\d{11}$/;
+  return phoneNumberRegex.test(phoneNumber);
+}
+  function handleBlur(event) {
+
+    const phoneNumberRegex = /^\d{11}$/;
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      setErrMsg('Please enter a valid 11-digit phone number.');
+    } else {
+      setErrMsg('');
+    }
+  }
 
   const handleRoleFormChange = ({ name, value }) => {
     setUserRole((prev) => ({
@@ -188,6 +215,54 @@ const EditStaff = () => {
     dispatch(getAllRole());
   }, [dispatch]);
 
+
+useEffect(()=>{
+
+  const fStaff = staffs?.filter((staff) => staff?._id === params?.id);
+
+ // console.log(filterStaff);
+
+  setUserData({
+    firstName: fStaff[0]?.firstName,
+    lastName: fStaff[0]?.lastName,
+    middleName: fStaff[0]?.middleName,
+    homeAddress: fStaff[0]?.homeAddress,
+    phoneNumber: fStaff[0]?.phoneNumber,
+    gender: fStaff[0]?.gender,
+    personalEmail: fStaff[0]?.personalEmail,
+    designation: fStaff[0]?.designation,
+    employmentType: fStaff[0]?.employmentType,
+    employmentDate: fStaff[0]?.employmentDate,
+    staffNo: fStaff[0]?.staffNo,
+    staffPositionId: fStaff[0]?.staffPositionId,
+    oldpropic: fStaff[0]?.propic,
+    oldsignature: fStaff[0]?.signature,
+  });
+},[staffs])
+
+  /*
+useEffect(() => {
+  getStaffById(params?.id)
+    .then((ata) => {
+      console.log("this is the staffsssss", ata);
+      const st = ata;
+      setUserData({
+        ...st,
+        propic: "",
+        signature: "",
+        oldpropic: st?.propic,
+        oldsignature: st.signature,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  // Code to run on every page refresh or load goes here
+
+}, []);
+*/
+
   return (
     <>
       <SuccessCard
@@ -239,9 +314,13 @@ const EditStaff = () => {
                   py: 8,
                 }}
               >
-                {filterStaff[0]?.propic !== '' ? (
-                  <img
-                    src={filterStaff[0]?.propic}
+                
+
+
+     
+                {filterStaff[0]?.propic !== ''&&previewUrl!=='' ? (
+                  <img  
+                    src={previewUrl}
                     alt="profile"
                     style={{ width: 150, height: 150, cursor: 'pointer', borderRadius: '100%' }}
                   />
@@ -254,7 +333,7 @@ const EditStaff = () => {
                   </Avatar>
                 ) : (
                   <img
-                    src={filterStaff[0]?.propic}
+                    src={previewUrl||filterStaff[0]?.propic}
                     alt=""
                     style={{ width: 150, height: 150, cursor: 'pointer', borderRadius: '100%' }}
                   />
@@ -280,19 +359,26 @@ const EditStaff = () => {
                 </Stack>
 
                 <Stack sx={{ mt: '2rem' }} position={'center'} alignItems="center" width={'100%'}>
-                  {filterStaff[0]?.signature !== '' ? (
+                  {filterStaff[0]?.signature !== ''&&signaturePreviewUrl!==''  ? (
                     <img
-                      src={filterStaff[0]?.signature}
+                      src={signaturePreviewUrl}
                       alt="profile"
                       style={{ width: 150, height: 150, cursor: 'pointer', borderRadius: '100%' }}
                     />
-                  ) : signaturePreviewUrl !== '' && filterStaff[0]?.signature === '' ? (
-                    <Box sx={{ padding: '2rem' }}>
-                      <img src={signaturePreviewUrl} alt="" />
-                    </Box>
+                  ) :  signaturePreviewUrl === '' && filterStaff[0]?.signature === ''  ? (
+                    <Avatar sx={{ width: 150, height: 150, cursor: 'pointer' }}>
+                    <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <Iconify icon={'eva:camera-fill'} sx={{ width: 40, height: 40 }} />
+                      <p style={{ fontSize: '12px' }}> {'upload Signature'}</p>
+                    </Stack>
+                  </Avatar>
                   ) : (
-                    <p>Upload Signature</p>
-                  )}
+                  <img
+                    src={signaturePreviewUrl||filterStaff[0]?.signature}
+                    alt=""
+                    style={{ width: 150, height: 150, cursor: 'pointer', borderRadius: '100%' }}
+                  />
+                )}
                   <input
                     // hidden
                     onChange={(e) => handleSignatureDrop(e)}
@@ -314,6 +400,8 @@ const EditStaff = () => {
                   <p style={{ fontSize: '14px', marginTop: '-0.5rem' }}>2MB</p>
                 </Stack>
               </Box>
+
+
               <Button
                 sx={{
                   color: 'white',
@@ -329,14 +417,250 @@ const EditStaff = () => {
                 {loading ? 'Loading...' : 'Edit Staff'}
               </Button>
             </Grid>
-            <Grid items xs={12} md={8} sx={{ pl: 5 }}>
-              <EditStaffForm
-                filterStaff={filterStaff}
-                userData={userData}
-                handleFormChange={handleFormChange}
-                positions={positions}
-              />
-            </Grid>
+            
+
+
+
+
+
+
+
+
+      
+                     <Grid items xs={12} md={8} sx={{ pl: 5 }}>
+                      <Grid container columnSpacing={4}>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="first_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              First Name
+                            </FormLabel>
+                            <GeneralInput
+                              placeholder="Enter First Name"
+                              value={userData?.firstName}
+                              name="firstName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            />
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="last_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Last Name
+                            </FormLabel>
+                            <GeneralInput
+                              placeholder="Enter Last Name"
+                              value={userData?.lastName}
+                              name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            />
+                          </Stack>
+                        </Grid>
+
+                        
+                     
+
+                        <Grid item xs={12} md={6}>
+                          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                          <Stack>
+                            <FormLabel id="phone_number" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Phone Number
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.phoneNumber}
+                              name="phoneNumber"
+                              type="number"
+                              pattern="[0-9]{11}" 
+                              onBlur={(e) => handleBlur(e)}
+                              required
+                              onChange={(e) => handlePhoneChange(e)}
+                              fullWidth
+                              placeholder="Enter Phone Number"
+                            />
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentDate "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Employment Date
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.employmentDate}
+                              name="employmentDate"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              type="date"
+                              placeholder="Enter Date of Employment "
+                               InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                                  inputProps={{
+                                    max: maxDate,
+                                  }}
+                            />
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentType
+                "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Employment Type
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.employmentType}
+                              name="employmentType"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              select
+                              SelectProps={{
+                                native: true,
+                              }}
+                              placeholder="Enter employment type"
+                            >
+                              <option value="permanent staff">Select Option</option>
+                              <option value="permanent staff">Permanent Staff</option>
+                              <option value="temporary staff">Temporary Staff</option>
+                              <option value="intern">Intern</option>
+                              <option value="contract">Contract</option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+                        
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Gender
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={userData?.gender}
+                              name="gender"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value="">Select Gender</option>
+                              <option value="female">Female</option>
+                              <option value="male">Male</option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+
+                        
+
+                        {/* <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="phone_number" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Designation
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              // value={userData.lastName}
+                              //     name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value="">Select Designation</option>
+                              <option value="">Project Management</option>
+                              <option value="">Operations </option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid> */}
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Official Email
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.personalEmail}
+                              name="personalEmail"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Official Email "
+                            />
+                          </Stack>
+                        </Grid>
+                  
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentType "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Designation
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.staffPositionId}
+                              name="staffPositionId"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              select
+                              SelectProps={{
+                                native: true,
+                              }}
+                              placeholder=""
+                            >
+                              <option value="">Select Option</option>
+                              {React.Children.toArray(
+                                positions?.map((position) => <option value={position?._id}>{position?.title}</option>)
+                              )}
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              StaffId
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.staffNo}
+                              name="staffNo"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Staff No"
+                            />
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={12}>
+                          <Stack>
+                            <FormLabel id="homeAddress" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Home Address
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.homeAddress}
+                              name="homeAddress"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Home Address"
+                            />
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                      </Grid>
+
+
+
+
+
+
+
+
+
+
+
           </Grid>
         </FormCard>
 

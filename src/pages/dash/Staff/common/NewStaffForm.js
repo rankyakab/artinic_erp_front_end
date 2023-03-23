@@ -73,6 +73,8 @@ const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
             <GeneralInput
               value={userData?.phoneNumber}
               name="phoneNumber"
+              pattern="[0-9]{11}" 
+              required
               onChange={(e) => handleFormChange(e.target)}
               fullWidth
               placeholder="Enter Phone Number"

@@ -66,8 +66,10 @@ export const getStaffById = async (id) => {
       method: API_ROUTES?.getStaffById?.method,
       needToken: true,
     });
-    console.log(res);
-    return Promise.resolve(res?.data?.staffs);
+    if (res.status === 200 || res.status === 201) {
+       return  res?.data
+        
+      }
   } catch (error) {
     console.log(error);
   }

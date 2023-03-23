@@ -2,12 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Grid, Box, Button, Stack, Avatar, Typography } from '@mui/material';
+import { Grid,FormLabel, Box, Button, Stack, Avatar, Typography } from '@mui/material';
+
 // import { useSettingsContext } from '../../../components/settings';
 import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import Iconify from '../../../components/iconify/Iconify';
-import NewStaffForm from './common/NewStaffForm';
-import { FormCard, Wrapper } from '../../../styles/main';
+// import NewStaffForm from './common/NewStaffForm';
+import { FormCard, Wrapper,GeneralInput } from '../../../styles/main';
 import Back from '../../../assets/images/arrow_left.svg';
 import { createStaff } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
@@ -21,6 +22,7 @@ const NewStaff = () => {
   const fileInputRef = useRef(null);
   const signatureInputRef = useRef(null);
   const [filters, setFilters] = useState({});
+  const errRef = useRef();
 
   const [selectedSignature, setSelectedSignature] = useState({});
   const [signaturePreviewUrl, setSignaturePreviewUrl] = useState('');
@@ -43,6 +45,20 @@ const NewStaff = () => {
     propic:'',
      signature:''
   });
+   const [phoneNumber, setPhoneNumber] = useState('');
+  
+  function handlePhoneChange(event) {
+    setPhoneNumber(event.target.value);
+    setUserData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+
+  }
+function isValidPhoneNumber() {
+  const phoneNumberRegex = /^\d{11}$/;
+  return phoneNumberRegex.test(phoneNumber);
+}
 
   const handleBack = () => {
     navigate('/dashboard/staff');
@@ -57,7 +73,8 @@ const NewStaff = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
+    const [errMsg, setErrMsg] = useState('');
+const maxDate = new Date().toISOString().split('T')[0];
   const handleClose = () => {
     setOpen(false);
     setError(false);
@@ -71,6 +88,18 @@ const NewStaff = () => {
       [name]: value,
     }));
   };
+
+
+  function handleBlur(event) {
+
+    const phoneNumberRegex = /^\d{11}$/;
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      setErrMsg('Please enter a valid 11-digit phone number.');
+    } else {
+      setErrMsg('');
+    }
+  }
+
 
   const handleFileDrop = (e) => {
     const { files ,name, value} = e.target;
@@ -110,6 +139,11 @@ const NewStaff = () => {
   };
 
   const handleAddStaff = () => {
+
+    if (!isValidPhoneNumber()) {
+    alert('Please enter a valid 11-digit phone number.');
+    return;
+  }
     // const MAX_FILE_SIZE = 2000; // 2MB
 
     // const fileSizeKiloBytes = filters.size / 2048;
@@ -285,7 +319,320 @@ const NewStaff = () => {
               </Button>
             </Grid>
             <Grid items xs={12} md={8} sx={{ pl: 5 }}>
+              {/*
               <NewStaffForm userData={userData} handleFormChange={handleFormChange} positions={positions} roles={roles} />
+
+              */ }
+
+
+
+
+
+                      <Grid container columnSpacing={4}>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="first_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              First Name
+                            </FormLabel>
+                            <GeneralInput
+                              placeholder="Enter First Name"
+                              value={userData?.firstName}
+                              name="firstName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            />
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="last_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Last Name
+                            </FormLabel>
+                            <GeneralInput
+                              placeholder="Enter Last Name"
+                              value={userData?.lastName}
+                              name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            />
+                          </Stack>
+                        </Grid>
+
+                        {/* <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="last_name" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Last Name
+                            </FormLabel>
+                            <GeneralInput
+                              placeholder="Enter Last Name"
+                              value={userData?.lastName}
+                              name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            />
+                          </Stack>
+                        </Grid> */}
+
+                        {/* <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="email_address" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Email Address
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.personalEmail}
+                              name="personalEmail"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              placeholder="Enter Email Address"
+                            />
+                          </Stack>
+                        </Grid> */}
+
+                        <Grid item xs={12} md={6}>
+                          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                          <Stack>
+                            <FormLabel id="phone_number" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Phone Number
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.phoneNumber}
+                              name="phoneNumber"
+                              type="number"
+                              pattern="[0-9]{11}" 
+                              onBlur={(e) => handleBlur(e)}
+                              required
+                              onChange={(e) => handlePhoneChange(e)}
+                              fullWidth
+                              placeholder="Enter Phone Number"
+                            />
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentDate "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Employment Date
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.employmentDate}
+                              name="employmentDate"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              type="date"
+                              placeholder="Enter Date of Employment "
+                               InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                                  inputProps={{
+                                    max: maxDate,
+                                  }}
+                            />
+                          </Stack>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentType
+                "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Employment Type
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.employmentType}
+                              name="employmentType"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              select
+                              SelectProps={{
+                                native: true,
+                              }}
+                              placeholder="Enter employment type"
+                            >
+                              <option value="permanent staff">Select Option</option>
+                              <option value="permanent staff">Permanent Staff</option>
+                              <option value="temporary staff">Temporary Staff</option>
+                              <option value="intern">Intern</option>
+                              <option value="contract">Contract</option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+                        
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Gender
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={userData?.gender}
+                              name="gender"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value="">Select Gender</option>
+                              <option value="female">Female</option>
+                              <option value="male">Male</option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+
+                        {/* <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="role" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Role
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              // value={userData.lastName}
+                              //     name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value="">Select Role</option>
+                              <option value="staff">staff</option>
+                              <option value="admin">Admin </option>
+                              <option value="IT">I.T staff </option>
+                              <option value="HR">Human Resources staff </option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid> */}
+
+                        {/* <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="phone_number" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Designation
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              // value={userData.lastName}
+                              //     name="lastName"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value="">Select Designation</option>
+                              <option value="">Project Management</option>
+                              <option value="">Operations </option>
+                            </GeneralInput>
+                          </Stack>
+                        </Grid> */}
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Official Email
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.personalEmail}
+                              name="personalEmail"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Official Email "
+                            />
+                          </Stack>
+                        </Grid>
+           {/*           
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Designation
+                            </FormLabel>
+                            <GeneralInput
+                              select
+                              variant="outlined"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              
+                              value={userData?.designation}
+                              name="designation"
+                              onChange={(e) => handleFormChange(e.target)}
+                            >
+                              <option value={roles[0]?._id}>Select Role</option>
+                          {React.Children.toArray(roles?.map(role=>(<option value={role?._id}>{role?.role}</option>))
+                              )}
+                              
+                            
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+*/}
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel
+                              id="employmentType
+                "
+                              sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}
+                            >
+                              Designation
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.staffPositionId}
+                              name="staffPositionId"
+                              onChange={(e) => handleFormChange(e.target)}
+                              fullWidth
+                              select
+                              SelectProps={{
+                                native: true,
+                              }}
+                              placeholder=""
+                            >
+                              <option value="">Select Option</option>
+                              {React.Children.toArray(
+                                positions?.map((position) => <option value={position?._id}>{position?.title}</option>)
+                              )}
+                            </GeneralInput>
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                          <Stack>
+                            <FormLabel id="official_email" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              StaffId
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.staffNo}
+                              name="staffNo"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Staff No"
+                            />
+                          </Stack>
+                        </Grid>
+
+                        <Grid item xs={12} md={12}>
+                          <Stack>
+                            <FormLabel id="homeAddress" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+                              Home Address
+                            </FormLabel>
+                            <GeneralInput
+                              value={userData?.homeAddress}
+                              name="homeAddress"
+                              onChange={(e) => handleFormChange(e.target)}
+                              placeholder="Home Address"
+                            />
+                          </Stack>
+                        </Grid>
+                      </Grid>
+
+
+
+
+
+
+
+
+
+
+
             </Grid>
           </Grid>
         </FormCard>
