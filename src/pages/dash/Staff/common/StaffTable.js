@@ -132,8 +132,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                       >
                         View More
                       </Action>
-                      {!data?.userId && checkPrivilege("6419ec4e5ab751646ea18437","6419cabd5ab751646ea1839a") && (
-                        <Action
+                      <Action
                           onClick={() => {
                             setId(data?._id);
                             dispatch(
@@ -150,7 +149,6 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                         >
                           {loading && id === data?._id ? 'Loading...' : ' Convert Staff to User'}
                         </Action>
-                      )}
                     </TableCell>
                   </TableRow>
                 ))}
