@@ -92,10 +92,10 @@ const pageAction = {
         read:"6419ca805ab751646ea18382",
         
 }
-
-  const navConfig =[
-        {
-          items: [
+ const userRole = JSON.parse(localStorage.getItem('role'));
+ let  prev ="";
+prev = userRole?.privilege.map(event=>event.processId);
+ const items = [
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
@@ -132,7 +132,10 @@ const pageAction = {
             // Accounts
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ],
+          ].filter(item=>prev.includes(item.process));
+  const navConfig =[
+        {
+          items
         },
       ];
 
