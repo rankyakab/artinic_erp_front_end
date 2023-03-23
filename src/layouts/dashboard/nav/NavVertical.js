@@ -95,6 +95,7 @@ const pageAction = {
  const userRole = JSON.parse(localStorage.getItem('role'));
  let  prev ="";
 prev = userRole?.privilege.map(event=>event.processId);
+console.log("this is the filtered preves", prev);
  const items = [
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -132,7 +133,7 @@ prev = userRole?.privilege.map(event=>event.processId);
             // Accounts
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ].filter(item=>prev.includes(item.process));
+          ];
   const navConfig =[
         {
           items
