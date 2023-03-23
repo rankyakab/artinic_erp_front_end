@@ -3,8 +3,7 @@ import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
 import Roles from '../../Roles/Roles';
 
-const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) => {
-  return (
+const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) => (
     <>
       <Grid container columnSpacing={4}>
         <Grid item xs={12} md={6}>
@@ -136,6 +135,7 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
               name="personalEmail"
               onChange={(e) => handleFormChange(e.target)}
               placeholder="Official Email "
+              disabled
             />
           </Stack>
         </Grid>
@@ -212,6 +212,6 @@ const EditStaffForm = ({ handleFormChange, userData, positions, filterStaff }) =
       </Grid>
     </>
   );
-};
+
 
 export default EditStaffForm;

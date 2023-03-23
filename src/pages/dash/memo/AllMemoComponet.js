@@ -95,7 +95,7 @@ const [open, setOpen] = useState(false);
     );
   };
 
-  const tableHead = ['S/N', 'Memo Title', 'Sent From', 'Sent To','Date', 'Attachment?', 'Action'];
+  const tableHead = ['S/N', 'Memo Title', 'Sent From', 'Sent To','Date', 'Status', 'Action'];
   // const tableData = [];
 
   const [page, setPage] = React.useState(0);
@@ -212,7 +212,7 @@ const handleClose = () => {
                       <TableCell>{getName(data?.ownerId)}</TableCell>
                       <TableCell>{getName(data?.recipientId)}</TableCell>
                       <TableCell>{moment(data?.createdAt).format('D-MM-YYYY')}</TableCell>
-                      <TableCell>{data?.attachment === '' || data?.attachment === 'false' ? 'No' : 'Yes'}</TableCell>
+                      <TableCell>{data?.status}</TableCell>
                       {/* <TableCell>
                         {data?.memoType}
                         {data?.memoType?.toLocaleLowerCase() === 'sent' ? (

@@ -232,7 +232,12 @@ const [memoData, setMemoData] = useState({
             gap: '170px',
           }}
         >
+          
+
           <Stack spacing={2}>
+            <Badge color={'success'} badgeContent={memo?.status}>
+      {memo?.status}
+    </Badge>
             {/* <Box
           style={{
             margin: '24px 0px 0px 0px',
@@ -332,7 +337,7 @@ const [memoData, setMemoData] = useState({
                   color: '#272525',
                 }}
               >
-                Action:{' '}
+                Status:{memo.status}
                 <span
                   style={{
                     marginLeft: '10px',
@@ -356,7 +361,7 @@ const [memoData, setMemoData] = useState({
                   color: '#272525',
                 }}
               >
-                By:{' '}
+                By:{getName(memo?.ownerId)}
                 <span
                   style={{
                     marginLeft: '10px',
@@ -380,7 +385,7 @@ const [memoData, setMemoData] = useState({
                   color: '#272525',
                 }}
               >
-                Signature:{' '}
+                Attachment?:{memo?.attachment === '' ? 'No' : 'Yes'}
                 <span
                   style={{
                     marginLeft: '10px',
@@ -457,6 +462,11 @@ const [memoData, setMemoData] = useState({
             {TIMELINES.map((item) => (
               
                  <TimelineItem key={item._id} >
+
+
+
+
+
                   
                 <TimelineOppositeContent>
                   
@@ -475,7 +485,7 @@ const [memoData, setMemoData] = useState({
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color={statuscolor} />
-                     {memo.updatedAt}
+                     {item.updatedAt}
                   
                   </Badge>
                     
@@ -492,11 +502,9 @@ const [memoData, setMemoData] = useState({
                     <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
                    
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item?.momoBody?.toUpperCase()}
+                      {item?.memoBody?.toUpperCase()}
                     </Typography>
-                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      <Link to="/newpage">View Details</Link>
-                    </Button>
+                     
                      
                        
                     
@@ -509,6 +517,13 @@ const [memoData, setMemoData] = useState({
                  
                   </Typography>
                 </TimelineOppositeContent>
+
+
+
+
+
+
+
 
 
                 <TimelineSeparator>
@@ -546,7 +561,7 @@ const [memoData, setMemoData] = useState({
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color={statuscolor} />
-                     {memo.updatedAt}
+                     {item.updatedAt}
                   
                   </Badge>
                       

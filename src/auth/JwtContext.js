@@ -115,6 +115,7 @@ const [errorMessage, setErrorMessage] = useState("");
 */
   // LOGIN
   
+  // eslint-disable-next-line consistent-return
   const login = async (email, password) => {
     
 
@@ -158,11 +159,14 @@ try {
     } else {
       console.log("User Authentication failed",response.error)
       const errorData = "User Authentication failed";
-      setErrorMessage(errorData);
+      throw new Error('User Authentication failed');
+     // setErrorMessage(errorData);
     }
 
     } catch (error) {
   console.log("User Authentication failed 3",error);
+        setErrorMessage("User Authentication failed");
+ // return error;
  // dispatch(setIsLoading(false));
   } finally {
    // dispatch(setIsLoading(false));

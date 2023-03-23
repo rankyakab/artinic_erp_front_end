@@ -36,7 +36,7 @@ import Energy from '../../assets/images/energy.svg';
 export default function LoginPage() {
   
   const navigate = useNavigate();
-  const { login ,state} = useAuthContext();
+  const { login ,state,errorMessage} = useAuthContext();
  // const { setAuth } = useContext(AuthContext);
 
 
@@ -91,12 +91,23 @@ export default function LoginPage() {
     setErrMsg('');
   }, [email, password]);
 
+    useEffect(() => {
+    setErrMsg(errorMessage);
+  }, [login]);
+
+  const ret = ()=> setErrMsg('User Authentication Failed')
+
   // rankyakab@gmail.com
   // rankyakab
-
   const handleSubmit = async (e) => {
  e?.preventDefault();
- login(email, password)
+login(email, password).then(result=>{
+ // setErrMsg('User Authentication Failed')
+ setTimeout(ret, 2000)
+}).catch(error => {
+  setErrMsg('User Authentication Failed!!');
+});
+// setErrMsg(lo);
 /*
     try {
       dispatch(loginUser({ email, password }, navigate, setEmail, setPassword));

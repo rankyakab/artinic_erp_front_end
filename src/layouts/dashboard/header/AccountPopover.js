@@ -18,7 +18,7 @@ import { IconButtonAnimate } from '../../../components/animate';
 // import { capitalize } from '../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
-
+ 
 const OPTIONS = [
   {
     label: 'Profile',

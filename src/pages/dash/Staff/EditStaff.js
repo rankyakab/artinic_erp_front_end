@@ -60,6 +60,8 @@ const EditStaff = () => {
     employmentDate: filterStaff[0]?.employmentDate,
     staffNo: filterStaff[0]?.staffNo,
     staffPositionId: filterStaff[0]?.staffPositionId,
+    oldpropic: filterStaff[0]?.propic,
+    oldsignature: filterStaff[0]?.signature,
   });
   const [userRole, setUserRole] = useState({
     role: '',
@@ -79,6 +81,7 @@ const EditStaff = () => {
   const handleClose = () => {
     setOpen(false);
     setError(false);
+    navigate('/dashboard/staff');
   };
 
   const dispatch = useDispatch();
@@ -103,7 +106,7 @@ const EditStaff = () => {
     setFilters(files[0]);
     setUserData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: files[0],
     }));
 
     const reader = new FileReader();
@@ -116,7 +119,11 @@ const EditStaff = () => {
   };
 
   const handleSignatureDrop = (e) => {
-    const { files } = e.target;
+    const { files  ,name, value} = e.target;
+     setUserData((prev) => ({
+      ...prev,
+      [name]: files[0],
+    }));
     // console.log(files);
     setSelectedSignature(files[0]);
 
@@ -151,7 +158,7 @@ const EditStaff = () => {
     // }
     const formData = new FormData();
 
-    if (filters?.name) formData.append('propic', filters);
+    // if (filters?.name) formData.append('propic', filters);
 
     // if (selectedSignature?.name) formData.append('signature', selectedSignature);
 
@@ -159,18 +166,18 @@ const EditStaff = () => {
       // console.log(e, userData[e]);
       formData.append(e, userData[e]);
     });
-
+   console.log("this is the form data", userData)
     let isFormData;
 
     dispatch(
       editStaff(
-        filters?.name ? formData : userData,
+        (userData?.propic || userData.signature)  ? formData : userData,
         filterStaff[0]?._id,
         setOpen,
         setError,
         setErrorMessage,
         setSuccessMessage,
-        filters?.name ? (isFormData = true) : (isFormData = false)
+        (userData?.propic || userData.signature)  ? (isFormData = true) : (isFormData = false)
       )
     );
   };
@@ -290,7 +297,7 @@ const EditStaff = () => {
                     // hidden
                     onChange={(e) => handleSignatureDrop(e)}
                     ref={signatureInputRef}
-                    name="propic"
+                    name="signature"
                     accept="image/*"
                     multiple
                     type="file"

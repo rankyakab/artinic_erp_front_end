@@ -40,7 +40,8 @@ const NewStaff = () => {
     employmentDate: '',
     staffNo: '',
     staffPositionId: '',
-    propic:''
+    propic:'',
+     signature:''
   });
 
   const handleBack = () => {
@@ -73,12 +74,13 @@ const NewStaff = () => {
 
   const handleFileDrop = (e) => {
     const { files ,name, value} = e.target;
-    // console.log(files);
-    setFilters(files[0]);
-   userData((prev) => ({
+     setUserData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    // console.log(files);
+    setFilters(files[0]);
+  
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -89,7 +91,12 @@ const NewStaff = () => {
   };
 
   const handleSignatureDrop = (e) => {
-    const { files } = e.target;
+    const { files,name, value } = e.target;
+
+    setUserData((prev) => ({
+      ...prev,
+      [name]: files[0],
+    }));
     // console.log(files);
     setSelectedSignature(files[0]);
 
@@ -117,7 +124,7 @@ const NewStaff = () => {
     // }
     const formData = new FormData();
 
-    if (filters?.name) formData.append('propic', filters);
+     if (filters?.name) formData.append('propic', filters);
 
     // if (selectedSignature?.name) formData.append('signature', selectedSignature);
 
@@ -130,11 +137,11 @@ const NewStaff = () => {
 
     dispatch(
       createStaff(
-        filters?.name ? formData : userData,
+       (userData?.propic || userData.signature) ? formData : userData,
         setOpen,
         setError,
         setErrorMessage,
-        filters?.name ? (isFormData = true) : (isFormData = false)
+     (userData?.propic || userData.signature) ? (isFormData = true) : (isFormData = false)
       )
     );
   };
@@ -244,7 +251,7 @@ const NewStaff = () => {
                     // hidden
                     onChange={(e) => handleSignatureDrop(e)}
                     ref={signatureInputRef}
-                    name="propic"
+                    name="signature"
                     accept="image/*"
                     multiple
                     type="file"
@@ -260,7 +267,7 @@ const NewStaff = () => {
                   <p style={{ fontSize: '14px', marginTop: '-0.5rem' }}>2MB</p>
                 </Stack>
 
-                */
+               
               </Box>
               <Button
                 sx={{

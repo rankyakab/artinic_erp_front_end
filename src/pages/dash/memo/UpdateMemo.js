@@ -47,7 +47,7 @@ const UpdateMemo = () => {
   const { staffs } = useSelector((state) => state?.staff);
   const { user } = useSelector((state) => state.auth);
 
-
+ 
   
 
  //  const memo = allMemo?.filter((item) => item?._id === params?.id);
@@ -494,13 +494,9 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                     <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
                    
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item?.momoBody?.toUpperCase()}
-                    </Typography>
-                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      <Link to="/newpage">View Details</Link>
-                    </Button>
-                     
-                       
+                      {item?.memoBody?.toUpperCase()}
+                   </Typography>
+                
                     
                      
                       
@@ -519,7 +515,7 @@ const TIMELINES =memo?.trail ? memo?.trail: [];
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color={statuscolor} />
-                     {memo.updatedAt}
+                     {item.updatedAt}
                   
                   </Badge>
                       
