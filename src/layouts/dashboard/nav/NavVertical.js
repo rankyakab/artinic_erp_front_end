@@ -26,6 +26,14 @@ NavVertical.propTypes = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }) {
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+      console.log("user roling on the floor",user);
+      console.log("user roling on the floor",user);
+      console.log("user roling on the floor",user);
+    // Do something with myData here...
+  }, []);
+
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
   // Clear token from local storage
     // localStorage.removeItem('token');
