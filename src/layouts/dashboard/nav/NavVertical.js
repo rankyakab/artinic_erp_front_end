@@ -44,7 +44,11 @@ export default function NavVertical({ openNav, onCloseNav }) {
   getRoleById( user.user.role);
   console.log("this is the user for access control", user.user.role);
  
- const roles = JSON.parse(localStorage.getItem('roles'))
+ 
+ 
+ 
+ 
+  const roles = JSON.parse(localStorage.getItem('roles'))
  const userRole = roles.filter(role=>role._id===user.user.role);
  const privileges  =userRole[0]?.privilege;
  console.log("these are the privileges",privileges)
