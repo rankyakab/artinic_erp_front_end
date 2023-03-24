@@ -27,7 +27,7 @@ NavVertical.propTypes = {
 
 export default function NavVertical({ openNav, onCloseNav }) {
   useEffect(() => {
-    const rol = localStorage.getItem('user');
+    const {user,roles} = JSON.parse(localStorage.getItem('user'));
        // const userRole = roles.filter(role=>role._id===user.role);
       
 const pagelink =[
@@ -71,13 +71,13 @@ const pagelink =[
         
 
 
-    console.log("these are the pages after",rol)// Do something with myData here...
-      console.log("user roling on the floor")
+   // Do something with myData here...
+      console.log("user roling on the floor uder",user);
        console.log("user roling on the floor")
         console.log("user roling on the floor")
          console.log("user roling on the floor")
        
-      console.log("user roling on the floor")
+      console.log("user roling on the floor",roles);
        console.log("user roling on the floor")
         console.log("user roling on the floor")
          console.log("user roling on the floor")
