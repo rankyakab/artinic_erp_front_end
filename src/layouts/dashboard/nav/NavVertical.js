@@ -228,7 +228,7 @@ const pagelink =[
 */
   const navConfig =[
         {
-          items:pagelink  ,
+          items:myProcessry  ,
         },
       ];
 
