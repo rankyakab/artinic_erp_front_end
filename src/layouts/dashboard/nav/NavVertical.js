@@ -28,10 +28,7 @@ NavVertical.propTypes = {
 export default function NavVertical({ openNav, onCloseNav }) {
   useEffect(() => {
     const {user,roles} = JSON.parse(localStorage.getItem('user'));
-       // const userRole = roles.filter(role=>role._id===user.role);
-      const privilege = roles.find(item=> item._id===user.role);
-      console.log(privilege);
-
+     
 const pagelink =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -70,6 +67,14 @@ const pagelink =[
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
           ];
+            // const userRole = roles.filter(role=>role._id===user.role);
+       // this is my privilledge already (an arry of object(process and aray of action))
+      const privilege = roles.find(item=> item._id===user.role);
+      const priviPage = pagelink.filter(item => privilege.find(prev=>prev.processId===item.process));
+     // check array length
+      const fiPri = priviPage.filter(item => privilege.find(prev=>prev.processId===item.process && prev.action.length>0));
+      console.log(privilege);
+
      const myProcessry =   pagelink.filter(item=>{
    const proActions=  privilege.privilege.find(my=> my.processId===item.process);
         if(proActions){
@@ -228,7 +233,8 @@ const pagelink =[
 */
   const navConfig =[
         {
-          items:myProcessry  ,
+          // eslint-disable-next-line no-undef
+          items:fiPri  ,
         },
       ];
 
