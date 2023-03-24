@@ -38,7 +38,15 @@ const pageAction = {
 }
 
 
+
   const userRole = JSON.parse(localStorage.getItem('role'));
+  console.log("this is the user Role",userRole);
+    console.log("this is the user Role",userRole);
+      console.log("this is the user Role",userRole);
+        console.log("this is the user Role",userRole);
+          console.log("this is the user Role",userRole);
+            console.log("this is the user Role",userRole);
+              console.log("this is the user Role",userRole);
 
 export function checkPrivilege([processId, actionid]) {
   // this function accepts proces(like page name) id and the id of the action on that page
