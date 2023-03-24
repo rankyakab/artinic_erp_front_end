@@ -45,6 +45,9 @@ import { updateMemoStatus , getSingleMemo} from '../../../redux/actions/MemoActi
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 
+import { checkPrivilege } from '../../../utils/checkPrivilege';
+import * as memoPrivilege from '../../../utils/privilege/memo';
+
 // pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 // pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -371,7 +374,7 @@ const [memoData, setMemoData] = useState({
                     color: '#272525',
                   }}
                 >
-                  Fatimah Mohammed
+                  ""
                 </span>
               </Typography>
               <Typography
@@ -397,7 +400,8 @@ const [memoData, setMemoData] = useState({
                 />
               </Typography>
             </Stack>
-            <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
+            {checkPrivilege(memoPrivilege.APPROVE)||checkPrivilege(memoPrivilege.RECOMMEND)&&(
+              <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
               <Grid item xs={12} md={4}>
                 <Stack>
                   <InputLabel id="action">Action</InputLabel>
@@ -453,6 +457,8 @@ const [memoData, setMemoData] = useState({
                 </Button>
               </Grid>
             </Grid>
+            )}
+            
           </Stack>
         </HeadCard>
          <Container sx={{ my: 10 }}>

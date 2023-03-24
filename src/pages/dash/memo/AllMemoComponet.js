@@ -31,6 +31,8 @@ import { capitalize } from '../../../utils/formatNumber';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
+import { checkPrivilege } from '../../../utils/checkPrivilege';
+import * as memoPrivilege from '../../../utils/privilege/memo';
 // import { API_ROUTES } from '../../../redux/config/StaffConfig';
 // import { BASE_URL } from '../../../helpers';
 
@@ -95,7 +97,8 @@ const [open, setOpen] = useState(false);
     );
   };
 
-  const tableHead = ['S/N', 'Memo Title', 'Sent From', 'Sent To','Date', 'Status', 'Action'];
+  let tableHead = ['S/N', 'Memo Title', 'Sent From', 'Sent To','Date', 'Status'];
+  tableHead=checkPrivilege(memoPrivilege.APPROVE)||checkPrivilege(memoPrivilege.DELETE)||checkPrivilege(memoPrivilege.UPDATE)?[...tableHead, 'Action']:[...tableHead];
   // const tableData = [];
 
   const [page, setPage] = React.useState(0);
@@ -139,10 +142,10 @@ const handleClose = () => {
         totalNumberLabel={'Total memo'}
         filterLabel={'Filter memo'}
         filterText={'All Memo'}
-        buttonLabel={'Create Memo'}
-        onClick={() => {
+        buttonLabel={checkPrivilege(memoPrivilege.CREATE)?'Create Memo':"ALL MEMO"}
+        onClick={checkPrivilege(memoPrivilege.CREATE)?() => {
           navigate('/dashboard/create-memo');
-        }}
+        }:""}
         handleSearch={handleSearch}
         keyword={keyword}
         setKeyword={setKeyword}
@@ -225,10 +228,11 @@ const handleClose = () => {
                           />
                         )}
                       </TableCell> */}
+                      {(checkPrivilege(memoPrivilege.APPROVE)||checkPrivilege(memoPrivilege.DELETE)||checkPrivilege(memoPrivilege.UPDATE))&&(
                       <TableCell>
                        
 
-                        {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&(
+                        {(data.recipientId===user.user.staffId || data.copies.includes(user.user.staffId)) &&checkPrivilege(memoPrivilege.APPROVE)&&(
                         <div style={{ display: 'flex' }}>
                           <IconButton  color="primary" aria-label="view more" onClick={() => {
                             navigate(`/dashboard/memo-details/${data?._id}`);
@@ -237,20 +241,27 @@ const handleClose = () => {
                           </IconButton>
                          </div>
                          
-                       )}
+                      
+                      
+                      )}
 
                         
                       {
-                        data.ownerId===user.user.staffId &&(
+                        data.ownerId===user.user.staffId && (checkPrivilege(memoPrivilege.UPDATE)||checkPrivilege(memoPrivilege.DELETE))&&(
                            <div style={{ display: 'flex' }}>
-                          <IconButton color="error" aria-label="delete" onClick={()=>deleteMemoOnClick(data?._id)}>
-                            <DeleteIcon />
-                          </IconButton>
-                          <IconButton color="warning" aria-label="edit" style={{ marginLeft: '3px' }}  onClick={() => {
-                            navigate(`/dashboard/update-memo/${data?._id}`);
-                          }}>
+                            {checkPrivilege(memoPrivilege.DELETE) &&(
+                               <IconButton color="error" aria-label="delete" onClick={()=>deleteMemoOnClick(data?._id)}>
+                               <DeleteIcon />
+                              </IconButton>
+                            )}
+                         {checkPrivilege(memoPrivilege.DELETE) &&(
+                               <IconButton color="warning" aria-label="edit" style={{ marginLeft: '3px' }}  onClick={() => {
+                                      navigate(`/dashboard/update-memo/${data?._id}`);
+                                    }}>
                             <EditIcon />
                           </IconButton>
+                         )}
+                          
                         </div>
                           
                         )}
@@ -258,6 +269,8 @@ const handleClose = () => {
                       
                       </TableCell>
                       
+                      )}
+                     
                     </TableRow>
                   ))}
               </TableBody>

@@ -2,6 +2,8 @@ import { Grid, Stack, Box, Button, Typography, InputAdornment, IconButton } from
 import React, { useState } from 'react';
 import { GeneralInput, InputLabel, HeadCard } from '../styles/main';
 import Iconify from './iconify/Iconify';
+import { checkPrivilege } from '../utils/checkPrivilege';
+import * as staffPrivilege from '../utils/privilege/staff';
 
 const HeaderCard = ({
   searchLabel,
