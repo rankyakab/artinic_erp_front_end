@@ -23,6 +23,8 @@ import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { createRole, deleteRole, getAllRole } from '../../../redux/actions/RoleAction';
 import { capitalize } from '../../../utils/formatNumber';
+import { checkPrivilege } from '../../../utils/checkPrivilege';
+import * as rolePrivilege from '../../../utils/privilege/role';
 
 function Roles() {
   const dispatch = useDispatch();
@@ -64,8 +66,8 @@ function Roles() {
     }));
   };
 
-  const tableHead = ['S/N', 'Roles', 'Action'];
-
+  let tableHead = ['S/N', 'Roles',];
+tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege.UPDATE) )?[...tableHead, 'Action']:[...tableHead]
   const handleCreateRole = (e) => {
     e.preventDefault();
     dispatch(createRole(roleData, setErrorMessage, setSuccessMessage, setOpen, setError));
@@ -107,7 +109,9 @@ function Roles() {
             onSubmit={handleCreateRole}
             spacing={6}
           >
-            <input
+            {checkPrivilege(rolePrivilege.CREATE)&&(
+             <>
+                 <input
               ref={inputRef}
               //   fullWidth
               placeholder="Enter action"
@@ -132,6 +136,9 @@ function Roles() {
             >
               {loading ? 'Loading...' : 'Create'}
             </Button>
+             </>
+            )}
+           
           </Stack>
         </HeadCard>
 
@@ -170,14 +177,14 @@ function Roles() {
                       {key + 1}
                     </TableCell>
                     <TableCell>{capitalize(data?.role)}</TableCell>
-
+                 { ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege.UPDATE) )&&(
                     <TableCell
                       sx={{
                         display: 'flex !important',
                         alignItems: 'center !important',
                       }}
                     >
-                      <div
+                      {checkPrivilege(rolePrivilege.DELETE)&&(<div
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -198,8 +205,10 @@ function Roles() {
                           }}
                         />
                         <p>Edit</p>
-                      </div>
-                      <div
+                      </div>)  }
+                      
+                      {checkPrivilege(rolePrivilege.UPDATE)&&(
+                        <div
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -218,8 +227,13 @@ function Roles() {
                         />
                         <p>Delete</p>
                       </div>
-                    </TableCell>
+                      )}
+                      
+                    </TableCell>)
+                    }
                   </TableRow>
+                  
+                  
                 ))}
               </TableBody>
             </Table>
