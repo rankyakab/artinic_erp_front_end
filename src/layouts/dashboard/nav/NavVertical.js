@@ -73,7 +73,8 @@ const pagelink =[
       const priviPage = pagelink.filter(item => privilege.find(prev=>prev.processId===item.process));
      // check array length
       const fiPri = priviPage.filter(item => privilege.find(prev=>prev.processId===item.process && prev.action.length>0));
-      console.log(privilege);
+      console.log("this is the privilege",privilege);
+      console.log("how will you say this is not defined",fiPri)
 
      const myProcessry =   pagelink.filter(item=>{
    const proActions=  privilege.privilege.find(my=> my.processId===item.process);
