@@ -29,7 +29,9 @@ export default function NavVertical({ openNav, onCloseNav }) {
   useEffect(() => {
     const {user,roles} = JSON.parse(localStorage.getItem('user'));
        // const userRole = roles.filter(role=>role._id===user.role);
-      
+      const privilege = roles.find(item=> item._id===user.role);
+      console.log(privilege);
+
 const pagelink =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -68,16 +70,22 @@ const pagelink =[
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
           ];
-        
+     const myProcessry =   pagelink.filter(item=>{
+   const proActions=  privilege.privilege.find(my=> my.processId===item.process);
+        if(proActions){
+         return proActions.action.length > 0
+        }
+        return false;
+     })
 
 
    // Do something with myData here...
-      console.log("user roling on the floor uder",user);
+      console.log("user roling on the floor uder",myProcessry);
        console.log("user roling on the floor")
         console.log("user roling on the floor")
          console.log("user roling on the floor")
        
-      console.log("user roling on the floor",roles);
+      console.log("user roling on the floor",);
        console.log("user roling on the floor")
         console.log("user roling on the floor")
          console.log("user roling on the floor")
