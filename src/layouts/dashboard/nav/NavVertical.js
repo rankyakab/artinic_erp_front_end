@@ -27,7 +27,10 @@ NavVertical.propTypes = {
 
 export default function NavVertical({ openNav, onCloseNav }) {
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
-
+  // Clear token from local storage
+    localStorage.removeItem('token');
+    // Clear token from local storage
+    localStorage.removeItem('user');
   const useeerRole = JSON.parse(localStorage.getItem('user'));
   console.log("user roling on the floor",useeerRole);
 
