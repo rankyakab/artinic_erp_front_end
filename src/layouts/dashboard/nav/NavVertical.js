@@ -44,7 +44,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
   getRoleById( user.user.role);
   console.log("this is the user for access control", user.user.role);
  
- 
+  console.log("this is the role for access control", user.roles);
  
  
  
