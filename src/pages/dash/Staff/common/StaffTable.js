@@ -59,9 +59,9 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   };
 
   // eslint-disable-next-line prefer-const
-  let tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation'];
-tableHead=( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) ?[...tableHead,'Action']:[...tableHead]
-tableHead= checkPrivilege(staffPrivilege.DELETE) ?[...tableHead,'Delete']:[...tableHead];
+  let tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation','Action','Delete'];
+// tableHead=( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) ?[...tableHead,'Action']:[...tableHead]
+// tableHead= checkPrivilege(staffPrivilege.DELETE) ?[...tableHead,'Delete']:[...tableHead];
              
   return (
     <>
