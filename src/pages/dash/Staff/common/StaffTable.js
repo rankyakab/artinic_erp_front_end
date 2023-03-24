@@ -24,6 +24,7 @@ import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
 import { checkPrivilege } from '../../../../utils/checkPrivilege';
+import * as staffPrivilege from '../../../../utils/privilege/staff';
 
 
 export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
@@ -57,8 +58,11 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
     handleClose();
   };
 
-  const tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation','Delete', 'Action'];
-
+  // eslint-disable-next-line prefer-const
+  let tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation'];
+tableHead=( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) ?[...tableHead,'Action']:[...tableHead]
+tableHead= checkPrivilege(staffPrivilege.DELETE) ?[...tableHead,'Delete']:[...tableHead];
+             
   return (
     <>
       <SuccessCard
@@ -98,9 +102,9 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                   },
                 }}
               >
-                {tableHead.map((td, key) => (
-                  <TableCell key={key}>{td}</TableCell>
-                ))}
+                {tableHead.map((td, key) => 
+                   ( <TableCell key={key}>{td}</TableCell>)
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -118,12 +122,18 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                     <TableCell>{data?.phoneNumber}</TableCell>
 
                     <TableCell>{capitalize(data?.designation)}</TableCell>
+
+                     {!data?.userId && checkPrivilege(staffPrivilege.DELETE) && (
                     <TableCell>  <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
                             <DeleteIcon />
                           </IconButton></TableCell>
-                   
+                     )}
+
+           {!data?.userId &&( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) && (
                     <TableCell>
-                      <Action
+                      
+                      {!data?.userId && checkPrivilege(staffPrivilege.UPDATE) && ( 
+                        <Action
                         onClick={() => {
                           setEditUser(data);
                           navigate(`/dashboard/edit-staff/${data?._id}`);
@@ -132,7 +142,9 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                       >
                         View More
                       </Action>
-                      <Action
+                          )}
+                      {!data?.userId && checkPrivilege(staffPrivilege.CONVERT) && (
+                        <Action
                           onClick={() => {
                             setId(data?._id);
                             dispatch(
@@ -149,7 +161,9 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                         >
                           {loading && id === data?._id ? 'Loading...' : ' Convert Staff to User'}
                         </Action>
+                      )}
                     </TableCell>
+           ) }
                   </TableRow>
                 ))}
             </TableBody>

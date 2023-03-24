@@ -9,6 +9,8 @@ import HeaderCard from '../../../components/HeaderCard';
 import { Wrapper } from '../../../styles/main';
 import { StaffTable } from './common/StaffTable';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import { checkPrivilege } from '../../../utils/checkPrivilege';
+import * as staffPrivilege from '../../../utils/privilege/staff';
 import SuccessCard from '../../../components/SuccessCard';
 // ----------------------------------------------------------------------
 
@@ -58,17 +60,18 @@ export default function Staff() {
 
       <Wrapper>
         <DashboardHeader title={'All Staff'} text={'View, search for and add new staff'} />
-
+ 
         <HeaderCard
           searchLabel={'Quick search a staff'}
           totalNumber={staffs?.length}
           totalNumberLabel={'Total number of staff'}
           filterLabel={'Filter staff'}
           filterText={'All Staff'}
-          buttonLabel={'Add New Staff'}
-          onClick={() => {
+         buttonLabel = {checkPrivilege(staffPrivilege.CREATE)?'Add New Staff':"" }
+          onClick={checkPrivilege(staffPrivilege.CREATE)? () => {
             navigate('/dashboard/new-staff');
-          }}
+          }:"" }
+          
           handleSearch={handleSearch}
           keyword={keyword}
           setKeyword={setKeyword}
