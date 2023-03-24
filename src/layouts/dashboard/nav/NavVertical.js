@@ -28,10 +28,8 @@ NavVertical.propTypes = {
 export default function NavVertical({ openNav, onCloseNav }) {
   useEffect(() => {
     const {roles,user} = localStorage.getItem('user');
-       const userRole = roles.filter(role=>role._id===user.role);
-       const privileges  =userRole[0]?.privilege;
-        const privilegeIds = privileges.map(privilege => privilege.processId)
-
+       // const userRole = roles.filter(role=>role._id===user.role);
+      
 const pagelink =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -70,16 +68,19 @@ const pagelink =[
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
           ];
-        const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>{
-  const p = privileges?.find((ele)=>ele.processId===obj.process)
-   if(p){
-    return p.action.length >0;
-   }
-   return false;
-}
+        
 
-)
-    console.log("these are the pages after",pagesAfterPrivilegeFilter)// Do something with myData here...
+
+    console.log("these are the pages after",roles)// Do something with myData here...
+      console.log("user roling on the floor")
+       console.log("user roling on the floor")
+        console.log("user roling on the floor")
+         console.log("user roling on the floor")
+         console.log("these are the pages user",user)// Do something with myData here...
+      console.log("user roling on the floor")
+       console.log("user roling on the floor")
+        console.log("user roling on the floor")
+         console.log("user roling on the floor")
   }, []);
 
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
