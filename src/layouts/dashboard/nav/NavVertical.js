@@ -28,7 +28,8 @@ NavVertical.propTypes = {
 export default function NavVertical({ openNav, onCloseNav }) {
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
 
-  // const userRole = JSON.parse(localStorage.getItem('user'))?.user?.role;
+  const useeerRole = JSON.parse(localStorage.getItem('user'));
+  console.log("user roling on the floor",useeerRole);
 
   // const roles = JSON.parse(localStorage.getItem('roles'));\
 
@@ -41,11 +42,10 @@ export default function NavVertical({ openNav, onCloseNav }) {
   // console.log(filterRoles);
   const { user } = useSelector((state) => state?.auth);
   // this guty sets roles in redux
-  getRoleById( user.user.role);
+  // getRoleById( user.user.role);
   console.log("this is the user for access control", user.user.role);
  
   console.log("this is the role for access control", user.roles);
- 
  
  
   const {roles} = user;
