@@ -36,27 +36,27 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
   // const roles = JSON.parse(localStorage.getItem('roles'));\
 
-   const { role } = useSelector((state) => state.role);
+   // const { role } = useSelector((state) => state.role);
 
   // console.log(roles);
 
   //  const filterRoles = roles.filter((role) => userRole === role?._id);
 
   // console.log(filterRoles);
-  const { user } = useSelector((state) => state?.auth);
+  // const { user } = useSelector((state) => state?.auth);
   // this guty sets roles in redux
-   getRoleById( user.user.role);
-  console.log("this is the user for access control", user.user.role);
+ //  getRoleById( user.user.role);
+ //  console.log("this is the user for access control", user.user.role);
  
-  console.log("this is the role for access control", user.roles);
+  // console.log("this is the role for access control", user.roles);
  
  
-  const {roles} = user;
- const userRole = roles?.filter(role=>role._id===user.user.role);
- const privileges  =userRole[0]?.privilege;
- console.log("these are the privileges",privileges)
- const privilegeIds = privileges.map(privilege => privilege.processId)
- console.log("this is roles privileges ids for  the user for access control", privilegeIds);
+  // const {roles} = user;
+ // const userRole = roles?.filter(role=>role._id===user.user.role);
+ // const privileges  =userRole[0]?.privilege;
+ // console.log("these are the privileges",privileges)
+ // const privilegeIds = privileges.map(privilege => privilege.processId)
+ // console.log("this is roles privileges ids for  the user for access control", privilegeIds);
 
   const ICONS = {
     user: icon('ic_user'),
@@ -151,16 +151,19 @@ const pagelink =[
       // const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>privilegeIds.includes(obj.process))
       // const pagesAfterLastPrivilegeFilter=  pagesAfterPrivilegeFilter.filter((obj) =>privileges.find((item)=>obj.process===item.processId))
     //   const pagesAfterActionFilter =pagesAfterPrivilegeFilter.filter(item=> item.process && privileges.any)
-const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>{
+
+/*
+    const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>{
   const p = privileges?.find((ele)=>ele.processId===obj.process)
    if(p){
     return p.action.length >0;
    }
    return false;
 })
+*/
   const navConfig =[
         {
-          items:pagesAfterPrivilegeFilter ,
+          items:pagelink  ,
         },
       ];
 
