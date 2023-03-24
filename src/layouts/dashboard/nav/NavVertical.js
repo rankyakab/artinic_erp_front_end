@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import { useLocation, } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 // @mui
@@ -26,10 +26,9 @@ NavVertical.propTypes = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }) {
-  useEffect(() => {
-    const {user,roles} = JSON.parse(localStorage.getItem('user'));
-     
-const pagelink =[
+ const [navConfig, setNavConfig]=useState([
+        {
+          items:[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
@@ -66,24 +65,40 @@ const pagelink =[
             // Accounts
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ];
+          ] ,
+        },
+      ])
+  useEffect(() => {
+    const {user,roles} = JSON.parse(localStorage.getItem('user'));
+     
+
             // const userRole = roles.filter(role=>role._id===user.role);
        // this is my privilledge already (an arry of object(process and aray of action))
       const privilege = roles.find(item=> item._id===user.role);
-      const priviPage = pagelink.filter(item => privilege.find(prev=>prev.processId===item.process));
+       const priviPage = navConfig.filter(item => privilege.find(prev=>prev.processId===item.process));
      // check array length
       const fiPri = priviPage.filter(item => privilege.find(prev=>prev.processId===item.process && prev.action.length>0));
       console.log("this is the privilege",privilege);
       console.log("how will you say this is not defined",fiPri)
 
-     const myProcessry =   pagelink.filter(item=>{
+     const myProcessry =   navConfig.filter(item=>{
    const proActions=  privilege.privilege.find(my=> my.processId===item.process);
         if(proActions){
          return proActions.action.length > 0
         }
         return false;
      })
-
+    console.log("this is inside the fuction",myProcessry);
+     console.log("this is inside the fuction",myProcessry);
+      console.log("this is inside the fuction",myProcessry)
+       console.log("this is inside the fuction",myProcessry)
+        console.log("this is inside the fuction",myProcessry)
+  const setNavConfig =[
+        {
+          
+          items:myProcessry  ,
+        },
+      ];
 
    // Do something with myData here...
       console.log("user roling on the floor uder",myProcessry);
@@ -158,7 +173,7 @@ const pagelink =[
     approvals: icon('ic_approvals'),
     balance: icon('ic_balance'),
   };
-        const pageProcess = {
+ const pageProcess = {
         user:"641a09d65ab751646ea18576",
         staff:"6419ec4e5ab751646ea18437",
         memo:"6419cb3d5ab751646ea183b4",
@@ -232,12 +247,7 @@ const pagelink =[
    return false;
 })
 */
-  const navConfig =[
-        {
-          // eslint-disable-next-line no-undef
-          items:fiPri  ,
-        },
-      ];
+
 
   const dispatch = useDispatch();
 
