@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect ,useState} from 'react';
+import { useEffect , useState} from 'react';
 import { useLocation, } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 // @mui
@@ -26,8 +26,10 @@ NavVertical.propTypes = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }) {
- const [navConfig, setNavConfig]=useState([
+
+const[navConfig, setNavConfig]=useState( [
         {
+          // eslint-disable-next-line no-undef
           items:[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -65,51 +67,34 @@ export default function NavVertical({ openNav, onCloseNav }) {
             // Accounts
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ] ,
+          ]  ,
         },
-      ])
+      ]);
+
   useEffect(() => {
     const {user,roles} = JSON.parse(localStorage.getItem('user'));
-     
-
-            // const userRole = roles.filter(role=>role._id===user.role);
-       // this is my privilledge already (an arry of object(process and aray of action))
+       // const userRole = roles.filter(role=>role._id===user.role);
+       // this is my privilledge already (an arry of object(process and aray of))
       const privilege = roles.find(item=> item._id===user.role);
-       const priviPage = navConfig.filter(item => privilege.find(prev=>prev.processId===item.process));
-     // check array length
-      const fiPri = priviPage.filter(item => privilege.find(prev=>prev.processId===item.process && prev.action.length>0));
-      console.log("this is the privilege",privilege);
-      console.log("how will you say this is not defined",fiPri)
+      console.log("is this my prevelege?????",privilege);
 
-     const myProcessry =   navConfig.filter(item=>{
-   const proActions=  privilege.privilege.find(my=> my.processId===item.process);
-        if(proActions){
-         return proActions.action.length > 0
-        }
-        return false;
-     })
-    console.log("this is inside the fuction",myProcessry);
-     console.log("this is inside the fuction",myProcessry);
-      console.log("this is inside the fuction",myProcessry)
-       console.log("this is inside the fuction",myProcessry)
-        console.log("this is inside the fuction",myProcessry)
-  const setNavConfig =[
+
+      setNavConfig([
         {
-          
-          items:myProcessry  ,
-        },
-      ];
+          items:[
+            { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
+             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
+            { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
+            { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
+          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
 
-   // Do something with myData here...
-      console.log("user roling on the floor uder",myProcessry);
-       console.log("user roling on the floor")
-        console.log("user roling on the floor")
-         console.log("user roling on the floor")
-       
-      console.log("user roling on the floor",);
-       console.log("user roling on the floor")
-        console.log("user roling on the floor")
-         console.log("user roling on the floor")
+           
+          ]  ,
+        },
+      ])
+
+
+
   }, []);
 
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
@@ -120,30 +105,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
   const useeerRole = JSON.parse(localStorage.getItem('user'));
   console.log("user roling on the floor",useeerRole);
 
-  // const roles = JSON.parse(localStorage.getItem('roles'));\
-
-   // const { role } = useSelector((state) => state.role);
-
-  // console.log(roles);
-
-  //  const filterRoles = roles.filter((role) => userRole === role?._id);
-
-  // console.log(filterRoles);
-  // const { user } = useSelector((state) => state?.auth);
-  // this guty sets roles in redux
- //  getRoleById( user.user.role);
- //  console.log("this is the user for access control", user.user.role);
- 
-  // console.log("this is the role for access control", user.roles);
- 
- 
-  // const {roles} = user;
- // const userRole = roles?.filter(role=>role._id===user.user.role);
- // const privileges  =userRole[0]?.privilege;
- // console.log("these are the privileges",privileges)
- // const privilegeIds = privileges.map(privilege => privilege.processId)
- // console.log("this is roles privileges ids for  the user for access control", privilegeIds);
-
+  
   const ICONS = {
     user: icon('ic_user'),
     ecommerce: icon('ic_ecommerce'),
@@ -173,7 +135,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
     approvals: icon('ic_approvals'),
     balance: icon('ic_balance'),
   };
- const pageProcess = {
+        const pageProcess = {
         user:"641a09d65ab751646ea18576",
         staff:"6419ec4e5ab751646ea18437",
         memo:"6419cb3d5ab751646ea183b4",
@@ -196,57 +158,6 @@ const pageAction = {
         read:"6419ca805ab751646ea18382",
         
 }
-const pagelink =[
-            { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
-             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
-            { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
-            { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
-     //       { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
-          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
-      //      { title: 'Circulars', path: PATH_DASHBOARD.circulars, icon: ICONS.circulars },
-      //      { title: 'Maintenance', path: PATH_DASHBOARD.maintenance, icon: ICONS.maintenance },
-      //      { title: 'Logistics', path: PATH_DASHBOARD.logistics, icon: ICONS.logistics },
-      //      { title: 'Office Budget', path: PATH_DASHBOARD.office_budget, icon: ICONS.budget },
-       //     { title: 'Office Assets', path: PATH_DASHBOARD.stocks_and_inventory, icon: ICONS.analytics },
-            // { title: 'Notifications', path: PATH_DASHBOARD.notifications, icon: ICONS.notification },
-      //      { title: 'Capacity Building', path: PATH_DASHBOARD.capacity_building, icon: ICONS.build },
-        //    { title: 'Procurements', path: PATH_DASHBOARD.procurement, icon: ICONS.procurement },
-            { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role ,process:pageProcess.roles},
-            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
-             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
-            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privileges},
-
-            // Operations User
-         //   { title: 'Operations', path: PATH_DASHBOARD.operations_dashboard, icon: ICONS.dashboard },
-          //  { title: 'Project Management', path: PATH_DASHBOARD.projects, icon: ICONS.management },
-          //  { title: 'Clients', path: PATH_DASHBOARD.clients, icon: ICONS.clients },
-          //  { title: 'Project Types', path: PATH_DASHBOARD.project_types, icon: ICONS.projects },
-          //  { title: 'Invoice', path: PATH_DASHBOARD.invoice, icon: ICONS.invoice },
-           // { title: 'Receipt', path: PATH_DASHBOARD.receipt, icon: ICONS.receipt },
-          //  { title: 'Report', path: PATH_DASHBOARD.report, icon: ICONS.reports },
-
-          //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.dashboard },
-          //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.invoice },
-          //  { title: 'Client Balance', path: PATH_DASHBOARD.client_balance, icon: ICONS.balance },
-          //  { title: 'Approvals', path: PATH_DASHBOARD.approvals, icon: ICONS.approvals },
-
-            // Accounts
-          //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
-          //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ];
-      // const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>privilegeIds.includes(obj.process))
-      // const pagesAfterLastPrivilegeFilter=  pagesAfterPrivilegeFilter.filter((obj) =>privileges.find((item)=>obj.process===item.processId))
-    //   const pagesAfterActionFilter =pagesAfterPrivilegeFilter.filter(item=> item.process && privileges.any)
-
-/*
-    const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>{
-  const p = privileges?.find((ele)=>ele.processId===obj.process)
-   if(p){
-    return p.action.length >0;
-   }
-   return false;
-})
-*/
 
 
   const dispatch = useDispatch();
