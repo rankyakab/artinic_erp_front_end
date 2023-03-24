@@ -48,7 +48,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
  
  
  
-  const roles = user.user.role;
+  const {roles} = user;
  const userRole = roles?.filter(role=>role._id===user.user.role);
  const privileges  =userRole[0]?.privilege;
  console.log("these are the privileges",privileges)
