@@ -141,9 +141,16 @@ const pagelink =[
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
           ];
-       const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>privilegeIds.includes(obj.process))
+      // const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>privilegeIds.includes(obj.process))
+      // const pagesAfterLastPrivilegeFilter=  pagesAfterPrivilegeFilter.filter((obj) =>privileges.find((item)=>obj.process===item.processId))
     //   const pagesAfterActionFilter =pagesAfterPrivilegeFilter.filter(item=> item.process && privileges.any)
-
+const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>{
+  const p = privileges?.find((ele)=>ele.processId===obj.process)
+   if(p){
+    return p.action.length >0;
+   }
+   return false;
+})
   const navConfig =[
         {
           items:pagesAfterPrivilegeFilter ,
