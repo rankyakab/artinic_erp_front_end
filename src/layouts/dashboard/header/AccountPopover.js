@@ -86,6 +86,7 @@ export default function AccountPopover() {
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);
+     
   }, [dispatch]);
 
   return (

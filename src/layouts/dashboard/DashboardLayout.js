@@ -54,6 +54,7 @@ export default function DashboardLayout() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
 
     if (token) {
       checkLoggedIn(true);

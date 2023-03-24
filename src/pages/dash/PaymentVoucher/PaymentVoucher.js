@@ -36,14 +36,14 @@ import DashboardHeader from '../../../layouts/dashboard/DashboardHeader';
 import { AllPaymentVoucher } from './common/PaymentVoucherTable';
 import { Wrapper, HeadCard, FormCard } from '../../../styles/main';
 import { getAllVoucher } from '../../../redux/actions/VoucherAction';
-import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import { getAllStaffs,getStaffById } from '../../../redux/actions/StaffAction';
 import { Block } from '../../../sections/_examples/Block';
 
 const PaymentVoucher = () => {
   const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    
-
+   
+   
   const dispatch = useDispatch();
 
   const { vouchers, voucherLoading } = useSelector((state) => state?.voucher);
@@ -52,21 +52,23 @@ const [myVoucher, setMyVoucher] = useState([]);
 
   useEffect(() => {
     dispatch(getAllVoucher());
-    dispatch(getAllStaffs());
+   //  dispatch(getAllStaffs());
    
       
   }, []);
 
   useEffect(() => {
-    setMyVoucher(vouchers.filter(
-
-      voucher => 
-        voucher?.copies?.some( copy => copy===user?.user?.staffId) || voucher?.recipientId === user?.user?.staffId  || voucher?.preparedBy=== user?.user?.staffId))
-           console.log("my trimed voutecher",myVoucher);
-        console.log("my trimed voutecher");
-        console.log("my trimed voutecher",vouchers);
+    setMyVoucher(vouchers.filter(  voucher =>    voucher?.copies?.some( copy => copy===user?.user?.staffId) || voucher?.recipientId === user?.user?.staffId  || voucher?.preparedBy=== user?.user?.staffId))
+           
+        
   
   }, [vouchers]);
+
+
+
+
+
+
   const TIMELINES =vouchers?.trail ? vouchers?.trail: [];
 
  const sectionColor = (item) =>{

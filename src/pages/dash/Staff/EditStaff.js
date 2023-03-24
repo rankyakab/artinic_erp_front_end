@@ -47,7 +47,7 @@ const EditStaff = () => {
 
   const filterStaff = staffs?.filter((staff) => staff?._id === params?.id);
 
-  console.log(filterStaff);
+  // console.log(filterStaff);
 
   const [userData, setUserData] = useState({
     firstName: filterStaff[0]?.firstName,
@@ -220,7 +220,7 @@ useEffect(()=>{
 
   const fStaff = staffs?.filter((staff) => staff?._id === params?.id);
 
- // console.log(filterStaff);
+ 
 
   setUserData({
     firstName: fStaff[0]?.firstName,
@@ -328,7 +328,7 @@ useEffect(() => {
                   <Avatar sx={{ width: 150, height: 150, cursor: 'pointer' }}>
                     <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <Iconify icon={'eva:camera-fill'} sx={{ width: 40, height: 40 }} />
-                      <p style={{ fontSize: '12px' }}> {filters?.name ? filters?.name : 'upload Photo'}</p>
+                      <p style={{ fontSize: '12px' }}> { 'upload Photo'}</p>
                     </Stack>
                   </Avatar>
                 ) : (

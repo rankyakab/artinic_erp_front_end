@@ -168,7 +168,7 @@ const maxDate = new Date().toISOString().split('T')[0];
     });
 
     let isFormData;
-
+// i stopped here
     dispatch(
       createStaff(
        (userData?.propic || userData.signature) ? formData : userData,
@@ -243,7 +243,7 @@ const maxDate = new Date().toISOString().split('T')[0];
                   <Avatar sx={{ width: 150, height: 150, cursor: 'pointer' }}>
                     <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <Iconify icon={'eva:camera-fill'} sx={{ width: 40, height: 40 }} />
-                      <p style={{ fontSize: '12px' }}> {filters?.name ? filters?.name : 'upload Photo'}</p>
+                      <p style={{ fontSize: '12px' }}> { 'upload Photo'}</p>
                     </Stack>
                   </Avatar>
                 ) : (

@@ -34,22 +34,26 @@ import Back from '../../../../assets/images/arrow_left.svg';
 import { PaymentVoucher } from './PaymentVoucherTable';
 import { createMemo } from '../../../../redux/actions/MemoAction';
 import { getAllStaffs } from '../../../../redux/actions/StaffAction';
-import { createVoucher, updateVoucher } from '../../../../redux/actions/VoucherAction';
+import { getAllVoucher, updateVoucher } from '../../../../redux/actions/VoucherAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
-
+ 
   
 
 const UpdateVoucher = () => {
+   const params = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { loading } = useSelector((state) => state?.memo);
+  const { loading } = useSelector((state) => state?.voucher);
   const { staffs } = useSelector((state) => state?.staff);
 
   const { vouchers } = useSelector((state) => state?.voucher);
+  const filterVouchers = vouchers?.filter((voucher) => voucher?._id === params?.id);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
+
+ 
   const [filters, setFilters] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [open, setOpen] = useState(false);
@@ -58,7 +62,6 @@ const UpdateVoucher = () => {
 
   const [staffName, setStaffName] = useState('');
 
-  const params = useParams();
 
   const voucher = vouchers?.filter((item) => item?._id === params?.id);
 
@@ -109,6 +112,16 @@ let color = "";
     };
     // console.log(selected);
   //  dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+  };
+     const getName = (id) => {
+    const filterStaff = staffs?.filter((staff) => staff?._id === id);
+
+   // console.log(id);
+
+   // console.log(filterStaff);
+
+   return capitalize(`${filterStaff[0]?.firstName}  `) + capitalize(filterStaff[0]?.lastName);
+
   };
   const statuscolor = sectionColor("start")
   // console.log(voucherSheetCopies);
@@ -176,7 +189,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
     
     
     
-    preparedBy: user?.user?.staffId,
+    preparedBy: voucher[0]?.preparedBy,
     recipientId: voucher[0]?.recipientId,
 
     beneficiaryAccountNumber: voucher[0]?.beneficiaryAccountNumber,
@@ -256,9 +269,36 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
   };
 
   useEffect(() => {
-    dispatch(getAllStaffs());
-    getStaffName(user?.user?.staffId);
+     dispatch(getAllVoucher());
+    getStaffName(voucherData?.preparedBy) ;
+    
   }, []);
+
+    useEffect(() => {
+      const voucher = vouchers?.filter((item) => item?._id === params?.id);
+      getStaffName(voucher[0]?.preparedByuser);
+      setVoucherData({
+
+    
+    preparedBy: voucher[0]?.preparedBy,
+    recipientId: voucher[0]?.recipientId,
+
+    beneficiaryAccountNumber: voucher[0]?.beneficiaryAccountNumber,
+    beneficiaryAccountName: voucher[0]?.beneficiaryAccountName,
+    beneficiaryBank: voucher[0]?.beneficiaryBank,
+    subject: voucher[0]?.subject,
+    body: voucher[0]?.body,
+    copies: voucher[0]?.copies,
+    completion: voucher[0]?.completion,
+   
+  });
+  }, [vouchers]);
+
+ useEffect(() => {
+    dispatch(getAllStaffs());
+    dispatch(getAllStaffs());
+    dispatch(getAllVoucher());
+  }, [dispatch]);
 
   useEffect(() => {
     console.log('nnnn');
@@ -404,20 +444,36 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                 </Stack>
               </Grid>
 
+              
+              
               <Grid item xs={12} md={6}>
                 <Stack>
-                  <InputLabel id="sent_from">
-                    Sent from <span style={{ color: 'red' }}>*</span>
+                  <InputLabel id="sent_to">
+                    Sent From<span style={{ color: 'red' }}>*</span>
                   </InputLabel>
                   <GeneralInput
+                    select
                     variant="outlined"
-                    value={staffName}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    value={voucherData.preparedBy}
                     name="sentFrom"
                     required
-                    onChange={(e) => handleFormChange(e.target)}
                     disabled
-                    // {...register('refId')}
-                  />
+                    onChange={(e) => handleRecipientChange(e.target)}
+                    // {...register('recipientId')}
+                  >
+                    <option value="">Select Option</option>
+
+                    {React.Children.toArray(
+                      staffs?.map((staff) => (
+                        <option value={staff?._id}>
+                          {staff?.firstName} {staff?.lastName}
+                        </option>
+                      ))
+                    )}
+                  </GeneralInput>
                 </Stack>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -434,6 +490,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                     value={voucherData.recipientId}
                     name="recipientId"
                     required
+                    disabled
                     onChange={(e) => handleRecipientChange(e.target)}
                     // {...register('recipientId')}
                   >
@@ -463,12 +520,23 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
               marginTop: '2rem',
             }}
           >
+
+
+
+
             <PaymentVoucher
               voucherData={voucherData}
               register={register}
               fieldArray={fieldArray}
               handleFormChange={handleFormChange}
             />
+
+
+
+
+
+
+
 
             <Box sx={{ fontSize: 15, my: 5 }}>
               <Typography>Net amount in words: </Typography>
@@ -539,7 +607,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
           </Box>
         </form>
 
-        { (voucher.preparedBy!==user?.user?.staffId )? (
+        { (voucherData.preparedBy!==user?.user?.staffId )? (
           <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
               <Grid item xs={12} md={4}>
                 <Stack>
@@ -609,8 +677,11 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
             
             {TIMELINES.map((item) => (
               
-                 <TimelineItem key={item._id} >
+                    <TimelineItem key={item._id} >
                 
+               
+               
+               
                 <TimelineOppositeContent>
                   
                  
@@ -628,7 +699,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                     <Badge color="secondary"  badgeContent={0} >
                     
                       <AccessTimeFilledIcon color={statuscolor} />
-                    
+                     {item.updatedAt}
                   
                   </Badge>
                     
@@ -643,9 +714,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                     }}
                   >
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {
-                      // getName(item.ownerId)
-                      }
+                      {getName(item.ownerId)}
                     </Typography>
                     <Typography variant="body2" sx={{ color: statuscolor }}>
                       {item?.remarks}
@@ -666,6 +735,12 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                 </TimelineOppositeContent>
 
 
+
+
+
+
+
+
                 <TimelineSeparator>
                   <TimelineDot />
                   <TimelineConnector />
@@ -683,13 +758,9 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                     <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
                    
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item?.momoBody?.toUpperCase()}
-                    </Typography>
-                     <Button variant="outlined" startIcon={<PreviewIcon /> }>
-                      <Link to="/newpage">View Details</Link>
-                    </Button>
-                     
-                       
+                      {item?.memoBody?.toUpperCase()}
+                   </Typography>
+                
                     
                      
                       
@@ -708,10 +779,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                     <Badge color="secondary" badgeContent={0} >
                     
                       <AccessTimeFilledIcon color={statuscolor} />
-                     {
-                     
-                     // memo.updatedAt
-                     }
+                     {item.updatedAt}
                   
                   </Badge>
                       

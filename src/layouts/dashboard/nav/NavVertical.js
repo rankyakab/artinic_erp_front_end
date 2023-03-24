@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useLocation, } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
 // @mui
 import { Box, Stack, Drawer } from '@mui/material';
 // hooks
@@ -15,7 +15,7 @@ import { NavSectionVertical } from '../../../components/nav-section';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import SvgColor from '../../../components/svg-color';
-import { getAllRole } from '../../../redux/actions/RoleAction';
+import { getAllRole ,getRoleById} from '../../../redux/actions/RoleAction';
 
 
 // ----------------------------------------------------------------------
@@ -32,13 +32,24 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
   // const roles = JSON.parse(localStorage.getItem('roles'));\
 
-  // const { roles } = useSelector((state) => state.role);
+   const { role } = useSelector((state) => state.role);
 
   // console.log(roles);
 
   //  const filterRoles = roles.filter((role) => userRole === role?._id);
 
   // console.log(filterRoles);
+  const { user } = useSelector((state) => state?.auth);
+  // this guty sets roles in redux
+  getRoleById( user.user.role);
+  console.log("this is the user for access control", user.user.role);
+ 
+ const roles = JSON.parse(localStorage.getItem('roles'))
+ const userRole = roles.filter(role=>role._id===user.user.role);
+ const privileges  =userRole[0]?.privilege;
+ console.log("these are the privileges",privileges)
+ const privilegeIds = privileges.map(privilege => privilege.processId)
+ console.log("this is roles privileges ids for  the user for access control", privilegeIds);
 
   const ICONS = {
     user: icon('ic_user'),
@@ -92,10 +103,7 @@ const pageAction = {
         read:"6419ca805ab751646ea18382",
         
 }
-
-  const navConfig =[
-        {
-          items: [
+const pagelink =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
@@ -132,7 +140,13 @@ const pageAction = {
             // Accounts
           //  { title: 'Account Dashboard', path: PATH_DASHBOARD.accounts_dashboard, icon: ICONS.analytics },
           //  { title: 'Expenses', path: PATH_DASHBOARD.expenses, icon: ICONS.analytics },
-          ],
+          ];
+       const pagesAfterPrivilegeFilter=  pagelink.filter((obj) =>privilegeIds.includes(obj.process))
+    //   const pagesAfterActionFilter =pagesAfterPrivilegeFilter.filter(item=> item.process && privileges.any)
+
+  const navConfig =[
+        {
+          items:pagesAfterPrivilegeFilter ,
         },
       ];
 
