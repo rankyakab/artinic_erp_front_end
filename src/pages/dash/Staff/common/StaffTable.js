@@ -123,16 +123,15 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
 
                     <TableCell>{capitalize(data?.designation)}</TableCell>
 
-                     {!data?.userId && checkPrivilege(staffPrivilege.DELETE) && (
                     <TableCell>  <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
                             <DeleteIcon />
                           </IconButton></TableCell>
-                     )}
+                   
 
-           {!data?.userId &&( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) && (
+          
                     <TableCell>
                       
-                      {!data?.userId && checkPrivilege(staffPrivilege.UPDATE) && ( 
+                     
                         <Action
                         onClick={() => {
                           setEditUser(data);
@@ -142,8 +141,8 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                       >
                         View More
                       </Action>
-                          )}
-                      {!data?.userId && checkPrivilege(staffPrivilege.CONVERT) && (
+                       
+                  
                         <Action
                           onClick={() => {
                             setId(data?._id);
@@ -161,7 +160,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                         >
                           {loading && id === data?._id ? 'Loading...' : ' Convert Staff to User'}
                         </Action>
-                      )}
+                    
                     </TableCell>
            ) }
                   </TableRow>

@@ -110,22 +110,58 @@ const pageAction = {
         },
       ]);
 
+
+    
+
+
+
+
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 useEffect(() => {
-    setNavConfig([
-        {
-          items: [
+      const links =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
-          
- ],
+            { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
+            { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
+     //       { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
+          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
+       { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role ,process:pageProcess.roles},
+            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
+             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
+            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privileges},
+ ]
+
+
+
+
+      const {roles,user} = JSON.parse(localStorage.getItem('user'))
+      const myPrivilege = roles.find(role => role._id===user?.role);
+
+      const myFilteredPrivilege = myPrivilege.privilege;
+      const privilege=myFilteredPrivilege.filter(prev=>prev.action.length>0);
+      const updatedLinks = links.filter(item =>{
+         const findPrivd =  privilege.find(prev => prev.processId ===item.process);
+         
+         if(findPrivd){
+          return true;
+         }
+         return false;
+      })
+       console.log("This are my updated links",updatedLinks)
+
+
+
+    setNavConfig([
+        {
+          items:updatedLinks
+,
         },
       ])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
   useEffect(() => {
     if (openNav) {
