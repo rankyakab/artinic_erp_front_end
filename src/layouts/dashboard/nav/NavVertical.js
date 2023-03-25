@@ -101,7 +101,12 @@ const pageAction = {
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
             { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
      //       { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
-        ],
+          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
+       { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role ,process:pageProcess.roles},
+            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
+             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
+            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privileges},
+ ],
         },
       ]);
 
@@ -110,7 +115,18 @@ const pageAction = {
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
-
+useEffect(() => {
+    setNavConfig([
+        {
+          items: [
+            { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
+             { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
+          
+ ],
+        },
+      ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     if (openNav) {
       onCloseNav();
