@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 // @mui
@@ -93,7 +93,7 @@ const pageAction = {
         
 }
 
-  const navConfig =[
+  const [navConfig, setNavConfig] =useState([
         {
           items: [
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
@@ -101,14 +101,9 @@ const pageAction = {
             { title: 'Staff', path: PATH_DASHBOARD.staff, icon: ICONS.staff, process:pageProcess.staff },
             { title: 'Memo', path: PATH_DASHBOARD.memo, icon: ICONS.memo , process:pageProcess.memo},
      //       { title: 'Payroll', path: PATH_DASHBOARD.payroll, icon: ICONS.payroll },
-          { title: 'Payment Vouchers', path: PATH_DASHBOARD.payment_voucher, icon: ICONS.payroll, process:pageProcess.paymentVouchers },
-       { title: 'Roles', path: PATH_DASHBOARD.roles, icon: ICONS.role ,process:pageProcess.roles},
-            { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
-             { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
-            { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privileges},
- ],
+        ],
         },
-      ];
+      ]);
 
   const dispatch = useDispatch();
 
