@@ -16,7 +16,7 @@ import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 import { createVoucher } from '../../../../redux/actions/VoucherAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
-import { capitalize } from '../../../../utils/formatNumber';
+import { capitalize,numberToWord } from '../../../../utils/formatNumber';
 
 const CreateVoucher = () => {
   const { user } = useSelector((state) => state.auth);
@@ -32,9 +32,11 @@ const CreateVoucher = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [staffName, setStaffName] = useState('');
+  const [netWord, setNetWord] = useState('');
 
   const [voucherSheet1, setVoucherSheet1] = useState([]);
 
+  const [total, setTotal] = useState();
   const schema = yup.object().shape({
     refId: yup.string().required(),
     voucherTitle: yup.string().required(),
@@ -151,10 +153,20 @@ const CreateVoucher = () => {
     const copies = data.copies.map(item=>item.recipientId);
     const voucherTotals={ ...data.voucherTotals};
     const voucherSheet =[...data.voucherSheet];
-    const selected = {
+    console.log("this is the owner Id",voucherData.preparedBy)
+   const trail = [{
       
+      ownerId:voucherData.preparedBy,
+      action: "",
+      remark: "",
+      status: "pending approval",
+  }
+]
+    const selected = {
+      status: "pending approval",
       ...voucherData,
        ...voucherTotals,
+       trail,
       copies,
       voucherSheet
      
@@ -227,6 +239,7 @@ const CreateVoucher = () => {
       });
 
       const vatTotal = vatFields?.reduce((acc, cur) => acc + cur, 0);
+     
 
       // console.log(vatTotal);
 
@@ -254,11 +267,12 @@ const CreateVoucher = () => {
         return getValues(`voucherSheet[${index}].netAmount`);
       });
 
-      const netTotal = netFields?.reduce((acc, cur) => acc + cur, 0);
-
+      const etTotal = netFields?.reduce((acc, cur) => acc + cur, 0);
+      const netTotal =!Number.isNaN(etTotal) && Number.isFinite(etTotal)&& etTotal>0?etTotal:0;
       console.log(netTotal);
 
       setValue(`voucherTotals.netAmount`, netTotal);
+       setNetWord(numberToWord(netTotal))
     });
   }, [fieldArray, watch, setValue]);
 
@@ -532,10 +546,12 @@ const CreateVoucher = () => {
               register={register}
               fieldArray={fieldArray}
               handleFormChange={handleFormChange}
+              total
+              setTotal
             />
 
             <Box sx={{ fontSize: 15, my: 5 }}>
-              <Typography>Net amount in words: </Typography>
+              <Typography>Net amount in words:{netWord} </Typography>
             </Box>
 
             <Box>

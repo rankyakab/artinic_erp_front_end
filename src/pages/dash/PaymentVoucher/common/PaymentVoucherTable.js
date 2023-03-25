@@ -182,7 +182,7 @@ const handleClose = () => {
   );
 };
 
-export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormChange }) => {
+export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormChange, total, setTotal }) => {
   const tableHead = [
     'S/N',
     'Class',

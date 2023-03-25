@@ -38,7 +38,7 @@ import { getAllVoucher, updateVoucher } from '../../../../redux/actions/VoucherA
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
- 
+import StatusIcon from '../../../../utils/status';
   
 
 const UpdateVoucher = () => {
@@ -133,7 +133,7 @@ let color = "";
     remarks: '',
   }));
 */
-const TIMELINES =voucher?.trail ? voucher?.trail: [];
+const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
   const schema = yup.object().shape({
     refId: yup.string().required(),
     memoTitle: yup.string().required(),
@@ -402,6 +402,8 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
             Back
           </Typography>
         </Stack>
+     
+        
 
         <form
           onSubmit={handleSubmit((data) => {
@@ -424,6 +426,8 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
           >
             <Title>Update Payment Voucher</Title>
             <Grid container sx={{ mt: 4 }}>
+
+         <StatusIcon status={voucher[0]?.status} />
               <Grid item xs={12} md={12}>
                 <Stack>
                   <InputLabel id="memo_title">
@@ -601,9 +605,11 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                 </Grid>
               </Grid>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '37%', mt: 3, mb: 5 }}>
-              <Button type="submit">{loading ? 'Loading...' : 'Update Voucher'}</Button>
-            </Box>
+            { ( voucher[0]?.status==="pending approval")&&(<Box sx={{ display: 'flex', justifyContent: 'space-between', width: '37%', mt: 3, mb: 5 }}>
+            {(voucherData.preparedBy===user.user.staffId)&&( <Button type="submit">{loading ? 'Loading...' : 'Update Voucher'}</Button>)}
+             
+            </Box>)}
+            
           </Box>
         </form>
 
@@ -675,7 +681,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
        <Block title="Voucher Trail">
            <Timeline position="">
             
-            {TIMELINES.map((item) => (
+            {TIMELINES?.map((item) => (
               
                     <TimelineItem key={item._id} >
                 
@@ -687,25 +693,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                  
                   <Typography variant="body2" sx={{ color: statuscolor }}>
                     {item.ownerId===user?.user?.staffId?(
-                 
-                  <>
-                  <Badge color="secondary"  badgeContent={0} >
-                    
-                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
-                      {item.status}
-                  
-                  </Badge>
-                  <Typography variant="body2" >
-                    <Badge color="secondary"  badgeContent={0} >
-                    
-                      <AccessTimeFilledIcon color={statuscolor} />
-                     {item.updatedAt}
-                  
-                  </Badge>
-                    
-                  </Typography>
-                  </>
-                  
+                    <></>
                   ):(
                       <Paper
                     sx={{
@@ -713,6 +701,8 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
+
+                    <StatusIcon status={item.status} />
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
                       {getName(item.ownerId)}
                     </Typography>
@@ -748,20 +738,25 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
 
 
                 <TimelineContent>
-                  {item.ownerId===user?.user?.staffId?(
-                   <Paper
+                  {item.ownerId===user?.user?.staffId && item.ownerId!==voucher[0]?.preparedBy ?(
+                     <Paper
                     sx={{
                       p: 3,
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
-                    <Typography variant="subtitle2">{item?.memoTitle?.toUpperCase()}</Typography>
-                   
+                    <StatusIcon status={item.status} />
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
-                      {item?.memoBody?.toUpperCase()}
-                   </Typography>
-                
+                      {getName(item.ownerId)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: statuscolor }}>
+                      {item?.remarks}
+                    </Typography>
                     
+                      
+                      
+                    
+                      
                      
                       
                     
@@ -769,23 +764,7 @@ const TIMELINES =voucher?.trail ? voucher?.trail: [];
                   ):(
                      
                   <>
-                  <Badge color="secondary" badgeContent={0} >
-                    
-                      <SignalWifiStatusbar4BarIcon color={statuscolor} />
-                      {item.status}
-                  
-                  </Badge>
-                  <Typography variant="body2" sx={{ color:statuscolor }}>
-                    <Badge color="secondary" badgeContent={0} >
-                    
-                      <AccessTimeFilledIcon color={statuscolor} />
-                     {item.updatedAt}
-                  
-                  </Badge>
-                      
-                     
-
-                  </Typography>
+                
                   </>
                   )}
                   
