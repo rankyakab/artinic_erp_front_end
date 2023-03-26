@@ -66,8 +66,8 @@ function Roles() {
     }));
   };
 
-  let tableHead = ['S/N', 'Roles',];
-tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege.UPDATE) )?[...tableHead, 'Action']:[...tableHead]
+  const tableHead = ['S/N', 'Roles', 'Action'];
+
   const handleCreateRole = (e) => {
     e.preventDefault();
     dispatch(createRole(roleData, setErrorMessage, setSuccessMessage, setOpen, setError));
