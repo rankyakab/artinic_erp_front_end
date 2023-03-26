@@ -67,6 +67,7 @@ import GenerateStaffDeduction from '../pages/dash/Payroll/GenerateStaffDeduction
 import Role from '../pages/dash/Roles/Roles';
 import Process from '../pages/dash/Processes/Process';
 import Action from '../pages/dash/Action/Action';
+import Department from '../pages/dash/Department/Department';
 import Privileges from '../pages/dash/Privilege/Privileges';
 // import Accounts from '../pages/account/Accounts';
 import MemoDetails from '../pages/dash/memo/MemoDetails';
@@ -168,6 +169,7 @@ export default function Router() {
     //    { path: 'generate-employer-deduction', element: <GenerateEmployerDeduction /> },
         { path: 'memo', element: <Memo /> },
         { path: 'create-memo', element: <CreateMemo /> },
+        { path: 'department', element: <Department /> },
         { path: 'memo-details/:id', element: <MemoDetails /> },
         { path: 'update-memo/:id', element: <UpdateMemo /> },
         { path: 'payment_voucher', element: <PaymentVoucher /> },

@@ -28,6 +28,7 @@ import { GetStaffName } from '../../../../utils/getValueById';
 
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
+import StatusIcon from '../../../../utils/status';
 // import { getAllStaffs } from '../../../../redux/actions/StaffAction';
 
 export const AllPaymentVoucher = ({ vouchers, setVoucherSheet, fields }) => {
@@ -67,7 +68,7 @@ const handleClose = () => {
   };
   const { staffs } = useSelector((state) => state?.staff);
 
-  const tableHead = ['S/N', 'Subject', 'Date', 'Prepared By', 'Send To', 'Action'];
+  const tableHead = ['S/N', 'Subject', 'Date', 'Prepared By','Status', 'Send To', 'Action'];
 
   return (
     <>
@@ -120,6 +121,8 @@ const handleClose = () => {
                   <TableCell>{moment(data?.createdAt).format('L')}</TableCell>
                   <TableCell>{GetStaffName(data?.preparedBy, staffs)}</TableCell>
                   <TableCell>{GetStaffName(data?.recipientId, staffs)}</TableCell>
+                  <TableCell><StatusIcon status={data?.status} /></TableCell>
+                
                   <TableCell>
 
 
@@ -181,7 +184,6 @@ const handleClose = () => {
     </>
   );
 };
-
 export const PaymentVoucher = ({ voucherData, register, fieldArray, handleFormChange, total, setTotal }) => {
   const tableHead = [
     'S/N',

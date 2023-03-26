@@ -10,6 +10,7 @@ import receiptReducer from './ReceiptsReducer';
 import invoiceReducer from './InvoiceReducer';
 import roleReducer from './RoleReducer';
 import actionReducer from './ActionReducer';
+import departmentReducer from './DepartmentReducer';
 import processReducer from './ProcessReducer';
 import privilegeReducer from './PrivilegeReducer';
 import procurementsReducer from './ProcurementsReducer';
@@ -37,6 +38,7 @@ export default combineReducers({
   invoice: invoiceReducer,
   role: roleReducer,
   action: actionReducer,
+  department: actionReducer,
   process: processReducer,
   privilege: privilegeReducer,
   procurements: procurementsReducer,

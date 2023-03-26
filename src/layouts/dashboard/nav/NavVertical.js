@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useEffect ,useState} from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 // @mui
 import { Box, Stack, Drawer } from '@mui/material';
 // hooks
@@ -122,6 +123,7 @@ const pageAction = {
 
   const isDesktop = useResponsive('up', 'lg');
 useEffect(() => {
+  
       const links =[
             { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },
              { title: 'User', path: PATH_DASHBOARD.user, icon: ICONS.user, process:pageProcess.user},
@@ -136,8 +138,11 @@ useEffect(() => {
  ]
 
 
-
-
+   if( localStorage.getItem('user')===null){
+        window.location.replace("/login")
+         console.log("this is before the error",localStorage.getItem('user'))
+   }
+   console.log("this is before the error",localStorage.getItem('user'))
       const {roles,user} = JSON.parse(localStorage.getItem('user'))
       const myPrivilege = roles.find(role => role._id===user?.role);
 

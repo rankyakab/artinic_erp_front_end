@@ -702,15 +702,11 @@ setActionData((prev) => ({
                     <TimelineItem key={item._id} >
                 
                
-               
-                    {  console.log("this is the user id",user?.user?.staffId)}
-                     {  console.log("this is the item  id",item.ownerId)}
-               
                 <TimelineOppositeContent>
                   
                   
                   <Typography variant="body2" sx={{ color: statuscolor }}>
-                    {item.ownerId===voucherData.recipientId || item.ownerId!==voucher[0]?.preparedBy ?(
+                    {item.ownerId===voucherData.recipientId?(
                       
                       
                     <>
@@ -725,19 +721,14 @@ setActionData((prev) => ({
                     }}
                   >
 
-                    <StatusIcon status={item.status} />
+                      
+                      
+                    <StatusIcon status={voucherData.status} />
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
                       {getName(item.ownerId)}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: statuscolor }}>
-                      {item?.remarks}
-                    </Typography>
+                   
                     
-                      
-                      
-                    
-                      
-                     
                       
                     
                   </Paper>
@@ -761,20 +752,22 @@ setActionData((prev) => ({
 
 
                 <TimelineContent>
-                  {item.ownerId===voucherData.recipientId || item.ownerId!==voucher[0]?.preparedBy ?(
+                  {item.ownerId===voucherData.recipientId ?(
                      <Paper
                     sx={{
                       p: 3,
                       bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
                     }}
                   >
+                   
                     <StatusIcon status={item.status} />
                     <Typography variant="body2" sx={{ color: 'secondary' }}>
                       {getName(item.ownerId)}
                     </Typography>
                     <Typography variant="body2" sx={{ color: statuscolor }}>
-                      {item?.remark}
+                       {item.remark}
                     </Typography>
+                    
                     
                       
                       
