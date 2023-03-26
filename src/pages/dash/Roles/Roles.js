@@ -109,8 +109,8 @@ tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege
             onSubmit={handleCreateRole}
             spacing={6}
           >
-            {checkPrivilege(rolePrivilege.CREATE)&&(
-             <>
+            
+          
                  <input
               ref={inputRef}
               //   fullWidth
@@ -136,8 +136,8 @@ tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege
             >
               {loading ? 'Loading...' : 'Create'}
             </Button>
-             </>
-            )}
+           
+          
            
           </Stack>
         </HeadCard>
@@ -177,14 +177,15 @@ tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege
                       {key + 1}
                     </TableCell>
                     <TableCell>{capitalize(data?.role)}</TableCell>
-                 { ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege.UPDATE) )&&(
+
                     <TableCell
                       sx={{
                         display: 'flex !important',
                         alignItems: 'center !important',
                       }}
                     >
-                      {checkPrivilege(rolePrivilege.DELETE)&&(<div
+                     
+                      <div
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -205,9 +206,9 @@ tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege
                           }}
                         />
                         <p>Edit</p>
-                      </div>)  }
+                      </div>
                       
-                      {checkPrivilege(rolePrivilege.UPDATE)&&(
+                     
                         <div
                         style={{
                           display: 'flex',
@@ -227,10 +228,10 @@ tableHead = ( checkPrivilege(rolePrivilege.DELETE)||checkPrivilege(rolePrivilege
                         />
                         <p>Delete</p>
                       </div>
-                      )}
+                     
                       
-                    </TableCell>)
-                    }
+                    </TableCell>
+                    
                   </TableRow>
                   
                   

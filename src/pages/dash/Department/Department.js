@@ -182,14 +182,13 @@ function Department() {
                   ))}
                 </TableRow>
               </TableHead>
-              console.log("ty thisand see")
               <TableBody>
                 {departments?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
                   <TableRow key={key} sx={{ ' td,  th': { borderBottom: '0.5px solid #D0D0D0', py: 0 } }}>
                     <TableCell component="th" scope="row">
                       {key + 1}
                     </TableCell>
-                    {console.log("ty thisand see")}
+                   
                     
                     <TableCell>{capitalize(data?.department)}</TableCell>
 
