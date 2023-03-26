@@ -32,7 +32,7 @@ export const PATH_DASHBOARD = {
   process: path(ROOTS_DASHBOARD, '/process'),
   action: path(ROOTS_DASHBOARD, '/action'),
   privileges: path(ROOTS_DASHBOARD, '/privileges'),
-
+departments: path(ROOTS_DASHBOARD, '/department'),
   // Operations Manager Dashboard
   // operations_dashboard: path(ROOTS_DASHBOARD, '/operations_dashboard'),
  //  projects: path(ROOTS_DASHBOARD, '/projects'),

@@ -18,13 +18,13 @@ const reducer = (state = initialState, action) => {
     case DepartmentTypes?.GET_ALL_DEPARTMENTS:
       return {
         ...state,
-        actions: action.payload,
+        departments: action.payload,
       };
 
     case DepartmentTypes?.CREATE_DEPARTMENT:
       return {
         ...state,
-        createAction: action.payload,
+        createDepartment: action.payload,
       };
 
     default:

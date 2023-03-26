@@ -38,7 +38,7 @@ export default combineReducers({
   invoice: invoiceReducer,
   role: roleReducer,
   action: actionReducer,
-  department: actionReducer,
+  department: departmentReducer,
   process: processReducer,
   privilege: privilegeReducer,
   procurements: procurementsReducer,

@@ -17,7 +17,7 @@ export const getAllDepartment = () => async (dispatch) => {
       needToken: true,
     });
 
-   // console.log(res);
+  console.log("this is the response if any",res);
 
     if (res.status === 200 || res.status === 201) {
       dispatch(setIsLoading(false));

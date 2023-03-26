@@ -400,7 +400,7 @@ const [memoData, setMemoData] = useState({
                 />
               </Typography>
             </Stack>
-            {checkPrivilege(memoPrivilege.APPROVE)||checkPrivilege(memoPrivilege.RECOMMEND)&&(
+            
               <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
               <Grid item xs={12} md={4}>
                 <Stack>
@@ -457,7 +457,7 @@ const [memoData, setMemoData] = useState({
                 </Button>
               </Grid>
             </Grid>
-            )}
+           
             
           </Stack>
         </HeadCard>

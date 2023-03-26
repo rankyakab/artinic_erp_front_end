@@ -26,7 +26,7 @@ import { capitalize } from '../../../utils/formatNumber';
 import { GetStaffName } from '../../../utils/getValueById';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
 
-function Action() {
+function Department() {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { departments, loading } = useSelector((state) => state.department);
@@ -68,7 +68,7 @@ function Action() {
     }));
   };
 
-  const tableHead = ['S/N', 'Department', 'Created By', 'Created At', 'Department'];
+  const tableHead = ['S/N', 'Department', 'Created By', 'Created At', 'Action'];
 
   const handleCreateDepartment = (e) => {
     e.preventDefault();
@@ -89,6 +89,8 @@ function Action() {
     dispatch(getAllDepartment());
     dispatch(getAllStaffs());
   }, []);
+
+
 
   return (
     <>
@@ -126,7 +128,7 @@ function Action() {
             <input
               ref={inputRef}
               //   fullWidth
-              value={departmentData?.action}
+              value={departmentData?.department}
               onChange={(e) => handleFormChange(e.target)}
               placeholder="Enter Department Name"
               name="department"
@@ -180,12 +182,15 @@ function Action() {
                   ))}
                 </TableRow>
               </TableHead>
+              console.log("ty thisand see")
               <TableBody>
                 {departments?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, key) => (
                   <TableRow key={key} sx={{ ' td,  th': { borderBottom: '0.5px solid #D0D0D0', py: 0 } }}>
                     <TableCell component="th" scope="row">
                       {key + 1}
                     </TableCell>
+                    {console.log("ty thisand see")}
+                    
                     <TableCell>{capitalize(data?.department)}</TableCell>
 
                     <TableCell>{GetStaffName(data?.createdBy, staffs)}</TableCell>
@@ -209,9 +214,10 @@ function Action() {
                           inputRef.current.focus();
                           setDepartmentData((prev) => ({
                             ...prev,
-                            action: data?.action,
+                            department: data?.department,
                           }));
                           setEditId(data?._id);
+                          setEditing(true)
                         }}
                         role="presentation"
                       >
@@ -221,7 +227,7 @@ function Action() {
                           }}
                         />
                         <p>{editing && data?._id === editId ? 'editing...' : 'Edit'}</p>
-                      </div>
+                 </div>
                       <div
                         style={{
                           display: 'flex',
@@ -264,4 +270,4 @@ function Action() {
   );
 }
 
-export default Action;
+export default React.memo(Department);

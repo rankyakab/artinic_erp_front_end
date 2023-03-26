@@ -23,7 +23,7 @@ import { convertStaffToUser, getAllStaffs,deleteStaffById } from '../../../../re
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
-import { checkPrivilege } from '../../../../utils/checkPrivilege';
+import  CheckPrivilege  from '../../../auth/Checkprivilege';
 import * as staffPrivilege from '../../../../utils/privilege/staff';
 
 
@@ -122,28 +122,33 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                     <TableCell>{data?.phoneNumber}</TableCell>
 
                     <TableCell>{capitalize(data?.designation)}</TableCell>
+                 
+                    <TableCell>  
 
-                    <TableCell>  <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
+                       <CheckPrivilege process = {staffPrivilege.CREATE[0]}  action = {staffPrivilege.CREATE[1]}>
+                      <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
                             <DeleteIcon />
-                          </IconButton></TableCell>
-                   
+                          </IconButton>
+                       </CheckPrivilege>
 
-          
-                    <TableCell>
+                 </TableCell>
+                   <TableCell>
                       
-                     
-                        <Action
-                        onClick={() => {
-                          setEditUser(data);
-                          navigate(`/dashboard/edit-staff/${data?._id}`);
-                         // 6419cb3d5ab751646ea183b4
-                        }}
-                      >
-                        View More
-                      </Action>
+                        <CheckPrivilege process = {staffPrivilege.UPDATE[0]}  action = {staffPrivilege.CREATE[1]}>
+                                <Action
+                                    onClick={() => {
+                                      setEditUser(data);
+                                      navigate(`/dashboard/edit-staff/${data?._id}`);
+                                    // 6419cb3d5ab751646ea183b4
+                                    }}
+                                  >
+                                    View More
+                                  </Action>
+                       </CheckPrivilege>
                        
-                  
-                        <Action
+                       
+                       <CheckPrivilege process = {staffPrivilege.CONVERT[0]}  action = {staffPrivilege.CREATE[1]} >
+                           <Action
                           onClick={() => {
                             setId(data?._id);
                             dispatch(
@@ -160,9 +165,12 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                         >
                           {loading && id === data?._id ? 'Loading...' : ' Convert Staff to User'}
                         </Action>
+                     </CheckPrivilege>
+                       
+                       
                     
-                    </TableCell>
-           ) }
+                   </TableCell>
+          
                   </TableRow>
                 ))}
             </TableBody>

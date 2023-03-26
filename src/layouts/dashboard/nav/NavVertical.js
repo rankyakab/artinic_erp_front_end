@@ -78,7 +78,8 @@ export default function NavVertical({ openNav, onCloseNav }) {
         action:"641b189af4390d23c184125a",
         process:"641b187cf4390d23c1841242",
          roles:"641b1866f4390d23c184123c",
-         paymentVouchers:"641b1851f4390d23c1841236"
+         paymentVouchers:"641b1851f4390d23c1841236",
+         departments:"642026446475820141cf9269"
 
 
 
@@ -135,14 +136,16 @@ useEffect(() => {
             { title: 'Process', path: PATH_DASHBOARD.process, icon: ICONS.process , process:pageProcess.process},
              { title: 'Action', path: PATH_DASHBOARD.action, icon: ICONS.action ,process:pageProcess.action },
             { title: 'Privileges', path: PATH_DASHBOARD.privileges, icon: ICONS.privileges ,process:pageProcess.privileges},
+            { title: 'Departments', path: PATH_DASHBOARD.departments, icon: ICONS.privileges ,process:pageProcess.departments},
+            
  ]
 
 
    if( localStorage.getItem('user')===null){
         window.location.replace("/login")
-         console.log("this is before the error",localStorage.getItem('user'))
+         // console.log("this is before the error",localStorage.getItem('user'))
    }
-   console.log("this is before the error",localStorage.getItem('user'))
+  // console.log("this is before the error",localStorage.getItem('user'))
       const {roles,user} = JSON.parse(localStorage.getItem('user'))
       const myPrivilege = roles.find(role => role._id===user?.role);
 
@@ -156,7 +159,7 @@ useEffect(() => {
          }
          return false;
       })
-       console.log("This are my updated links",updatedLinks)
+  //     console.log("This are my updated links",updatedLinks)
 
 
 
