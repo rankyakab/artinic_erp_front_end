@@ -15,6 +15,7 @@ import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { getAllPositions } from '../../../redux/actions/PositionAction';
 import { getAllRole } from '../../../redux/actions/RoleAction';
+import {getAllDepartment}from '../../../redux/actions/DepartmentsAction';
 
 const NewStaff = () => {
   // const { themeStretch } = useSettingsContext();
@@ -43,7 +44,8 @@ const NewStaff = () => {
     staffNo: '',
     staffPositionId: '',
     propic:'',
-     signature:''
+     signature:'',
+     department:''
   });
    const [phoneNumber, setPhoneNumber] = useState('');
   
@@ -67,6 +69,7 @@ function isValidPhoneNumber() {
   const { loading } = useSelector((state) => state.staff);
   const { positions } = useSelector((state) => state.payroll);
   const { roles } = useSelector((state) => state.role);
+    const { departments } = useSelector((state) => state.department);
   console.log(positions);
   console.log("these are the roles",roles);
 
@@ -88,7 +91,10 @@ const maxDate = new Date().toISOString().split('T')[0];
       [name]: value,
     }));
   };
-
+  useEffect(
+    () => {
+    dispatch(getAllDepartment())
+  },[])
 
   function handleBlur(event) {
 
@@ -593,6 +599,30 @@ const maxDate = new Date().toISOString().split('T')[0];
                             </GeneralInput>
                           </Stack>
                         </Grid>
+        <Grid item xs={12} md={6}>
+          <Stack>
+            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+              Department
+            </FormLabel>
+            <GeneralInput
+              select
+              variant="outlined"
+              SelectProps={{
+                native: true,
+              }}
+              
+              value={userData?.department}
+              name="department"
+              onChange={(e) => handleFormChange(e.target)}
+            >
+              <option value={departments[0]?._id}>Select Department</option>
+           {React.Children.toArray(departments?.map(department=>(<option value={department?._id}>{department?.department}</option>))
+              )}
+              
+             
+            </GeneralInput>
+          </Stack>
+        </Grid>
 
                         <Grid item xs={12} md={6}>
                           <Stack>

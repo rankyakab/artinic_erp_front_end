@@ -13,6 +13,9 @@ import CompleteProject from '../../../assets/images/completed_project.svg';
 import { ClientInvoice, ClientReceipt } from './SubFolder/OperationsTable';
 import OperationStat from './SubFolder/OperationStat';
 import { getAllStaffs, getStaffById } from '../../../redux/actions/StaffAction';
+import {getAllDepartment}from '../../../redux/actions/DepartmentsAction';
+import { getAllMemo } from '../../../redux/actions/MemoAction';
+import { getAllVoucher } from '../../../redux/actions/VoucherAction';
 import { capitalize } from '../../../utils/formatNumber';
 
 const Operations = () => {
@@ -20,8 +23,11 @@ const Operations = () => {
 
   const { user } = useSelector((state) => state?.auth);
    const { staffs } = useSelector((state) => state?.staff);
-
+   const { departments } = useSelector((state) => state.department);
+     const { allMemo } = useSelector((state) => state.memo);
+       const { vouchers } = useSelector((state) => state?.voucher);
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [data , setData] = useState([]);
 /*
   const getStaffName = (id) => {
     dispatch(getStaffById(id));
@@ -32,9 +38,27 @@ const Operations = () => {
     console.log(res);
     setLoggedInUser(res);
   };
+ 
+ useEffect(() => {
 
-  console.log(loggedInUser);
-  // const { themeStretch } = useSettingsContext();
+dispatch(getAllDepartment())
+dispatch(getAllMemo())
+dispatch(getAllVoucher())
+
+const data = [...vouchers];
+
+// Initialize an array with 12 subarrays, one for each month
+const monthlyData = [...Array(12)].map(() => []);
+
+
+data.forEach((item) => {
+  const month = new Date(item.createdAt).getMonth();
+  monthlyData[month].push(item);
+});
+setData(monthlyData)
+
+
+  }, []);
   useEffect(() => {
     dispatch(getAllStaffs());
     getUser(user?.user?.staffId);
@@ -52,6 +76,7 @@ const Operations = () => {
           )}`}
           text={`Today is ${moment().format('dddd, LL')}`}
         />
+        {console.log("departmentsss",vouchers)}
         {/* <DashboardHeader title={'Welcome, Mr. Otor John'} text={'Today is Saturday, 11th November 2022.'} /> */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
@@ -63,25 +88,26 @@ const Operations = () => {
             />
           </Grid>
           <Grid item xs={12} md={3}>
+          
             <Dashlets
-              number={'Under Construction'}
-              text={'Total application'}
-              per={'0.2% lower than last quarter'}
+              number={departments?.length}
+              text={'Total number of Departments'}
+            //  per={'0.2% lower than last quarter'}
               img={TotalProject}
             />
           </Grid>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'Under Construction'}
-              text={'Total projects'}
+              number={allMemo?.length}
+              text={'Total Memos'}
               //  per={'2% more than last quarter'}
               img={OngoingProject}
             />
           </Grid>
           <Grid item xs={12} md={3}>
             <Dashlets
-              number={'Under Construction'}
-              text={'Total departments'}
+              number={vouchers.length}
+              text={'Total Payment Vouchers'}
               //  per={'50 more than last year'}
               img={CompleteProject}
             />
@@ -89,9 +115,8 @@ const Operations = () => {
         </Grid>
 
         <FormCard>
-          <Title>Projects Statistics</Title>
-          <Title>Under Construction</Title>
-          <OperationStat />
+          <Title>Voucher Statistics</Title>
+          <OperationStat datas={data} />
         </FormCard>
 
         <Grid container spacing={3}>

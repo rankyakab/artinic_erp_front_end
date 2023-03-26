@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { FormCard, Title } from '../../../../styles/main';
 
-const OperationStat = () => {
+const OperationStat = ({datas}) => {
   const [options, setObject] = useState({
     colors: ['#FDCC1C', '#F29425', '#10A242'],
     chart: {
@@ -54,20 +54,53 @@ const OperationStat = () => {
       opacity: 1,
     },
   });
+  const pa = datas.map(dat => {
+        dat?.filter(da => da.status ==="pending approval");
+      return  dat?.length ?dat?.length : 0;
+      })
 
+ console.log("this is pa",pa)
+
+
+ const co =datas.map(dat => {
+        dat?.filter(da => da.status ==="comment");
+      return  dat?.length ?dat?.length : 0;
+      })
+
+console.log("this is co",co)
+
+const ap=datas.map(dat => {
+        dat?.filter(da => da.status ==="approve");
+      return  dat?.length ?dat?.length : 0;
+      })
+console.log("this is ap",ap)
+
+
+
+const rj =datas.map(dat => {
+        dat?.filter(da => da.status ==="reject");
+      return  dat?.length ?dat?.length : 0;
+      })
+      console.log(rj)
+
+      console.log("datas",datas)
   const [series, setSeries] = useState([
     {
-      name: 'Prospective Project',
-      data: ['3', '3', '3', '7', '5', '6', '4', '4', '2', '1', '0', '5'],
+      name: 'Pending Approval',
+      data: pa
     },
 
     {
-      name: 'Ongoing Project',
-      data: ['7', '5', '6', '4', '1', '2', '4', '3', '1', '3', '6', '5'],
+      name: 'Comment',
+      data: co
+    },
+     {
+      name: 'Approved',
+      data: ap
     },
     {
-      name: 'Completed Project',
-      data: ['4', '4', '5', '2', '5', '3', '3', '2', '1', '7', '1', '2'],
+      name: 'Rejected',
+      data: rj
     },
   ]);
 

@@ -19,18 +19,26 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TablePagination } from '../../../../utils/memoPaginationUtil';
 import { Action } from '../../../../styles/main';
+import {getAllDepartment}from '../../../../redux/actions/DepartmentsAction';
 import { convertStaffToUser, getAllStaffs,deleteStaffById } from '../../../../redux/actions/StaffAction';
 import SuccessCard from '../../../../components/SuccessCard';
 import ErrorCard from '../../../../components/ErrorCard';
 import { capitalize } from '../../../../utils/formatNumber';
 import  CheckPrivilege  from '../../../auth/Checkprivilege';
 import * as staffPrivilege from '../../../../utils/privilege/staff';
+import { title } from '../../../../_mock/assets/text';
 
 
-export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
+export const StaffTable = ({ staffs,positions, paginationPage, rowsPerPage, handleChangePage, page, search }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log("position", positions)
+   
+  useEffect(()=>{
+    getAllDepartment()
+  },[])
+  const { departments } = useSelector((state) => state.department);
+   console.log("departments", departments)
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState('');
 
@@ -59,7 +67,7 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
   };
 
   // eslint-disable-next-line prefer-const
-  let tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation','Action','Delete'];
+  let tableHead = ['S/N', 'First Name', 'Last Name', 'Gender', 'Staff ID', 'Phone Number', 'Designation','Department','Delete','Action'];
 // tableHead=( checkPrivilege(staffPrivilege.CONVERT)||checkPrivilege(staffPrivilege.UPDATE) ) ?[...tableHead,'Action']:[...tableHead]
 // tableHead= checkPrivilege(staffPrivilege.DELETE) ?[...tableHead,'Delete']:[...tableHead];
              
@@ -118,13 +126,17 @@ export const StaffTable = ({ staffs, paginationPage, rowsPerPage, handleChangePa
                     <TableCell>{capitalize(data?.firstName)}</TableCell>
                     <TableCell>{capitalize(data?.lastName)}</TableCell>
                     <TableCell>{capitalize(data?.gender)}</TableCell>
-                    <TableCell>{data?.staffNo}</TableCell>
+                    <TableCell>
+                       <button className="id-card-button">
+                          {data?.staffNo}
+                        </button>
+                      </TableCell>
                     <TableCell>{data?.phoneNumber}</TableCell>
 
-                    <TableCell>{capitalize(data?.designation)}</TableCell>
-                 
+                    <TableCell>{capitalize(positions.find(pos=>pos._id===data?.staffPositionId)?.title)}</TableCell>
+                     <TableCell>{capitalize(departments.find(dept=>dept._id===data?.department)?.department)||"Assign Department"}</TableCell>
                     <TableCell>  
-
+            
                        <CheckPrivilege process = {staffPrivilege.CREATE[0]}  action = {staffPrivilege.CREATE[1]}>
                       <IconButton color="error" aria-label="delete" onClick={()=>deleteUserOnClick(data?._id)}>
                             <DeleteIcon />

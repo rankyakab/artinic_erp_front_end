@@ -17,6 +17,7 @@ import { getAllPositions } from '../../../redux/actions/PositionAction';
 import EditStaffForm from './common/EditStaffForm';
 import { getAllRole } from '../../../redux/actions/RoleAction';
 import { EditUser } from '../../../redux/actions/UserAction';
+import {getAllDepartment}from '../../../redux/actions/DepartmentsAction';
 
 const EditStaff = () => {
   // const { themeStretch } = useSettingsContext();
@@ -37,6 +38,7 @@ const EditStaff = () => {
   const { loading } = useSelector((state) => state.staff);
   const { positions } = useSelector((state) => state.payroll);
   const { roles } = useSelector((state) => state.role);
+      const { departments } = useSelector((state) => state.department);
 
   console.log(positions);
   console.log(roles);
@@ -214,9 +216,11 @@ function isValidPhoneNumber() {
     dispatch(getAllStaffs());
     dispatch(getAllRole());
   }, [dispatch]);
+ useEffect(() => {
+getAllDepartment()
+  }, []);
 
-
-useEffect(()=>{
+useEffect(()=>{ 
 
   const fStaff = staffs?.filter((staff) => staff?._id === params?.id);
 
@@ -235,6 +239,7 @@ useEffect(()=>{
     employmentDate: fStaff[0]?.employmentDate,
     staffNo: fStaff[0]?.staffNo,
     staffPositionId: fStaff[0]?.staffPositionId,
+    department: fStaff[0]?.department,
     oldpropic: fStaff[0]?.propic,
     oldsignature: fStaff[0]?.signature,
   });
@@ -634,6 +639,30 @@ useEffect(() => {
                             />
                           </Stack>
                         </Grid>
+        <Grid item xs={12} md={6}>
+          <Stack>
+            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+              Department
+            </FormLabel>
+            <GeneralInput
+              select
+              variant="outlined"
+              SelectProps={{
+                native: true,
+              }}
+              
+              value={userData?.department}
+              name="department"
+              onChange={(e) => handleFormChange(e.target)}
+            >
+              <option value={departments[0]?._id}>Select Department</option>
+           {React.Children.toArray(departments?.map(department=>(<option value={department?._id}>{department?.department}</option>))
+              )}
+              
+             
+            </GeneralInput>
+          </Stack>
+        </Grid>
 
                         <Grid item xs={12} md={12}>
                           <Stack>

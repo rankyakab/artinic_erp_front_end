@@ -165,7 +165,7 @@ useEffect(() => {
 
     setNavConfig([
         {
-          items:updatedLinks
+          items:[ { title: 'Dashboard', path: PATH_DASHBOARD.one, icon: ICONS.dashboard , process:"" },...updatedLinks]
 ,
         },
       ])

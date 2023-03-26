@@ -9,6 +9,7 @@ import HeaderCard from '../../../components/HeaderCard';
 import { Wrapper } from '../../../styles/main';
 import { StaffTable } from './common/StaffTable';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import { getAllPositions } from '../../../redux/actions/PositionAction';
 import  CheckPrivilege  from '../../auth/Checkprivilege';
 import * as staffPrivilege from '../../../utils/privilege/staff';
 import SuccessCard from '../../../components/SuccessCard';
@@ -25,7 +26,7 @@ export default function Staff() {
   const [keyword, setKeyword] = useState('');
 
   const { staffs, loading } = useSelector((state) => state.staff);
-
+ const { positions } = useSelector((state) => state.payroll);
 //  console.log(staffs);
 
   const dispatch = useDispatch();
@@ -47,9 +48,11 @@ export default function Staff() {
     setPaginationPage(newPage);
     setPage(page);
   };
+  console.log("positionssss", positions)
 
   useEffect(() => {
     dispatch(getAllStaffs());
+    dispatch(getAllPositions());
   }, []);
 
   return (
@@ -60,7 +63,7 @@ export default function Staff() {
 
       <Wrapper>
         <DashboardHeader title={'All Staff'} text={'View, search for and add new staff'} />
-         <CheckPrivilege process = {staffPrivilege.CREATE[0]}  action = {staffPrivilege.CREATE[1]}>
+
               <HeaderCard
                 searchLabel={'Quick search a staff'}
                 totalNumber={staffs?.length}
@@ -77,7 +80,7 @@ export default function Staff() {
                 keyword={keyword}
                 setKeyword={setKeyword}
               />  
-        </CheckPrivilege>
+       
 
         {/* table */}
         {loading ? (
@@ -86,6 +89,7 @@ export default function Staff() {
           </Container>
         ) : (
           <StaffTable
+            positions ={positions}
             staffs={staffs}
             paginationPage={paginationPage}
             rowsPerPage={rowsPerPage}

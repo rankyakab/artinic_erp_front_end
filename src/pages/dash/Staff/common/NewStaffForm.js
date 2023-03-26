@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, FormLabel, Stack } from '@mui/material';
 import { GeneralInput } from '../../../../styles/main';
+import {getAllDepartment}from '../../../../redux/actions/DepartmentsAction';
 
 const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
   console.log(userData);
+  const dispatch = useDispatch()
+  const { departments } = useSelector((state) => state.department);
+
+  useEffect(() => {
+    dispatch(getAllDepartment());
+  }, []);
 
   return (
     <>
@@ -271,6 +279,31 @@ const NewStaffForm = ({ handleFormChange, userData, positions ,roles}) => {
             </GeneralInput>
           </Stack>
         </Grid>
+        <Grid item xs={12} md={6}>
+          <Stack>
+            <FormLabel id="gender" sx={{ width: '100%', color: 'black', pb: 1, fontSize: '14px' }}>
+              Department
+            </FormLabel>
+            <GeneralInput
+              select
+              variant="outlined"
+              SelectProps={{
+                native: true,
+              }}
+              
+              value={userData?.department}
+              name="department"
+              onChange={(e) => handleFormChange(e.target)}
+            >
+              <option value={departments[0]?._id}>Select Role</option>
+           {React.Children.toArray(departments?.map(department=>(<option value={department?._id}>{department?.department}</option>))
+              )}
+              
+             
+            </GeneralInput>
+          </Stack>
+        </Grid>
+
 
         <Grid item xs={12} md={6}>
           <Stack>
