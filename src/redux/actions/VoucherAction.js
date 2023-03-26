@@ -38,7 +38,7 @@ export const updateVoucher = (data, setOpen, setError, setErrorMessage, setSucce
   try {
     dispatch(setIsLoading(true));
     const res = await httpRequest({
-      url: API_ROUTES?.updateVoucher?.route,
+      url: API_ROUTES?.updateVoucher?.route + data._id,
       method: API_ROUTES?.updateVoucher?.method,
       needToken: true,
       data,

@@ -98,21 +98,7 @@ let color = "";
   }
   return color;
  }
- const handleMemoAction = (e) => {
-    e.preventDefault();
-    const selected = {
-             
-            
-              
-              
-
-      memoId: params?.id,
-      ownerId: user?.user?.staffId,
-     // ...memoData,
-    };
-    // console.log(selected);
-  //  dispatch(updateMemoStatus(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
-  };
+ 
      const getName = (id) => {
     const filterStaff = staffs?.filter((staff) => staff?._id === id);
 
@@ -182,7 +168,16 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
     name: 'voucherSheet',
     control,
   });
+  const [actionData, setActionData] = useState({
 
+    
+    
+    
+    
+    status: "",
+    remark:"",
+   
+  });
   const [voucherData, setVoucherData] = useState({
 
     
@@ -215,7 +210,12 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
       [name]: value,
     }));
   };
-
+ const handleActionChange=({name, value})=>{
+setActionData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+ }
   const handleFormChange = ({ name, value }) => {
     setVoucherData((prev) => ({
       ...prev,
@@ -246,6 +246,22 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
 
      dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
   };
+ const handleVoucherAction = (e) => {
+    e.preventDefault();
+    const selected = {
+              _id: params?.id, 
+            
+       status: actionData?.status,      
+              
+    trail: {
+      status: actionData?.status,
+      remark:actionData?.remark ,
+     }
+     // ...memoData,
+    };
+    // console.log(selected);
+   dispatch(updateVoucher(selected, setOpen, setError, setErrorMessage, setSuccessMessage));
+  }
 
   const getStaffName = (id) => {
     //   const { staffs } = useSelector((state) => state.staff);
@@ -614,7 +630,7 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
         </form>
 
         { (voucherData.preparedBy!==user?.user?.staffId )? (
-          <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleMemoAction}>
+          <Grid container sx={{ mt: 4 }} component="form" onSubmit={handleVoucherAction}>
               <Grid item xs={12} md={4}>
                 <Stack>
                   <InputLabel id="action">Action</InputLabel>
@@ -624,11 +640,11 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
                     SelectProps={{
                       native: true,
                     }}
-                    value={""
-                      // memoData?.status
+                    value={
+                      actionData?.status
                     }
                     name="status"
-                    onChange={(e) => handleFormChange(e.target)}
+                    onChange={(e) => handleActionChange(e.target)}
                   >
                     <option value="">Select action</option>
                     <option value="approve">Approve</option>
@@ -647,11 +663,11 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
                   required
                   variant="outlined"
                   fullWidth
-                   value={""
-                    // memoData?.remarks
+                   value={
+                     actionData.remark
                   }
-                    name="remarks"
-                    onChange={(e) => handleFormChange(e.target)}
+                    name="remark"
+                    onChange={(e) => handleActionChange(e.target)}
                   
                //   onChange={(e) => handleFormChange(e.target)}
                   // {...register('memoTitle')}
@@ -682,18 +698,25 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
            <Timeline position="">
             
             {TIMELINES?.map((item) => (
-              
+           
                     <TimelineItem key={item._id} >
                 
                
                
+                    {  console.log("this is the user id",user?.user?.staffId)}
+                     {  console.log("this is the item  id",item.ownerId)}
                
                 <TimelineOppositeContent>
                   
-                 
+                  
                   <Typography variant="body2" sx={{ color: statuscolor }}>
-                    {item.ownerId===user?.user?.staffId?(
-                    <></>
+                    {item.ownerId===voucherData.recipientId || item.ownerId!==voucher[0]?.preparedBy ?(
+                      
+                      
+                    <>
+                   
+                    
+                    </>
                   ):(
                       <Paper
                     sx={{
@@ -738,7 +761,7 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
 
 
                 <TimelineContent>
-                  {item.ownerId===user?.user?.staffId && item.ownerId!==voucher[0]?.preparedBy ?(
+                  {item.ownerId===voucherData.recipientId || item.ownerId!==voucher[0]?.preparedBy ?(
                      <Paper
                     sx={{
                       p: 3,
@@ -750,7 +773,7 @@ const TIMELINES =voucher[0]?.trail ? voucher[0]?.trail: [];
                       {getName(item.ownerId)}
                     </Typography>
                     <Typography variant="body2" sx={{ color: statuscolor }}>
-                      {item?.remarks}
+                      {item?.remark}
                     </Typography>
                     
                       
