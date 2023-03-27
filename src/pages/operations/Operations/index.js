@@ -44,24 +44,69 @@ const Operations = () => {
 dispatch(getAllDepartment())
 dispatch(getAllMemo())
 dispatch(getAllVoucher())
+  dispatch(getAllStaffs());
+getUser(user?.user?.staffId);
 
-const data = [...vouchers];
-
+console.log("datvoucheriw", vouchers)
+const datiw = [...vouchers];
+console.log("datiw", datiw)
 // Initialize an array with 12 subarrays, one for each month
 const monthlyData = [...Array(12)].map(() => []);
 
 
-data.forEach((item) => {
+datiw.forEach((item) => {
   const month = new Date(item.createdAt).getMonth();
   monthlyData[month].push(item);
 });
-setData(monthlyData)
+console.log("monthly data",monthlyData)
+ 
+ const workingData = {pending:[],approved:[], comment:[], rejected:[]};
+console.log("this is themontyly data",monthlyData)
+monthlyData.forEach((item,index)=> {
+  let pending = 0;
+  let approve = 0;
+  let comment = 0;
+  let reject = 0;
+  
+  item.forEach((element )=> {
+    
+    if(element.status==="pending approval"){
+      pending+=1
+    }
+    if(element.status==="approve"){
+     approve+=1
+    }
+    if(element.status==="comment"){
+    comment+=1
+    }
+    if(element.status==="reject"){
+   reject+=1
+    }
+   
+   
+
+  })
+   workingData.pending[index]=pending;
+    workingData.approved[index]=approve;
+    workingData.comment[index]=comment;
+    workingData.rejected[index]=reject;
+})
+
+setData({
+       pending: workingData.pending,
+      comment: workingData.comment,
+     approved: workingData.approved,
+      rejected :workingData.rejected
 
 
-  }, []);
+  });
+
+},[])
+
+  console.log("data",data)
   useEffect(() => {
-    dispatch(getAllStaffs());
-    getUser(user?.user?.staffId);
+
+    
   }, [dispatch]);
 
   return (
@@ -76,7 +121,7 @@ setData(monthlyData)
           )}`}
           text={`Today is ${moment().format('dddd, LL')}`}
         />
-        {console.log("departmentsss",vouchers)}
+      
         {/* <DashboardHeader title={'Welcome, Mr. Otor John'} text={'Today is Saturday, 11th November 2022.'} /> */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>

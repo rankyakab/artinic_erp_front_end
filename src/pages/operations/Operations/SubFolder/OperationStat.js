@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { FormCard, Title } from '../../../../styles/main';
 
 const OperationStat = ({datas}) => {
+  const [graphData, setGraphData]= useState()
   const [options, setObject] = useState({
-    colors: ['#FDCC1C', '#F29425', '#10A242'],
+    colors: ['#FDCC1C', '#F29425', '#10A242', '#00008B'],
     chart: {
       type: 'bar',
       height: 350,
@@ -54,53 +55,29 @@ const OperationStat = ({datas}) => {
       opacity: 1,
     },
   });
-  const pa = datas.map(dat => {
-        dat?.filter(da => da.status ==="pending approval");
-      return  dat?.length ?dat?.length : 0;
-      })
 
- console.log("this is pa",pa)
+  
+ 
+ console.log("this is the datas sent to us", datas)
 
 
- const co =datas.map(dat => {
-        dat?.filter(da => da.status ==="comment");
-      return  dat?.length ?dat?.length : 0;
-      })
-
-console.log("this is co",co)
-
-const ap=datas.map(dat => {
-        dat?.filter(da => da.status ==="approve");
-      return  dat?.length ?dat?.length : 0;
-      })
-console.log("this is ap",ap)
-
-
-
-const rj =datas.map(dat => {
-        dat?.filter(da => da.status ==="reject");
-      return  dat?.length ?dat?.length : 0;
-      })
-      console.log(rj)
-
-      console.log("datas",datas)
   const [series, setSeries] = useState([
     {
       name: 'Pending Approval',
-      data: pa
+      data:  datas.pending
     },
 
     {
       name: 'Comment',
-      data: co
+      data: datas.comment
     },
      {
       name: 'Approved',
-      data: ap
+      data: datas.approved
     },
     {
       name: 'Rejected',
-      data: rj
+      data: datas.rejected
     },
   ]);
 
