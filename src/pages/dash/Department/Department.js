@@ -25,6 +25,8 @@ import { createDepartment, deleteDepartment, editDepartment, getAllDepartment } 
 import { capitalize } from '../../../utils/formatNumber';
 import { GetStaffName } from '../../../utils/getValueById';
 import { getAllStaffs } from '../../../redux/actions/StaffAction';
+import  CheckPrivilege  from '../../auth/Checkprivilege';
+import * as departmentPrivilege from '../../../utils/privilege/department';
 
 function Department() {
   const dispatch = useDispatch();
@@ -201,6 +203,7 @@ function Department() {
                         alignItems: 'center !important',
                       }}
                     >
+                <CheckPrivilege  process = {departmentPrivilege.UPDATE[0]}  action = {departmentPrivilege.UPDATE[1]} >
                       <div
                         style={{
                           display: 'flex',
@@ -226,7 +229,10 @@ function Department() {
                           }}
                         />
                         <p>{editing && data?._id === editId ? 'editing...' : 'Edit'}</p>
-                 </div>
+                     </div>
+                 </CheckPrivilege>
+               <CheckPrivilege  process = {departmentPrivilege.DELETE[0]}  action = {departmentPrivilege.DELETE[1]} >
+          
                       <div
                         style={{
                           display: 'flex',
@@ -249,6 +255,8 @@ function Department() {
                         />
                         <p> {deleting && key === deletingId ? 'deleting...' : 'Delete'} </p>
                       </div>
+                   </CheckPrivilege>
+
                     </TableCell>
                   </TableRow>
                 ))}

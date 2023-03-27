@@ -23,8 +23,10 @@ import SuccessCard from '../../../components/SuccessCard';
 import ErrorCard from '../../../components/ErrorCard';
 import { createRole, deleteRole, getAllRole } from '../../../redux/actions/RoleAction';
 import { capitalize } from '../../../utils/formatNumber';
-import { checkPrivilege } from '../../../utils/checkPrivilege';
+// import { checkPrivilege } from '../../../utils/checkPrivilege';
+import  CheckPrivilege  from '../../auth/Checkprivilege';
 import * as rolePrivilege from '../../../utils/privilege/role';
+
 
 function Roles() {
   const dispatch = useDispatch();
@@ -100,7 +102,8 @@ function Roles() {
         <DashboardHeader title={'Roles'} text={'Create a new role'} />
 
         <HeadCard>
-          <Stack
+           <CheckPrivilege  process = {rolePrivilege.CREATE[0]}  action = {rolePrivilege.CREATE[1]} >
+           <Stack
             direction={'row'}
             justifyContent="space-between"
             alignItems={'center'}
@@ -130,6 +133,7 @@ function Roles() {
                 padding: '1rem',
               }}
             />
+
             <Button
               type="submit"
               sx={{ color: 'white', background: 'linear-gradient(135deg, #14ADD6 0%, #384295 100%)', py: 1.5, px: 5 }}
@@ -140,8 +144,12 @@ function Roles() {
           
            
           </Stack>
-        </HeadCard>
 
+           </CheckPrivilege>
+
+        </HeadCard>
+ <CheckPrivilege  process = {rolePrivilege.READ[0]}  action = {rolePrivilege.READ[1]} >
+           
         <Box sx={{ my: 3 }}>
           <TableContainer component={Paper} sx={{ p: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 3 }}>
@@ -184,8 +192,9 @@ function Roles() {
                         alignItems: 'center !important',
                       }}
                     >
-                     
-                      <div
+                      <CheckPrivilege  process = {rolePrivilege.UPDATE[0]}  action = {rolePrivilege.UPDATE[1]} >
+
+                           <div
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -208,8 +217,11 @@ function Roles() {
                         <p>Edit</p>
                       </div>
                       
+             </CheckPrivilege>
                      
-                        <div
+                     <CheckPrivilege  process = {rolePrivilege.DELETE[0]}  action = {rolePrivilege.DELETE[1]} >
+
+                             <div
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -230,6 +242,8 @@ function Roles() {
                       </div>
                      
                       
+                     </CheckPrivilege>
+                      
                     </TableCell>
                     
                   </TableRow>
@@ -248,6 +262,8 @@ function Roles() {
             />
           </Stack>
         </Box>
+ </CheckPrivilege >
+
       </Wrapper>
     </>
   );

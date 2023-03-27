@@ -139,11 +139,7 @@ login(email, password).then(result=>{
         <Grid item md={6} style={{ padding: '3rem 8rem 0 8rem' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <ReliaLogo />
-            <Button
-              sx={{ border: '1px solid #5584CE', height: 30, py: 3, px: 3, fontWeight: 'light', color: '#5584CE' }}
-            >
-              Sign Up
-            </Button>
+            
           </Box>
 
           <Box
