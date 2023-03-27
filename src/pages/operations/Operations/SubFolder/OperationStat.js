@@ -70,62 +70,10 @@ useEffect(()=>{
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-console.log("datvoucheriw", vouchers)
-const datiw = [...vouchers];
-console.log("datiw", datiw)
-// Initialize an array with 12 subarrays, one for each month
-const monthlyData = [...Array(12)].map(() => []);
-
-
-datiw.forEach((item) => {
-  const month = new Date(item.createdAt).getMonth();
-  monthlyData[month].push(item);
-});
-console.log("monthly data",monthlyData)
- 
- const workingData = {pending:[],approved:[], comment:[], rejected:[]};
-console.log("this is themontyly data",monthlyData)
-monthlyData.forEach((item,index)=> {
-  let pending = 0;
-  let approve = 0;
-  let comment = 0;
-  let reject = 0;
-  
-  item.forEach((element )=> {
     
-    if(element.status==="pending approval"){
-      pending+=1
-    }
-    if(element.status==="approve"){
-     approve+=1
-    }
-    if(element.status==="comment"){
-    comment+=1
-    }
-    if(element.status==="reject"){
-   reject+=1
-    }
-   
-   
-
-  })
-   workingData.pending[index]=pending;
-    workingData.approved[index]=approve;
-    workingData.comment[index]=comment;
-    workingData.rejected[index]=reject;
-})
-setPending(workingData.pending)
-setComment(workingData.comment)
-setRejected(workingData.rejected)
-setApproved(workingData.approved)
-
-
-
-
-  },[vouchers])
- 
+  }, [dispatch]);
 
 
 

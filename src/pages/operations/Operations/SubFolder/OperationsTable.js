@@ -84,6 +84,11 @@ export const VoucherList = () => {
       const displayeVouchers = vouchers?.slice(0, 4);
       setTableVouchers(displayeVouchers)
   },[])
+
+  useEffect(() => {
+
+    
+  }, [dispatch]);
   const tableHead = ['S/N', " Raised Voucher's", 'Action'];
 
   
@@ -155,6 +160,12 @@ export const MemoList = () => {
       const displayedMemo = allMemo?.slice(0, 4);
       setTableMemo(displayedMemo)
   },[])
+
+  useEffect(() => {
+
+    
+  }, [dispatch]);
+  
   const tableHead = ['S/N', " Raised Memo's", 'Action'];
 
   
@@ -189,7 +200,7 @@ export const MemoList = () => {
                 }}
               >
                 {tableHead.map((td, key) => (
-                  <>                  { console.log({td, key})}
+                  <>           
 
                   <TableCell key={key}>{td}</TableCell>
                   </>
