@@ -10,7 +10,7 @@ import ProspectiveProject from '../../../assets/images/posp_project.svg';
 import TotalProject from '../../../assets/images/total_project.svg';
 import OngoingProject from '../../../assets/images/ongoing_project.svg';
 import CompleteProject from '../../../assets/images/completed_project.svg';
-import { ClientInvoice, ClientReceipt } from './SubFolder/OperationsTable';
+import { VoucherList, MemoList } from './SubFolder/OperationsTable';
 import OperationStat from './SubFolder/OperationStat';
 import { getAllStaffs, getStaffById } from '../../../redux/actions/StaffAction';
 import {getAllDepartment}from '../../../redux/actions/DepartmentsAction';
@@ -27,7 +27,7 @@ const Operations = () => {
      const { allMemo } = useSelector((state) => state.memo);
        const { vouchers } = useSelector((state) => state?.voucher);
   const [loggedInUser, setLoggedInUser] = useState({});
-  const [data , setData] = useState([]);
+
 /*
   const getStaffName = (id) => {
     dispatch(getStaffById(id));
@@ -47,63 +47,10 @@ dispatch(getAllVoucher())
   dispatch(getAllStaffs());
 getUser(user?.user?.staffId);
 
-console.log("datvoucheriw", vouchers)
-const datiw = [...vouchers];
-console.log("datiw", datiw)
-// Initialize an array with 12 subarrays, one for each month
-const monthlyData = [...Array(12)].map(() => []);
-
-
-datiw.forEach((item) => {
-  const month = new Date(item.createdAt).getMonth();
-  monthlyData[month].push(item);
-});
-console.log("monthly data",monthlyData)
- 
- const workingData = {pending:[],approved:[], comment:[], rejected:[]};
-console.log("this is themontyly data",monthlyData)
-monthlyData.forEach((item,index)=> {
-  let pending = 0;
-  let approve = 0;
-  let comment = 0;
-  let reject = 0;
-  
-  item.forEach((element )=> {
-    
-    if(element.status==="pending approval"){
-      pending+=1
-    }
-    if(element.status==="approve"){
-     approve+=1
-    }
-    if(element.status==="comment"){
-    comment+=1
-    }
-    if(element.status==="reject"){
-   reject+=1
-    }
-   
-   
-
-  })
-   workingData.pending[index]=pending;
-    workingData.approved[index]=approve;
-    workingData.comment[index]=comment;
-    workingData.rejected[index]=reject;
-})
-
-setData({
-       pending: workingData.pending,
-      comment: workingData.comment,
-     approved: workingData.approved,
-      rejected :workingData.rejected
-
-
-  });
 
 },[])
 
-  console.log("data",data)
+ 
   useEffect(() => {
 
     
@@ -161,18 +108,18 @@ setData({
 
         <FormCard>
           <Title>Voucher Statistics</Title>
-          <OperationStat datas={data} />
+          <OperationStat  />
         </FormCard>
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <FormCard>
-              <ClientInvoice />
+              <VoucherList />
             </FormCard>
           </Grid>
           <Grid item xs={12} md={6}>
             <FormCard>
-              <ClientReceipt />
+              <MemoList />
             </FormCard>
           </Grid>
         </Grid>
