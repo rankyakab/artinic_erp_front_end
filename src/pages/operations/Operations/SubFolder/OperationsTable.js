@@ -85,10 +85,7 @@ export const VoucherList = () => {
       setTableVouchers(displayeVouchers)
   },[])
 
-  useEffect(() => {
-
-    
-  }, [dispatch]);
+  
   const tableHead = ['S/N', " Raised Voucher's", 'Action'];
 
   
